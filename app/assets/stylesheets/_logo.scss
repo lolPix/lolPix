@@ -1,0 +1,12 @@
+@font-face {
+  font-family: logofont;
+  src: url('../fonts/logofont.woff') format("woff"),
+  url('../fonts/logofont.eot') format("eot"),
+  url('../fonts/logofont.ttf') format("ttf"),
+  url('../fonts/logofont.svg') format("svg");
+}
+
+i.logo {
+  font-family: logofont;
+  font-size: 24px;
+}

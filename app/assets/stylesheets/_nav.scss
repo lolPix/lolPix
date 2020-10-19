@@ -1,0 +1,24 @@
+#navbar {
+  height: 64px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  i.logo {
+    font-size: 64px;
+  }
+
+  ul.nav-menu {
+    display: inline-block;
+    list-style-type: none;
+    li {
+      cursor: pointer;
+      margin-left: 8px;
+      margin-right: 8px;
+      display: inline-block;
+    }
+  }
+}
+

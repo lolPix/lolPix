@@ -1,0 +1,8 @@
+import I18n from "i18n-js";
+// By default, this pack is loaded for server-side rendering.
+
+I18n.translations = <%= I18n::JS.translations.to_json %>;
+// It must expose react_ujs as `ReactRailsUJS` and prepare a require context.
+var componentRequireContext = require.context("components", true);
+var ReactRailsUJS = require("react_ujs");
+ReactRailsUJS.useContext(componentRequireContext);
