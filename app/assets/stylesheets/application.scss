@@ -3,5 +3,7 @@ body, html {
   width: 100%
 }
 
+@import "variables"; // this should come first
+@import "layout";
 @import "logo";
 @import "nav";
