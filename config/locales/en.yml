@@ -33,3 +33,5 @@ en:
   nav:
     alt_profile_picture_for: "Profile picture for"
     alt_logo: "lolPix Logo"
+  error:
+    email_invalid: "Invalid E-Mail address!"
