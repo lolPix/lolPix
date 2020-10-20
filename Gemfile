@@ -60,3 +60,9 @@ gem "schema2type", "~> 0.3.0"
 gem "i18n-js", "~> 3.8"
 
 gem "react-rails", "~> 2.6"
+
+gem "bcrypt", "~> 3.1"
+
+gem "rack-cors", "~> 1.1"
+
+gem "jwt", "~> 2.2"

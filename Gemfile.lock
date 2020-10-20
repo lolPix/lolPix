@@ -62,6 +62,7 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
+    bcrypt (3.1.16)
     bindex (0.8.1)
     bootsnap (1.4.8)
       msgpack (~> 1.0)
@@ -105,6 +106,7 @@ GEM
       i18n (>= 0.6.6)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
+    jwt (2.2.2)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -128,6 +130,8 @@ GEM
     puma (4.3.6)
       nio4r (~> 2.0)
     rack (2.2.3)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -233,14 +237,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt (~> 3.1)
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
   haml-rails (~> 2.0)
   i18n-js (~> 3.8)
   jbuilder (~> 2.7)
+  jwt (~> 2.2)
   listen (~> 3.2)
   puma (~> 4.1)
+  rack-cors (~> 1.1)
   rails (~> 6.0.3, >= 6.0.3.4)
   react-rails (~> 2.6)
   sass-rails (>= 6)

@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2020_10_20_191017) do
     t.string "username"
     t.text "bio"
     t.string "email"
-    t.string "passwordHash"
+    t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["comments_id"], name: "index_users_on_comments_id"
