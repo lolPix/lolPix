@@ -3,10 +3,11 @@ module Api
     class CommentsController < ApplicationController
       before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
-      # GET /comments
+      # GET /comments/<postId>
       # GET /comments.json
       def index
-        @comments = Comment.all
+        @post = Post.find(params[:post_id])
+        @comments = @post.comments
         respond_to do |format|
           format.all { render json: @comments }
         end
@@ -22,7 +23,7 @@ module Api
 
       # GET /comments/new
       def new
-        @comment = Comment.new(params[:comment])
+        @comment = @post.comments.build(params[:comment])
         if @comment.save
           respond_to do |format|
             format.all { render json: @comment }
@@ -80,6 +81,7 @@ module Api
 
       # Use callbacks to share common setup or constraints between actions.
       def set_comment
+        @post = Post.find(params[:post_id])
         @comment = Comment.find(params[:id])
       end
 
