@@ -3,4 +3,11 @@
 body {
   background-color: $primary_light;
   color: $primary_text;
+  font-family: sans-serif;
+}
+
+div.wrapper,
+div#app {
+  height: 100%;
+  width: 100%;
 }

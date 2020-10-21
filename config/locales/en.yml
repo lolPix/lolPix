@@ -35,3 +35,29 @@ en:
     alt_logo: "lolPix Logo"
   error:
     email_invalid: "Invalid E-Mail address!"
+    email_required: "E-Mail is required!"
+    password_required: "Password is required!"
+    login_error: "Invalid username or password"
+    unauthorized: "This service requires authentication!"
+  ui:
+    loading: "Loading..."
+    nav:
+      home: "Home"
+      memes: "Memes"
+      fails: "Fails"
+      gifs: "GIFs"
+      account:
+        not_logged_in: "Not logged in!"
+        login: "Login"
+        register: "Register"
+    heading:
+      login: "Login to continue..."
+    form:
+      email: "E-Mail"
+      password: "Password"
+  console:
+    logged_in: "Logged in: "
+    error: "Error: "
+    authorized: "Authorized: "
+
+

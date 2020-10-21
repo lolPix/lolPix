@@ -1,20 +1,37 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import User from "../../model/user";
 import I18n from "i18n-js";
+import {Link} from 'react-router-dom';
 
 type Props = {
-    account: User,
+    account: User | undefined,
 }
 
 const AccountMenu: FunctionComponent<Props> = ({account}: Props) => {
-    const profilePictureAlt = I18n.t('nav.alt_profile_picture_for') + ' ' + account.username;
+    const [active, setActive] = useState(false);
+
     return (
-        <ul className={'account-menu'}>
-            <li className={'top'}>
-                <img src={account.imageUrl} alt={profilePictureAlt}/>
-                <span>{account.username}</span>
-            </li>
-        </ul>
+        <div className={'account-menu' + (active ? ' active' : '')}>
+            <div className={'top'} onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setActive(!active);
+            }}>
+                {account && <>
+                    <img src={account.imageUrl} alt={I18n.t('nav.alt_profile_picture_for') + ' ' + account.username}/>
+                    <span>{account.username}</span>
+                </>}
+                <span>{I18n.t('ui.nav.account.not_logged_in')}</span>
+            </div>
+            {!account && <ul className={'account-menu__menu'}>
+                <li>
+                    <Link to={'/login'}>{I18n.t('ui.nav.account.login')}</Link>
+                </li>
+                <li>
+                    <Link to={'/register'}>{I18n.t('ui.nav.account.register')}</Link>
+                </li>
+            </ul>}
+        </div>
     );
 };
 

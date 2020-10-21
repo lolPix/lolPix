@@ -6,14 +6,16 @@ import AccountMenu from "./AccountMenu";
 
 type NavBarProps = {
     showLogo: boolean,
-    account: User|undefined,
+    account: User | undefined,
 }
 
 const NavBar: FunctionComponent<NavBarProps> = (props: NavBarProps) => (
     <div id={'navbar'}>
-        {props.showLogo && <Logo/>}
-        <NavBarMenu />
-        {props.account && <AccountMenu account={props.account} />}
+        <div>
+            {props.showLogo && <Logo/>}
+            <NavBarMenu/>
+        </div>
+        <AccountMenu account={props.account}/>
     </div>
 );
 

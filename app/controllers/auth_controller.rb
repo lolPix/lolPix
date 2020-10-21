@@ -9,7 +9,7 @@ class AuthController < ApplicationController
       token = encode_token({user_id: @user.id})
       render json: {user: @user, token: token}
     else
-      render json: {error: "Invalid username or password"}
+      render json: {error: I18n.t('error.login_error')}
     end
   end
 
@@ -21,10 +21,9 @@ class AuthController < ApplicationController
       token = encode_token({user_id: @user.id})
       render json: {user: @user, token: token}
     else
-      render json: {error: "Invalid username or password"}
+      render json: {error: I18n.t('error.login_error')}
     end
   end
-
 
   def auto_login
     render json: @user

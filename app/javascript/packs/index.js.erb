@@ -1,0 +1,11 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "../base/App";
+import I18n from "i18n-js";
+
+I18n.translations = <%= I18n::JS.translations.to_json %>;
+
+/* React entrypoint */
+document.addEventListener('DOMContentLoaded', () => {
+    ReactDOM.render(<App/>, document.getElementById('app'))
+});

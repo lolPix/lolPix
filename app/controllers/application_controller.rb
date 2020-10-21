@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorized
-    render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+    render json: { message: I18n.t('error.unauthorized') }, status: :unauthorized unless logged_in?
   end
 
   def index; end

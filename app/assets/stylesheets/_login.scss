@@ -1,0 +1,45 @@
+@import "variables";
+
+#login-form {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-weight: 100;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    label {
+      margin-top: 16px;
+    }
+
+    input {
+      padding: 8px;
+      line-height: 16px;
+      font-size: 14px;
+      vertical-align: middle;
+      background-color: transparent;
+      border: 1px solid $primary_dark;
+    }
+
+    button {
+      margin-top: 16px;
+      line-height: 16px;
+      padding: 8px;
+      font-size: 14px;
+      vertical-align: middle;
+      background-color: transparent;
+      border: 1px solid $primary_dark;
+    }
+  }
+}

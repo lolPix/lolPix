@@ -9,8 +9,6 @@ require("@rails/activestorage").start()
 require("channels")
 
 import I18n from "i18n-js";
-
-
 I18n.translations = <%= I18n::JS.translations.to_json %>;
 
 // Support component names relative to this directory:
