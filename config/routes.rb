@@ -11,7 +11,10 @@ Rails.application.routes.draw do
   post '/api/v1/register', to: 'auth#register'
   get '/api/v1/hi', to: 'auth#auto_login'
 
-  get '*all' => 'application#index'
+  get '*all' => 'application#index', constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  }
+
   root to: 'application#index'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

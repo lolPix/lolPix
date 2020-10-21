@@ -26,7 +26,7 @@ class AuthController < ApplicationController
   end
 
   def auto_login
-    render json: @user
+    render json: @user.as_json.merge({ image: url_for(@user.image) })
   end
 
   private
