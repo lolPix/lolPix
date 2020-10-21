@@ -16,7 +16,7 @@ const AccountMenu: FunctionComponent<Props> = ({account}: Props) => {
             <Link to={'/login'}>{I18n.t('ui.nav.account.login')}</Link>
         </li>
         <li>
-            <Link to={'/register'}>{I18n.t('ui.nav.account.register')}</Link>
+            <Link to={'/join'}>{I18n.t('ui.nav.account.register')}</Link>
         </li>
     </ul>;
 

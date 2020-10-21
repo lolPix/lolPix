@@ -12,6 +12,7 @@ import Api from "./Api";
 import I18n from "i18n-js";
 import NavBar from "../components/nav/NavBar";
 import LogoutPage from "../pages/LogoutPage";
+import RegistrationPage from "../pages/RegistrationPage";
 
 const App: FunctionComponent = () => {
     const [loading, setLoading] = useState(true)
@@ -47,6 +48,9 @@ const App: FunctionComponent = () => {
                 <Switch>
                     <Route exact path="/">
                         <HomePage />
+                    </Route>
+                    <Route path="/join">
+                        <RegistrationPage />
                     </Route>
                     <Route path="/login">
                         <LoginPage />

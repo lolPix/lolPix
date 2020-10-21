@@ -42,6 +42,13 @@ en:
     page_not_found: "Page not found!"
     javascript_required: "This page requires JavaScript! 🤖"
     no_image_found: "No image found!"
+    image_required: "Image is required!"
+    image_too_large: "Image is too large!"
+    bio_required: "Bio is required!"
+    password_too_short: "Password has to be longer than 8 chars!"
+    user_invalid: "Invalid user!"
+    username_required: "Username is required!"
+    username_too_short: "Username must be longer than 6 chars!"
   ui:
     loading: "Loading..."
     nav:
@@ -57,10 +64,18 @@ en:
         logout: "Logout"
     heading:
       login: "Login to continue..."
+      join: "Join lolPix!"
     form:
       email: "E-Mail"
       password: "Password"
+      profile_picture: "Profile Picture"
+      username: "Username"
+      bio: "Bio"
+      submit:
+        login: "Login"
+        register: "Join"
   console:
     logged_in: "Logged in: "
     error: "Error: "
     authorized: "Authorized: "
+    registered: "Registered: "

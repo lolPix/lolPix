@@ -1,16 +1,13 @@
 import React, {FunctionComponent, useState} from 'react';
 import {Formik} from 'formik';
 import I18n from "i18n-js";
-import Api from "../base/Api";
-import {Redirect} from 'react-router-dom';
-
-type Props = {}
+import Api from "../../base/Api";
 
 function emailInvalid(email: string): boolean {
     return !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
 }
 
-const LoginForm: FunctionComponent<Props> = ({}: Props) => {
+const LoginForm: FunctionComponent = () => {
     const [loginError, setLoginError] = useState(undefined);
     return (<div id={'login-form'}>
             <h1>{I18n.t('ui.heading.login')}</h1>
@@ -107,7 +104,7 @@ const LoginForm: FunctionComponent<Props> = ({}: Props) => {
                             {loginError && <li>{loginError}</li>}
                         </ul>
                         <button type="submit" disabled={isSubmitting}>
-                            Login
+                            {I18n.t('ui.form.submit.login')}
                         </button>
                     </form>
                 )}

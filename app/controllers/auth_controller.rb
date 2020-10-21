@@ -1,5 +1,5 @@
 class AuthController < ApplicationController
-  protect_from_forgery unless: -> { request.format.json? }
+  protect_from_forgery unless: -> { true }
   before_action :authorized, only: [:auto_login]
 
   # REGISTER
@@ -9,7 +9,7 @@ class AuthController < ApplicationController
       token = encode_token({user_id: @user.id})
       render json: {user: @user, token: token}
     else
-      render json: {error: I18n.t('error.login_error')}
+      render json: {error: I18n.t('error.user_invalid'), detail: @user.errors}
     end
   end
 
@@ -32,7 +32,7 @@ class AuthController < ApplicationController
   private
 
   def user_params
-    params.permit(:username, :password, :age)
+    params.permit(:username, :password, :bio, :email, :image)
   end
 
 end

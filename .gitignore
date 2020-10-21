@@ -43,3 +43,7 @@ yarn-debug.log*
 **/.DS_Store
 .idea
 *.iml
+
+/storage
+!/storage.keep
+

@@ -1,9 +1,8 @@
 import React, {FunctionComponent} from 'react';
 
-type Props = {}
-
-const LogoutPage: FunctionComponent<Props> = ({}: Props) => {
+const LogoutPage: FunctionComponent = () => {
     localStorage.setItem('lolPix_Token', '');
     window.location.href = '/';
+    return null;
 }
 export default LogoutPage;
