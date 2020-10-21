@@ -26,6 +26,12 @@
 
     ul.errors {
       color: #B00100;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      list-style-position: inside;
+      padding: 0;
     }
   }
 }

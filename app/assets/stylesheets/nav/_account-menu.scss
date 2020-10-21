@@ -19,10 +19,15 @@
     cursor: pointer;
     line-height: $navbar-height;
     vertical-align: middle;
+
+    img {
+      height: $profile-pic-size;
+      width: $profile-pic-size;
+      margin-right: 8px;
+    }
   }
 
   ul.account-menu__menu {
-    background-color: $primary;
     list-style-type: none;
     margin-top: 0;
     margin-bottom: 0;
@@ -36,7 +41,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      background-color: $primary;
       width: 100%;
+
+      cursor: pointer;
 
       a,
       a:hover,

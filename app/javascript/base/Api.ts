@@ -1,10 +1,19 @@
 type ApiProps = {
     path: string,
-    fetchOptions?: RequestInit | undefined,
+    method?: "GET" | "POST",
+    headers?: HeadersInit,
+    body?: BodyInit
 }
 
-function Api({path, fetchOptions}: ApiProps): Promise<Response> {
-    return fetch('/api/v1/' + path, fetchOptions);
+function Api({path, method = "GET", headers = {}, body}: ApiProps): Promise<Response> {
+    const fetchUrl = '/api/v1' + (path.startsWith('/') ? '' : '/') + path;
+    console.log('Fetching: "' + fetchUrl + '"...')
+    const token = localStorage.getItem('lolPix_Token');
+    return fetch(fetchUrl, {
+        method,
+        headers: {...headers, 'Authorization': 'Bearer ' + token},
+        body
+    });
 }
 
 export default Api;

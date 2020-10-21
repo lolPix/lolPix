@@ -10,21 +10,23 @@ import {
 import LoginPage from "../pages/LoginPage";
 import Api from "./Api";
 import I18n from "i18n-js";
+import NavBar from "../components/nav/NavBar";
 
 const App: FunctionComponent = () => {
-    const [reload, toggleReload] = useState(false)
     const [loading, setLoading] = useState(true)
-    const [authorized, setAuthorized] = useState(false)
     const [account, setAccount] = useState(undefined);
     useEffect(() => {
-        Api({path: '/auto_login'}).then(
+        Api({path: '/hi'}).then(
             res => {
                 if (res.status == 200) {
                     res.json().then(
                         json => {
-                            console.log(I18n.t('console.authorized') + json);
-                            setAccount({account: json});
-                            setAuthorized(true);
+                            if(json.username && json.bio) {
+                                console.log(I18n.t('console.authorized') + JSON.stringify(json));
+                                setAccount(json);
+                            } else {
+                                console.error(I18n.t('console.error') + ' Unknown JSON returned: ' + JSON.stringify(json)) // TODO: error handling
+                            }
                         }, err => {
                             console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
                         });
@@ -36,19 +38,23 @@ const App: FunctionComponent = () => {
                 setLoading(false); // this should come last
             }
         )
-    }, [reload])
+    }, [])
     return ((loading && <Loader/>) ||
-        <Router>
-            <Switch>
-                <Route exact path="/">
-                    <HomePage account={account} authorized={authorized}/>
-                </Route>
-                <Route path="/login">
-                    <LoginPage account={account} toggleReload={toggleReload}/>
-                </Route>
-                <Route render={() => <h1>Page not found</h1>}/>
-            </Switch>
-        </Router>);
+        <div className="wrapper">
+            <Router>
+                <NavBar showLogo={true} account={account}/>
+                <Switch>
+                    <Route exact path="/">
+                        <HomePage />
+                    </Route>
+                    <Route path="/login">
+                        <LoginPage />
+                    </Route>
+                    <Route render={() => <h1>{I18n.t('error.page_not_found')}</h1>}/>
+                </Switch>
+            </Router>
+        </div>
+    );
 };
 
 export default App;

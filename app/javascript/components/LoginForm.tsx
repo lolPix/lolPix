@@ -1,18 +1,19 @@
-import React, {Dispatch, FunctionComponent, SetStateAction, useState} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import {Formik} from 'formik';
 import I18n from "i18n-js";
 import Api from "../base/Api";
+import {Redirect} from 'react-router-dom';
 
-type Props = {
-    toggleReload: Dispatch<SetStateAction<boolean>>,
-}
+type Props = {}
 
 function emailInvalid(email: string): boolean {
     return !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
 }
 
-const LoginForm: FunctionComponent<Props> = ({toggleReload}: Props) => {
-    return (
+const LoginForm: FunctionComponent<Props> = ({}: Props) => {
+    const [reload, toggleReload] = useState(false);
+    const [loginError, setLoginError] = useState(undefined);
+    return ((reload && <Redirect to={'/'}/>) ||
         <div id={'login-form'}>
             <h1>{I18n.t('ui.heading.login')}</h1>
 
@@ -31,29 +32,35 @@ const LoginForm: FunctionComponent<Props> = ({toggleReload}: Props) => {
                     if (!values.password) {
                         errors.password = I18n.t('error.password_required');
                     }
-                    return errors;
+                    return errors.email == undefined && errors.password == undefined ? {} : errors; // 🤮
                 }}
 
                 onSubmit={(values, {setSubmitting}) => {
                     console.log('Login...');
                     setSubmitting(true);
                     Api({
-                        path: '/login', fetchOptions: {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(values),
-                        }
+                        path: '/login',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(values)
                     }).then(
                         res => {
                             if (res.status == 200) {
                                 res.json().then(
                                     json => {
-                                        console.log(I18n.t('console.logged_in') + json);
-                                        toggleReload(true);
+                                        if (!json.error && json.token && json.user) {
+                                            console.log(I18n.t('console.logged_in') + JSON.stringify(json.user));
+                                            localStorage.setItem('lolPix_Token', json.token);
+                                            toggleReload(true);
+                                        } else {
+                                            console.error('Error: ' + json.error);
+                                            setLoginError(json.error);
+                                        }
                                     }, err => {
-                                        console.error("Error: " + JSON.stringify(err)) // TODO: error handling
+                                        console.error("Error: " + JSON.stringify(err));
+                                        setLoginError(err);
                                     });
                             }
                             setSubmitting(false); // this should come last
@@ -99,6 +106,7 @@ const LoginForm: FunctionComponent<Props> = ({toggleReload}: Props) => {
                         <ul className="errors">
                             {errors.email && touched.email && <li>{errors.email}</li>}
                             {errors.password && touched.password && <li>{errors.password}</li>}
+                            {loginError && <li>{loginError}</li>}
                         </ul>
                         <button type="submit" disabled={isSubmitting}>
                             Login

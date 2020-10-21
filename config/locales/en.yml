@@ -39,6 +39,9 @@ en:
     password_required: "Password is required!"
     login_error: "Invalid username or password"
     unauthorized: "This service requires authentication!"
+    page_not_found: "Page not found!"
+    javascript_required: "This page requires JavaScript! 🤖"
+    no_image_found: "No image found!"
   ui:
     loading: "Loading..."
     nav:
@@ -50,6 +53,8 @@ en:
         not_logged_in: "Not logged in!"
         login: "Login"
         register: "Register"
+        profile: "Profile"
+        logout: "Logout"
     heading:
       login: "Login to continue..."
     form:
