@@ -21,25 +21,11 @@
 
     label {
       margin-top: 16px;
+      margin-bottom: 4px;
     }
 
-    input {
-      padding: 8px;
-      line-height: 16px;
-      font-size: 14px;
-      vertical-align: middle;
-      background-color: transparent;
-      border: 1px solid $primary_dark;
-    }
-
-    button {
-      margin-top: 16px;
-      line-height: 16px;
-      padding: 8px;
-      font-size: 14px;
-      vertical-align: middle;
-      background-color: transparent;
-      border: 1px solid $primary_dark;
+    ul.errors {
+      color: #B00100;
     }
   }
 }

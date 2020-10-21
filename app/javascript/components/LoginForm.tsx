@@ -87,7 +87,6 @@ const LoginForm: FunctionComponent<Props> = ({toggleReload}: Props) => {
                             onBlur={handleBlur}
                             value={values.email}
                         />
-                        {errors.email && touched.email && errors.email}
                         <label htmlFor="password">{I18n.t('ui.form.password')}</label>
                         <input
                             type="password"
@@ -97,7 +96,10 @@ const LoginForm: FunctionComponent<Props> = ({toggleReload}: Props) => {
                             onBlur={handleBlur}
                             value={values.password}
                         />
-                        {errors.password && touched.password && errors.password}
+                        <ul className="errors">
+                            {errors.email && touched.email && <li>{errors.email}</li>}
+                            {errors.password && touched.password && <li>{errors.password}</li>}
+                        </ul>
                         <button type="submit" disabled={isSubmitting}>
                             Login
                         </button>

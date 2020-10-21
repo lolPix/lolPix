@@ -1,0 +1,14 @@
+@import "../variables";
+
+form {
+  button {
+    margin-top: 16px;
+    line-height: 16px;
+    padding: 8px;
+    font-size: 14px;
+    vertical-align: middle;
+    background-color: transparent;
+    border: 1px solid $primary_dark;
+    border-radius: 5px;
+  }
+}

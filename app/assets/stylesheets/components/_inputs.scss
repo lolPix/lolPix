@@ -1,0 +1,15 @@
+@import "../variables";
+
+form {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"]{
+    padding: 8px;
+    line-height: 16px;
+    font-size: 14px;
+    vertical-align: middle;
+    background-color: $primary_lighter;
+    border: 1px solid $primary_dark;
+    border-radius: 5px;
+  }
+}
