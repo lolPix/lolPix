@@ -11,10 +11,8 @@ function emailInvalid(email: string): boolean {
 }
 
 const LoginForm: FunctionComponent<Props> = ({}: Props) => {
-    const [reload, toggleReload] = useState(false);
     const [loginError, setLoginError] = useState(undefined);
-    return ((reload && <Redirect to={'/'}/>) ||
-        <div id={'login-form'}>
+    return (<div id={'login-form'}>
             <h1>{I18n.t('ui.heading.login')}</h1>
 
             <Formik
@@ -53,7 +51,7 @@ const LoginForm: FunctionComponent<Props> = ({}: Props) => {
                                         if (!json.error && json.token && json.user) {
                                             console.log(I18n.t('console.logged_in') + JSON.stringify(json.user));
                                             localStorage.setItem('lolPix_Token', json.token);
-                                            toggleReload(true);
+                                            window.location.href = '/';
                                         } else {
                                             console.error('Error: ' + json.error);
                                             setLoginError(json.error);

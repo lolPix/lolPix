@@ -11,6 +11,7 @@ import LoginPage from "../pages/LoginPage";
 import Api from "./Api";
 import I18n from "i18n-js";
 import NavBar from "../components/nav/NavBar";
+import LogoutPage from "../pages/LogoutPage";
 
 const App: FunctionComponent = () => {
     const [loading, setLoading] = useState(true)
@@ -49,6 +50,9 @@ const App: FunctionComponent = () => {
                     </Route>
                     <Route path="/login">
                         <LoginPage />
+                    </Route>
+                    <Route path="/logout">
+                        <LogoutPage />
                     </Route>
                     <Route render={() => <h1>{I18n.t('error.page_not_found')}</h1>}/>
                 </Switch>
