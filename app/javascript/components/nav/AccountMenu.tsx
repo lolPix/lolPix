@@ -39,6 +39,9 @@ const AccountMenu: FunctionComponent<Props> = ({account}: Props) => {
                     <Link to={'/user/' + account.username}>{I18n.t('ui.nav.account.profile')}</Link>
                 </li>
                 <li>
+                    <Link to={'/new'}>{I18n.t('ui.nav.account.new')}</Link>
+                </li>
+                <li>
                     <Link to={'/logout'}>{I18n.t('ui.nav.account.logout')}</Link>
                 </li>
             </ul>}

@@ -13,6 +13,7 @@ import I18n from "i18n-js";
 import NavBar from "../components/nav/NavBar";
 import LogoutPage from "../pages/LogoutPage";
 import RegistrationPage from "../pages/RegistrationPage";
+import NewPostPage from "../pages/NewPostPage";
 
 const App: FunctionComponent = () => {
     const [loading, setLoading] = useState(true)
@@ -49,14 +50,17 @@ const App: FunctionComponent = () => {
                     <Route exact path="/">
                         <HomePage />
                     </Route>
-                    <Route path="/join">
+                    <Route exact path="/join">
                         <RegistrationPage />
                     </Route>
-                    <Route path="/login">
+                    <Route exact path="/login">
                         <LoginPage />
                     </Route>
-                    <Route path="/logout">
+                    <Route exact path="/logout">
                         <LogoutPage />
+                    </Route>
+                    <Route exact path={'/new'}>
+                        <NewPostPage account={account} />
                     </Route>
                     <Route render={() => <h1>{I18n.t('error.page_not_found')}</h1>}/>
                 </Switch>

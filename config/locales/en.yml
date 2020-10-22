@@ -49,6 +49,9 @@ en:
     user_invalid: "Invalid user!"
     username_required: "Username is required!"
     username_too_short: "Username must be longer than 6 chars!"
+    title_required: "A title is required!"
+    title_too_short: "The title must be longer than 8 chars!"
+    logged_in_to_post: "You need to be logged in to create new posts!"
   ui:
     loading: "Loading..."
     nav:
@@ -62,9 +65,11 @@ en:
         register: "Register"
         profile: "Profile"
         logout: "Logout"
+        new: "New Post"
     heading:
       login: "Login to continue..."
       join: "Join lolPix!"
+      new_post: "Post new stuff!"
     form:
       email: "E-Mail"
       password: "Password"
@@ -74,8 +79,20 @@ en:
       submit:
         login: "Login"
         register: "Join"
+        post: "Post"
+      category: "Category"
+      categories:
+        meme: "Meme"
+        fail: "Fail"
+        gif: "GIF"
+      title: "Title"
   console:
     logged_in: "Logged in: "
     error: "Error: "
     authorized: "Authorized: "
     registered: "Registered: "
+    posting: "Posting..."
+    registration: "Registration..."
+    fetching_api: "Fetching: \""
+    login: "Login..."
+    posted: "Posted: "

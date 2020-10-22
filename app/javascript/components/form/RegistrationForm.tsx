@@ -70,7 +70,7 @@ const RegistrationForm: FunctionComponent = () => {
                 }}
 
                 onSubmit={(values, {setSubmitting}) => {
-                    console.log('Registration...');
+                    console.log(I18n.t('console.registration'));
                     setSubmitting(true);
                     const data = buildFormData(values);
                     Api({

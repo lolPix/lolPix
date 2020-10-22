@@ -31,7 +31,7 @@ const LoginForm: FunctionComponent = () => {
                 }}
 
                 onSubmit={(values, {setSubmitting}) => {
-                    console.log('Login...');
+                    console.log(I18n.t('console.login'));
                     setSubmitting(true);
                     Api({
                         path: '/login',

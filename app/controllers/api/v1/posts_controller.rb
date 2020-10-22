@@ -1,6 +1,7 @@
 module Api
   module V1
     class PostsController < ApplicationController
+      protect_from_forgery unless: -> { true }
       before_action :set_post, only: [:show, :edit, :update, :destroy]
 
       # GET /posts
@@ -45,11 +46,13 @@ module Api
       # POST /posts
       # POST /posts.json
       def create
+        user = User.find_by_username(params[:username])
         @post = Post.new(post_params)
+        @post.user = user
 
         respond_to do |format|
           if @post.save
-            format.all { render json: @post, status: :created, location: @post }
+            format.all { render json: @post, status: :created }
           else
             format.all { render json: @post.errors, status: :unprocessable_entity }
           end
@@ -86,7 +89,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def post_params
-        params.require(:post).permit(:title, :content)
+        params.permit(:title, :content, :category, :image)
       end
     end
   end
