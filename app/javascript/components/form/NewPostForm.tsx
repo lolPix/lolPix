@@ -61,12 +61,12 @@ const NewPostForm: FunctionComponent<Props> = ({account}: Props) => {
                         body: data
                     }).then(
                         res => {
-                            if (res.status == 200) {
+                            if (res.status == 200 || res.status == 201) {
                                 res.json().then(
                                     json => {
-                                        if (!json.error && json.post) {
+                                        if (!json.error && json.id) {
                                             console.log(I18n.t('console.posted') + JSON.stringify(json.post));
-                                            window.location.href = '/post' + json.post.id;
+                                            window.location.href = '/post/' + json.id;
                                         } else {
                                             console.error('Error: ' + json.error);
                                             setUploadError(json.error);
