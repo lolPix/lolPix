@@ -6,8 +6,25 @@ body {
   font-family: sans-serif;
 }
 
-div.wrapper,
+
 div#app {
   height: 100%;
   width: 100%;
+}
+
+div.wrapper,
+div.content {
+  z-index: 10;
+}
+
+div#loader {
+  z-index: 20;
+}
+
+div.wrapper {
+  max-width: 80%;
+}
+
+div.content {
+  padding-top: $navbar-height;
 }

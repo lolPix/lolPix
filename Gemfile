@@ -66,3 +66,11 @@ gem "bcrypt", "~> 3.1"
 gem "rack-cors", "~> 1.1"
 
 gem "jwt", "~> 2.2"
+
+gem "pagy", "~> 3.9"
+
+gem "pager_api", "~> 0.3.2"
+
+gem "dotenv", "~> 2.7"
+
+gem "dotenv-rails", "~> 2.7"
