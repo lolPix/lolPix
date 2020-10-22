@@ -16,3 +16,14 @@ updates:
     labels:
       - "bundler"
       - "dependencies"
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    assignees:
+      - "lfuelling"
+    reviewers:
+      - "lfuelling"
+    labels:
+      - "npm"
+      - "dependencies"
