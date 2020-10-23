@@ -1,118 +1,88 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
+---
 en:
-  nav:
-    alt_profile_picture_for: "Profile picture for"
-    alt_logo: "lolPix Logo"
-  error:
-    email_invalid: "Invalid E-Mail address!"
-    email_required: "E-Mail is required!"
-    password_required: "Password is required!"
-    login_error: "Invalid username or password"
-    unauthorized: "This service requires authentication!"
-    page_not_found: "Page not found!"
-    javascript_required: "This page requires JavaScript! 🤖"
-    no_image_found: "No image found!"
-    image_required: "Image is required!"
-    image_too_large: "Image is too large!"
-    bio_required: "Bio is required!"
-    password_too_short: "Password has to be longer than 8 chars!"
-    user_invalid: "Invalid user!"
-    username_required: "Username is required!"
-    username_too_short: "Username must be longer than 6 chars!"
-    title_required: "A title is required!"
-    title_too_short: "The title must be longer than 8 chars!"
-    logged_in_to_post: "You need to be logged in to create new posts!"
-    no_posts_found: "No posts found!"
-    alt_text_required: "Alt Text is required!"
-    alt_text_too_short: "Alt Text must be longer than 8 chars!"
-    post_id_undefined: "Post ID is missing!"
-  ui:
-    loading: "Loading..."
-    post:
-      by: "by"
-      reaction:
-        positive: "👍"
-        negative: "👎"
-    nav:
-      home: "🏠 Home"
-      memes: "🌠 Memes"
-      fails: "🎢 Fails"
-      gifs: "🍿 GIFs"
-      newest: "📰 New"
-      top: "📈 Best"
-      account:
-        not_logged_in: "Not logged in!"
-        login: "Login"
-        register: "Register"
-        profile: "Profile"
-        logout: "Logout"
-        new: "New Post"
-    heading:
-      login: "Login to continue..."
-      join: "Join lolPix!"
-      new_post: "Post new stuff!"
-    form:
-      email: "E-Mail"
-      password: "Password"
-      profile_picture: "Profile Picture"
-      username: "Username"
-      bio: "Bio"
-      submit:
-        login: "Login"
-        register: "Join"
-        post: "Post"
-      category: "Category"
-      categories:
-        meme: "Meme"
-        fail: "Fail"
-        gif: "GIF"
-      title: "Title"
-      alt_text: "Image description"
   console:
-    logged_in: "Logged in: "
-    error: "Error: "
-    authorized: "Authorized: "
-    registered: "Registered: "
-    posting: "Posting..."
-    registration: "Registration..."
-    fetching_api: "Fetching: \""
-    login: "Login..."
-    posted: "Posted: "
-    got_posts: "Got posts: "
-    found_next_link: "Found 'next page' link: "
-    foo: "Foo"
+    authorized: 'Authorized: '
+    error: 'Error: '
+    fetching_api: 'Fetching: "'
+    foo: Foo
+    found_next_link: 'Found ''next page'' link: '
+    got_posts: 'Got posts: '
+    logged_in: 'Logged in: '
+    login: Login...
+    posted: 'Posted: '
+    posting: Posting...
+    reacted: Reacted!
+    reacting: Reacting...
+    refreshed_post: 'Refreshed post: '
+    registered: 'Registered: '
+    registration: Registration...
     warning:
-      no_next_link_found: "No 'next page‘ link found. Assuming end of content!"
-    reacting: "Reacting..."
-    reacted: "Reacted!"
-    refreshed_post: "Refreshed post: "
+      no_next_link_found: No 'next page‘ link found. Assuming end of content!
+  error:
+    alt_text_required: Alt Text is required!
+    alt_text_too_short: Alt Text must be longer than 8 chars!
+    bio_required: Bio is required!
+    email_invalid: Invalid E-Mail address!
+    email_required: E-Mail is required!
+    image_required: Image is required!
+    image_too_large: Image is too large!
+    javascript_required: "This page requires JavaScript! \U0001F916"
+    logged_in_to_post: You need to be logged in to create new posts!
+    login_error: Invalid username or password
+    no_image_found: No image found!
+    no_posts_found: No posts found!
+    page_not_found: Page not found!
+    password_required: Password is required!
+    password_too_short: Password has to be longer than 8 chars!
+    post_id_undefined: Post ID is missing!
+    title_required: A title is required!
+    title_too_short: The title must be longer than 8 chars!
+    unauthorized: This service requires authentication!
+    user_invalid: Invalid user!
+    username_required: Username is required!
+    username_too_short: Username must be longer than 6 chars!
+  nav:
+    alt_logo: lolPix Logo
+    alt_profile_picture_for: Profile picture for
+  ui:
+    form:
+      alt_text: Image description
+      bio: Bio
+      categories:
+        fail: Fail
+        gif: GIF
+        meme: Meme
+      category: Category
+      email: E-Mail
+      password: Password
+      profile_picture: Profile Picture
+      submit:
+        login: Login
+        post: Post
+        register: Join
+      title: Title
+      username: Username
+    heading:
+      join: Join lolPix!
+      login: Login to continue...
+      new_post: Post new stuff!
+    loading: Loading...
+    nav:
+      account:
+        login: Login
+        logout: Logout
+        new: New Post
+        not_logged_in: Not logged in!
+        profile: Profile
+        register: Register
+      fails: "\U0001F3A2 Fails"
+      gifs: "\U0001F37F GIFs"
+      home: "\U0001F3E0 Home"
+      memes: "\U0001F320 Memes"
+      newest: "\U0001F4F0 New"
+      top: "\U0001F4C8 Best"
+    post:
+      by: by
+      reaction:
+        negative: "\U0001F44E"
+        positive: "\U0001F44D"
