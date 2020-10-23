@@ -3928,10 +3928,10 @@ escodegen@^1.14.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-preact@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-preact/-/eslint-config-preact-1.1.1.tgz#71d80c2dc64aea6c04a3843cc321907b606742f1"
-  integrity sha512-jiOpPAJBFJyXyeXKXqzeNaMudUQBvhD6KXqrE7Y0wRw0y+TbZM9F6ff2PSd0pefIwqkS7LVbJUB/2E5XNv2fYQ==
+eslint-config-preact@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-preact/-/eslint-config-preact-1.1.2.tgz#6f6a9cf82164fb8bfdc91e021c8e17962f1b686d"
+  integrity sha512-dG0RIOV90M1PxTn1mQChLkkXNXXyd/PO2CZeNM2WyjADowB2UdnbEnFidWzRElPHeyzogiJWFkCWumLh/aLduA==
   dependencies:
     babel-eslint "^10.0.1"
     eslint-plugin-compat "^3.5.1"
