@@ -14,46 +14,22 @@ import NavBar from "../components/nav/NavBar";
 import LogoutPage from "../pages/LogoutPage";
 import RegistrationPage from "../pages/RegistrationPage";
 import NewPostPage from "../pages/NewPostPage";
+import User from "../model/user";
 
-const App: FunctionComponent = () => {
-    const [loading, setLoading] = useState(true)
-    const [account, setAccount] = useState(undefined);
-    useEffect(() => {
-        Api({path: '/hi'}).then(
-            res => {
-                if (res.status == 200) {
-                    res.json().then(
-                        json => {
-                            if (json.username && json.bio) {
-                                console.log(I18n.t('console.authorized') + JSON.stringify(json));
-                                setAccount(json);
-                            } else {
-                                console.error(I18n.t('console.error') + ' Unknown JSON returned: ' + JSON.stringify(json)) // TODO: error handling
-                            }
-                        }, err => {
-                            console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
-                        });
-                }
-            },
-            err => {
-                console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
-            }
-        ).then(
-            () => {
-                setLoading(false); // this should come last
-            }
-        )
-    }, [])
+type Props = {
+    account: User | undefined;
+}
+
+const App: FunctionComponent<Props> = ({account}: Props) => {
     return (
         <>
-            {loading && <Loader/>}
             <div className="wrapper">
                 <Router>
                     <NavBar showLogo={true} account={account}/>
                     <div className="content">
                         <Switch>
                             <Route exact path="/">
-                                <HomePage />
+                                <HomePage account={account} />
                             </Route>
                             <Route exact path="/join">
                                 <RegistrationPage/>

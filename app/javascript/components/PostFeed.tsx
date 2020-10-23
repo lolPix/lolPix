@@ -3,8 +3,13 @@ import Api from "../base/Api";
 import I18n from "i18n-js";
 import PostWidget from "./PostWidget";
 import Loader from "../base/Loader";
+import User from "../model/user";
 
-const PostFeed: FunctionComponent = () => {
+type Props = {
+    account: User,
+}
+
+const PostFeed: FunctionComponent<Props> = ({account}: Props) => {
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState([]);
 
@@ -12,7 +17,7 @@ const PostFeed: FunctionComponent = () => {
         setLoading(true);
         Api({path: '/posts'}).then(
             res => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     res.json().then(
                         json => {
                             if (json && json[0]) {
@@ -38,14 +43,14 @@ const PostFeed: FunctionComponent = () => {
                 console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
                 setLoading(false); // this should come last
             }
-        )
+        );
     }, [])
 
     return (
         (loading && <Loader/>) ||
         (posts.length &&
             <ul className={'post-feed'}>
-                {posts.map((p, k) => (<li key={k}><PostWidget post={p}/></li>))}
+                {posts.map((p, k) => (<li key={k}><PostWidget account={account} post={p}/></li>))}
             </ul>) || <h1>{I18n.t('error.no_posts_found')}</h1>
     );
 };

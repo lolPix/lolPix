@@ -42,7 +42,7 @@ const LoginForm: FunctionComponent = () => {
                         body: JSON.stringify(values)
                     }).then(
                         res => {
-                            if (res.status == 200) {
+                            if (res.status === 200) {
                                 res.json().then(
                                     json => {
                                         if (!json.error && json.token && json.user) {

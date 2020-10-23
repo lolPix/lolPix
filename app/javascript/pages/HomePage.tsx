@@ -1,9 +1,13 @@
 import React, {Dispatch, FunctionComponent, SetStateAction} from 'react';
 import PostFeed from "../components/PostFeed";
+import User from "../model/user";
+import {Redirect} from 'react-router-dom';
 
-
-const HomePage: FunctionComponent = () => (
-    <PostFeed />
+type Props = {
+    account: User | undefined,
+}
+const HomePage: FunctionComponent<Props> = ({account}: Props) => (
+    (account && <PostFeed account={account}/>) || <Redirect to={'/login'}/>
 );
 
 export default HomePage;

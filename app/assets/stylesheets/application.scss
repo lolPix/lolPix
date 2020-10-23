@@ -1,9 +1,3 @@
-body, html {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-
 @import "variables"; // this should come first
 @import "layout";
 @import "logo";
@@ -11,6 +5,9 @@ body, html {
 @import "components/inputs";
 @import "components/buttons";
 @import "components/forms";
+@import "components/post-feed";
+@import "components/post-widget";
+@import "components/reactions-form";
 @import "loader";
 @import "login";
 @import "register";

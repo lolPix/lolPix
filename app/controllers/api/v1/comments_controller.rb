@@ -1,7 +1,7 @@
 module Api
   module V1
     class CommentsController < ApplicationController
-      before_action :set_comment, only: [:show, :edit, :update, :destroy]
+      before_action :set_comment, only: [:show, :update, :destroy]
 
       # GET /comments/<postId>
       # GET /comments.json
@@ -16,28 +16,6 @@ module Api
       # GET /comments/1
       # GET /comments/1.json
       def show
-        respond_to do |format|
-          format.all { render json: @comment }
-        end
-      end
-
-      # GET /comments/new
-      def new
-        @comment = @post.comments.build(params[:comment])
-        if @comment.save
-          respond_to do |format|
-            format.all { render json: @comment }
-          end
-        else
-          # This line overrides the default rendering behavior, which
-          # would have been to render the "create" view.
-          format.all { render json: @comment.errors, status: :unprocessable_entity }
-        end
-      end
-
-      # GET /comments/1/edit
-      def edit
-        @comment.save
         respond_to do |format|
           format.all { render json: @comment }
         end

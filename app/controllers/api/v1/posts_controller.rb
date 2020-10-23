@@ -1,35 +1,17 @@
 module Api
   module V1
     class PostsController < ActionController::API
-      before_action :set_post, only: [:show, :edit, :update, :destroy]
+      before_action :set_post, only: [:show, :update, :destroy]
 
       # GET /posts
       # GET /posts.json
       def index
-        paginate Post.unscoped, per_page: 15
+        paginate Post.all.order('created_at DESC'), per_page: 15
       end
 
       # GET /posts/1
       # GET /posts/1.json
       def show
-        render json: @post
-      end
-
-      # GET /posts/new
-      def new
-        @post = Post.new(params[:post])
-        if @post.save
-          render json: @post
-        else
-          # This line overrides the default rendering behavior, which
-          # would have been to render the "create" view.
-          render json: @post.errors, status: :unprocessable_entity
-        end
-      end
-
-      # GET /posts/1/edit
-      def edit
-        @post.save
         render json: @post
       end
 
@@ -73,7 +55,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def post_params
-        params.permit(:title, :content, :category, :image)
+        params.permit(:title, :content, :category, :image, :alt_text)
       end
     end
   end

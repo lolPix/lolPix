@@ -6,6 +6,7 @@ import User from "../../model/user";
 
 type FormValues = {
     title: string,
+    alt_text: string,
     image: string | Blob,
     category: number
 }
@@ -13,6 +14,7 @@ type FormValues = {
 type FormErrors = {
     title?: string,
     image?: string,
+    alt_text?: string,
     category?: string
 }
 
@@ -23,6 +25,7 @@ type Props = {
 function buildFormData(values: FormValues, account: User): FormData {
     const data = new FormData();
     data.append('image', values.image)
+    data.append('alt_text', values.alt_text)
     data.append('title', values.title)
     data.append('category', values.category.toString(10))
     data.append('username', account.username)
@@ -35,7 +38,7 @@ const NewPostForm: FunctionComponent<Props> = ({account}: Props) => {
             <h1>{I18n.t('ui.heading.new_post')}</h1>
 
             <Formik
-                initialValues={{title: '', image: undefined, category: undefined}}
+                initialValues={{title: '', alt_text: '', image: undefined, category: undefined}}
                 validate={values => {
                     const errors: FormErrors = {};
                     if (!values.image) {
@@ -48,20 +51,24 @@ const NewPostForm: FunctionComponent<Props> = ({account}: Props) => {
                     } else if (values.title.length < 8) {
                         errors.title = I18n.t('error.title_too_short');
                     }
+                    if (!values.alt_text) {
+                        errors.alt_text = I18n.t('error.alt_text_required');
+                    } else if (values.alt_text.length < 8) {
+                        errors.alt_text = I18n.t('error.alt_text_too_short');
+                    }
                     return errors;
                 }}
 
                 onSubmit={(values, {setSubmitting}) => {
                     console.log(I18n.t('console.posting'));
                     setSubmitting(true);
-                    const data = buildFormData(values, account);
                     Api({
                         path: '/posts',
                         method: 'POST',
-                        body: data
+                        body: buildFormData(values, account)
                     }).then(
                         res => {
-                            if (res.status == 200 || res.status == 201) {
+                            if (res.status === 200 || res.status === 201) {
                                 res.json().then(
                                     json => {
                                         if (!json.error && json.id) {
@@ -107,19 +114,27 @@ const NewPostForm: FunctionComponent<Props> = ({account}: Props) => {
                             onBlur={handleBlur}
                             value={values.title}
                         />
-
+                        <label htmlFor="alt_text">{I18n.t('ui.form.alt_text')}</label>
+                        <input
+                            type="text"
+                            name="alt_text"
+                            id={'alt_text'}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.alt_text}
+                        />
                         <label id="category_label">{I18n.t('ui.form.category')}</label>
                         <div role="group" aria-labelledby="category_label">
                             <label>
-                                <Field type="radio" name="category" value="0" />
+                                <Field type="radio" name="category" value="0"/>
                                 {I18n.t('ui.form.categories.meme')}
                             </label>
                             <label>
-                                <Field type="radio" name="category" value="1" />
+                                <Field type="radio" name="category" value="1"/>
                                 {I18n.t('ui.form.categories.fail')}
                             </label>
                             <label>
-                                <Field type="radio" name="category" value="2" />
+                                <Field type="radio" name="category" value="2"/>
                                 {I18n.t('ui.form.categories.gif')}
                             </label>
                         </div>

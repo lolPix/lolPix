@@ -1,0 +1,40 @@
+@import "../variables";
+
+div.post-widget {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+  background-color: $primary_lighter;
+
+  border-radius: 5px;
+
+  padding: 12px;
+
+  h2.title {
+    width: 100%;
+    text-align: center;
+  }
+
+  img {
+    // TODO: add breakpoints
+    width: 640px;
+    height: auto;
+  }
+
+  div.bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    p.meta {
+
+    }
+  }
+}

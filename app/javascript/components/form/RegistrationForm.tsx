@@ -79,7 +79,7 @@ const RegistrationForm: FunctionComponent = () => {
                         body: data
                     }).then(
                         res => {
-                            if (res.status == 200) {
+                            if (res.status === 200) {
                                 res.json().then(
                                     json => {
                                         if (!json.error && json.token && json.user) {

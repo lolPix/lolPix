@@ -53,15 +53,23 @@ en:
     title_too_short: "The title must be longer than 8 chars!"
     logged_in_to_post: "You need to be logged in to create new posts!"
     no_posts_found: "No posts found!"
+    alt_text_required: "Alt Text is required!"
+    alt_text_too_short: "Alt Text must be longer than 8 chars!"
+    post_id_undefined: "Post ID is missing!"
   ui:
     loading: "Loading..."
+    post:
+      by: "by"
+      reaction:
+        positive: "👍"
+        negative: "👎"
     nav:
-      home: "Home"
-      memes: "Memes"
-      fails: "Fails"
-      gifs: "GIFs"
-      newest: "New"
-      top: "Best"
+      home: "🏠 Home"
+      memes: "🌠 Memes"
+      fails: "🎢 Fails"
+      gifs: "🍿 GIFs"
+      newest: "📰 New"
+      top: "📈 Best"
       account:
         not_logged_in: "Not logged in!"
         login: "Login"
@@ -89,6 +97,7 @@ en:
         fail: "Fail"
         gif: "GIF"
       title: "Title"
+      alt_text: "Image description"
   console:
     logged_in: "Logged in: "
     error: "Error: "
@@ -104,3 +113,6 @@ en:
     foo: "Foo"
     warning:
       no_next_link_found: "No 'next page‘ link found. Assuming end of content!"
+    reacting: "Reacting..."
+    reacted: "Reacted!"
+    refreshed_post: "Refreshed post: "

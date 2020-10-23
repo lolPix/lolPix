@@ -1,15 +1,25 @@
 @import "variables";
 
+body, html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
 body {
   background-color: $primary_light;
   color: $primary_text;
   font-family: sans-serif;
 }
 
-
 div#app {
   height: 100%;
   width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 div.wrapper,
@@ -21,10 +31,13 @@ div#loader {
   z-index: 20;
 }
 
-div.wrapper {
-  max-width: 80%;
+div.content {
+  width: 100%;
+  padding-bottom: $footer-height;
 }
 
-div.content {
-  padding-top: $navbar-height;
+div.wrapper {
+  width: 80%;
+  overflow: scroll;
+  margin-top: $navbar-height;
 }

@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_many :comments
   has_many :posts
+  has_many :reactions
 
   has_one_attached :image
 
@@ -16,8 +17,13 @@ class User < ApplicationRecord
 
   def as_json(options = {})
     ActiveStorage::Current.set(host: LolPix::Application.get_host_value) do
-      confidential_fields = %i[email image password_digest created_at updated_at posts_id comments_id id]
-      super(options.merge({except: confidential_fields})).merge({image: url_for(image)})
+      confidential_fields = %i[email image password_digest created_at updated_at posts_id comments_id]
+      generated_json = super(options.merge({except: confidential_fields}))
+      if @image
+        generated_json.merge({image: url_for(image)})
+      else
+        generated_json
+      end
     end
   end
 end
