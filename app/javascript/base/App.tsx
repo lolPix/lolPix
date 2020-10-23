@@ -1,14 +1,7 @@
-import React, {FunctionComponent, useEffect, useState} from "react";
-import Loader from "./Loader";
+import React, {FunctionComponent} from "react";
 import HomePage from "../pages/HomePage";
-import {
-    BrowserRouter as Router,
-    Link,
-    Route,
-    Switch,
-} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch,} from 'react-router-dom';
 import LoginPage from "../pages/LoginPage";
-import Api from "./Api";
 import I18n from "i18n-js";
 import NavBar from "../components/nav/NavBar";
 import LogoutPage from "../pages/LogoutPage";
@@ -18,7 +11,7 @@ import User from "../model/user";
 
 type Props = {
     account: User | undefined;
-}
+};
 
 const App: FunctionComponent<Props> = ({account}: Props) => {
     return (
