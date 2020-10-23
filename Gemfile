@@ -74,3 +74,7 @@ gem "pager_api", "~> 0.3.2"
 gem "dotenv", "~> 2.7"
 
 gem "dotenv-rails", "~> 2.7"
+
+gem "i18n-tasks", "~> 0.9.31"
+
+gem "rubocop", "~> 1.0"
