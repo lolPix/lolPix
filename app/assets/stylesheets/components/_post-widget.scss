@@ -28,7 +28,7 @@ div.post-widget {
 
     img {
       // TODO: add breakpoints
-      width: 640px;
+      width: $post-image-width;
       height: auto;
     }
 

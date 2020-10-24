@@ -1,0 +1,66 @@
+@import "variables";
+
+.profile-page {
+  width: 80vw;
+
+  .header {
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 16px;
+
+    .profile-picture {
+      margin: 8px;
+
+      img {
+        height: 128px;
+        width: 128px;
+        border-radius: 5px;
+      }
+    }
+
+    .meta {
+      margin: 8px;
+
+      p.username {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      p.bio {
+
+      }
+    }
+  }
+
+  .user-content {
+
+    ul.react-tabs__tab-list {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      list-style-type: none;
+      margin-bottom: 16px;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0;
+
+      li.react-tabs__tab {
+        width: 100%;
+        padding: 16px;
+        cursor: pointer;
+        margin-left: 0;
+        margin-right: 0;
+
+        &.react-tabs__tab--selected {
+          background-color: rgba($primary, 0.1);
+          border: 1px solid $primary_dark;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+}

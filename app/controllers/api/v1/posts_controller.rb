@@ -1,12 +1,25 @@
+# frozen_string_literal: true
+
 module Api
   module V1
+    # A controller for posts.
     class PostsController < ActionController::API
-      before_action :set_post, only: [:show, :update, :destroy]
+      before_action :set_post, only: %i[show update destroy]
 
       # GET /posts
       # GET /posts.json
       def index
-        paginate Post.all.order('created_at DESC'), per_page: 15
+        if params.key?(:username)
+          user = User.find_by_username(params[:username])
+          return render head :no_content unless user
+
+          posts = Post.authored_by(user)
+
+        else
+          posts = Post.all
+        end
+
+        paginate sort_posts(params, posts), per_page: 15
       end
 
       # GET /posts/1
@@ -47,6 +60,19 @@ module Api
       end
 
       private
+
+      def sort_posts(params, posts)
+        case params[:sort]
+        when 'best'
+          posts.best_first
+        when 'worst'
+          posts.worst_first
+        when 'old'
+          posts.oldest_first
+        else
+          posts.newest_first
+        end
+      end
 
       # Use callbacks to share common setup or constraints between actions.
       def set_post

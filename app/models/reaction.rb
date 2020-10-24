@@ -5,6 +5,9 @@ class Reaction < ApplicationRecord
   validates_presence_of :post, :user
   validates_uniqueness_of :post_id, scope: %i[user_id]
 
+  scope :of_post, ->(post) { where('post_id == ?', post.id) }
+  scope :of_user, ->(user) { where('user_id == ?', user.id) }
+
   def as_json(options = {})
     confidential_fields = %i[created_at updated_at]
     super(options.merge({except: confidential_fields}))

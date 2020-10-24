@@ -1,4 +1,4 @@
-import React, {Dispatch, FunctionComponent, SetStateAction} from 'react';
+import React, {FunctionComponent} from 'react';
 import Post from "../../model/post";
 import I18n from "i18n-js";
 import {Form, Formik} from "formik";
@@ -8,7 +8,7 @@ import User from "../../model/user";
 type Props = {
     post: Post,
     account: User,
-    refreshPost: Dispatch<SetStateAction<boolean>>,
+    refreshPost: () => void,
 }
 
 type FormValues = {
@@ -46,11 +46,11 @@ const ReactionsForm: FunctionComponent<Props> = ({post, account, refreshPost}: P
                     body: JSON.stringify(values)
                 }).then(
                     res => {
-                        if (res.status === 200) {
+                        if (res.status === 201) {
                             res.json().then(
                                 json => {
                                     if (!json.error && json.id) {
-                                        refreshPost(true)
+                                        refreshPost();
                                     } else {
                                         console.error('Error: ' + json.error); // TODO: error handling
                                     }

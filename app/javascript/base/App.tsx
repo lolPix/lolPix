@@ -10,6 +10,7 @@ import NewPostPage from "../pages/NewPostPage";
 import User from "../model/user";
 import PostPage from "../pages/PostPage";
 import Footer from "../components/Footer";
+import ProfilePage from "../pages/ProfilePage";
 
 type Props = {
     account: User | undefined;
@@ -40,6 +41,9 @@ const App: FunctionComponent<Props> = ({account}: Props) => {
                             </Route>
                             <Route exact path={'/post/:postId'}>
                                 <PostPage account={account}/>
+                            </Route>
+                            <Route exact path={'/user/:username'}>
+                                <ProfilePage account={account}/>
                             </Route>
                             <Route render={() => <h1>{I18n.t('error.page_not_found')}</h1>}/>
                         </Switch>

@@ -8,6 +8,7 @@ en:
     found_next_link: 'Found ''next page'' link: '
     got_posts: 'Got posts: '
     loaded_post: 'Loaded post: '
+    loaded_user: 'Loaded user: '
     logged_in: 'Logged in: '
     login: Login...
     posted: 'Posted: '
@@ -87,3 +88,13 @@ en:
       reaction:
         negative: "\U0001F44E"
         positive: "\U0001F44D"
+    profile:
+      alt_profile_picture_for: 'Profile picture for '
+      comments:
+        most_reactions: Most Reacted To Comments
+        newest: Newest Comments
+      comments_by: 'Comments by '
+      posts:
+        most_reactions: Most Reacted To Posts
+        newest: Newest Posts
+      posts_by: 'Posts by '
