@@ -1,6 +1,5 @@
 import React, {FunctionComponent} from 'react';
 import User from "../model/user";
-import {Redirect} from 'react-router-dom';
 import NewPostForm from "../components/form/NewPostForm";
 import I18n from "i18n-js";
 

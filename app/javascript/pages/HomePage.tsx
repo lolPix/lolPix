@@ -1,4 +1,4 @@
-import React, {Dispatch, FunctionComponent, SetStateAction} from 'react';
+import React, {FunctionComponent} from 'react';
 import PostFeed from "../components/PostFeed";
 import User from "../model/user";
 import {Redirect} from 'react-router-dom';

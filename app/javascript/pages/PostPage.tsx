@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useRef, useState} from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 import User from "../model/user";
 import PostWidget from "../components/PostWidget";
 import Api from "../base/Api";

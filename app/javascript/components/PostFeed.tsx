@@ -1,4 +1,4 @@
-import React, {Dispatch, FunctionComponent, SetStateAction, useEffect, useState} from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 import Api from "../base/Api";
 import I18n from "i18n-js";
 import PostWidget from "./PostWidget";
