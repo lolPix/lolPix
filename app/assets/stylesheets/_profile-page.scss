@@ -40,7 +40,7 @@
   .user-content {
 
     .react-tabs__tab-list {
-      border-bottom-color: $divider;
+      border-bottom-color: $primary_dark;
       display: flex;
       justify-content: space-evenly;
       align-items: center;
@@ -50,8 +50,8 @@
         padding: 16px;
 
         &.react-tabs__tab--selected {
-          background-color: rgba($accent, 0.1);
-          border-color: $divider;
+          background-color: rgba($primary, 0.1);
+          border-color: $primary_dark;
         }
       }
     }
