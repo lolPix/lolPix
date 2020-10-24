@@ -50,7 +50,13 @@ const PostFeed: FunctionComponent<Props> = ({account}: Props) => {
         (loading && <Loader/>) ||
         (posts.length &&
             <ul className={'post-feed'}>
-                {posts.map((p, k) => (<li key={k}><PostWidget account={account} post={p}/></li>))}
+                {posts.map((p, k) => {
+                    return (
+                        <li key={k}>
+                            <PostWidget showLinks={true} account={account} post={p}/>
+                        </li>
+                    );
+                })}
             </ul>) || <h1>{I18n.t('error.no_posts_found')}</h1>
     );
 };

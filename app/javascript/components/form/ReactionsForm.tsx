@@ -80,7 +80,7 @@ const ReactionsForm: FunctionComponent<Props> = ({post, account, refreshPost}: P
 
                 <Form onSubmit={handleSubmit} id={'reactions-form'}>
                     <button className={'reaction-button'} role={'button'}
-                            onClick={(event) => {
+                            onClick={() => {
                                 setFieldValue("positive", true);
                                 return submitForm();
                             }}
@@ -89,10 +89,10 @@ const ReactionsForm: FunctionComponent<Props> = ({post, account, refreshPost}: P
                             onChange={handleChange}
                     >{I18n.t('ui.post.reaction.positive')}</button>
                     <p className="score">
-                        {calculateScore(post)}
+                        &nbsp;{calculateScore(post)}&nbsp;
                     </p>
                     <button className={'reaction-button'} role={'button'}
-                            onClick={(event) => {
+                            onClick={() => {
                                 setFieldValue("positive", false);
                                 return submitForm();
                             }}

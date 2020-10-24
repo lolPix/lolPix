@@ -9,10 +9,11 @@ import Api from "../base/Api";
 
 type Props = {
     post: Post,
-    account: User
+    account: User,
+    showLinks?: boolean
 }
 
-const PostWidget: FunctionComponent<Props> = ({post, account}: Props) => {
+const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false}: Props) => {
     const [refreshPost, toggleRefreshPost] = useState(false);
     const [statePost, setStatePost] = useState(post);
     const initialExecution = useRef(true);
@@ -43,16 +44,21 @@ const PostWidget: FunctionComponent<Props> = ({post, account}: Props) => {
         }
     }, [refreshPost]);
     const postDateFn = parseISO(statePost.created_at);
+    const postImage = <img src={statePost.image} alt={statePost.alt_text}/>;
     return (
         <div className={'post-widget'}>
             <h2 className={'title'}>{statePost.title}</h2>
-            <img src={statePost.image} alt={statePost.alt_text}/>
+            {showLinks && <Link to={'/post/' + statePost.id}>{postImage}</Link> || postImage}
             <div className="bottom">
                 <ReactionsForm refreshPost={toggleRefreshPost} account={account} post={statePost}/>
                 <p className="meta">
-                    <abbr title={formatRFC7231(postDateFn)} className={'date'}>{formatDistanceToNow(postDateFn, { addSuffix: true })}</abbr>
-                    {' ' + I18n.t('ui.post.by') + ' '}
-                    <Link to={'/user/' + statePost.user.username} className={'user'}>{statePost.user.username}</Link>
+                    <abbr title={formatRFC7231(postDateFn)} className={'date'}>
+                        {formatDistanceToNow(postDateFn, {addSuffix: true})}
+                    </abbr>
+                    &nbsp;{I18n.t('ui.post.by')}&nbsp;
+                    <Link to={'/user/' + statePost.user.username} className={'user'}>
+                        {statePost.user.username}
+                    </Link>
                 </p>
             </div>
         </div>
