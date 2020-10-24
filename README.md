@@ -1,4 +1,4 @@
-# lolPix
+# lolPix ![Ruby/Rails](https://github.com/lolPix/lolPix/workflows/Ruby/Rails/badge.svg?branch=main) ![Brakeman Scan](https://github.com/lolPix/lolPix/workflows/Brakeman%20Scan/badge.svg?branch=main)
 
 **Not yet usable!**
 This is another try to implement lolPix. This time using Rails and React.
