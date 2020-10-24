@@ -9,6 +9,7 @@ import RegistrationPage from "../pages/RegistrationPage";
 import NewPostPage from "../pages/NewPostPage";
 import User from "../model/user";
 import PostPage from "../pages/PostPage";
+import Footer from "../components/Footer";
 
 type Props = {
     account: User | undefined;
@@ -43,6 +44,7 @@ const App: FunctionComponent<Props> = ({account}: Props) => {
                             <Route render={() => <h1>{I18n.t('error.page_not_found')}</h1>}/>
                         </Switch>
                     </div>
+                    <Footer account={account}/>
                 </Router>
             </div>
         </>
