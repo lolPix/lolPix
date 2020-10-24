@@ -16,8 +16,9 @@
       margin: 8px;
 
       img {
-        height: 96px;
-        width: 96px;
+        height: 128px;
+        width: 128px;
+        border-radius: 5px;
       }
     }
 
@@ -35,23 +36,31 @@
     }
   }
 
-  @import '../../../node_modules/react-tabs/style/react-tabs.scss';
+  //@import '../../../node_modules/react-tabs/style/react-tabs.scss';
 
   .user-content {
 
-    .react-tabs__tab-list {
-      border-bottom-color: $primary_dark;
+    ul.react-tabs__tab-list {
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+      list-style-type: none;
+      margin-bottom: 16px;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0;
 
-      .react-tabs__tab {
+      li.react-tabs__tab {
         width: 100%;
         padding: 16px;
+        cursor: pointer;
+        margin-left: 0;
+        margin-right: 0;
 
         &.react-tabs__tab--selected {
           background-color: rgba($primary, 0.1);
-          border-color: $primary_dark;
+          border: 1px solid $primary_dark;
+          border-radius: 5px;
         }
       }
     }
