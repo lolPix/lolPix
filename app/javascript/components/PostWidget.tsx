@@ -14,35 +14,31 @@ type Props = {
 }
 
 const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false}: Props) => {
-    const [refreshPost, toggleRefreshPost] = useState(false);
     const [statePost, setStatePost] = useState(post);
-    const initialExecution = useRef(true);
-    useEffect(() => {
-        if (initialExecution.current) {
-            initialExecution.current = false
-        } else {
-            Api({path: '/posts/' + post.id}).then(
-                res => {
-                    if (res.status === 200) {
-                        res.json().then(
-                            json => {
-                                if (json && json.id) {
-                                    console.log(I18n.t('console.refreshed_post') + JSON.stringify(json));
-                                    setStatePost(json);
-                                } else {
-                                    console.error(I18n.t('console.error') + ' Unknown JSON returned: ' + JSON.stringify(json)) // TODO: error handling
-                                }
-                            }, err => {
-                                console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
-                            });
-                    }
-                },
-                err => {
-                    console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
+
+    const refreshPost = () => {
+        Api({path: '/posts/' + statePost.id}).then(
+            res => {
+                if (res.status === 200) {
+                    res.json().then(
+                        json => {
+                            if (json && json.id) {
+                                console.log(I18n.t('console.refreshed_post') + JSON.stringify(json));
+                                setStatePost(json);
+                            } else {
+                                console.error(I18n.t('console.error') + ' Unknown JSON returned: ' + JSON.stringify(json)) // TODO: error handling
+                            }
+                        }, err => {
+                            console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
+                        });
                 }
-            )
-        }
-    }, [refreshPost]);
+            },
+            err => {
+                console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
+            }
+        )
+    };
+
     const postDateFn = parseISO(statePost.created_at);
     const postImage = <img src={statePost.image} alt={statePost.alt_text}/>;
     return (
@@ -60,7 +56,7 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false}
                             {statePost.user.username}
                         </Link>
                     </p>
-                    <ReactionsForm refreshPost={toggleRefreshPost} account={account} post={statePost}/>
+                    <ReactionsForm refreshPost={refreshPost} account={account} post={statePost}/>
                 </div>
             </div>
         </div>
