@@ -47,16 +47,6 @@ en:
     alt_logo: lolPix Logo
     alt_profile_picture_for: Profile picture for
   ui:
-    profile:
-      alt_profile_picture_for: 'Profile picture for '
-      posts:
-        newest: "Newest Posts"
-        most_reactions: "Most Reacted To Posts"
-      comments:
-        newest: "Newest Comments"
-        most_reactions: "Most Reacted To Comments"
-      posts_by: "Posts by "
-      comments_by: "Comments by "
     form:
       alt_text: Image description
       bio: Bio
@@ -98,3 +88,13 @@ en:
       reaction:
         negative: "\U0001F44E"
         positive: "\U0001F44D"
+    profile:
+      alt_profile_picture_for: 'Profile picture for '
+      comments:
+        most_reactions: Most Reacted To Comments
+        newest: Newest Comments
+      comments_by: 'Comments by '
+      posts:
+        most_reactions: Most Reacted To Posts
+        newest: Newest Posts
+      posts_by: 'Posts by '
