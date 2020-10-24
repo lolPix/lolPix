@@ -7,16 +7,28 @@ import User from "../model/user";
 
 type Props = {
     account: User,
-    onlyForUser?: User
+    onlyForUser?: User,
+    sort?: "best" | "new"
 }
 
-const PostFeed: FunctionComponent<Props> = ({account, onlyForUser}: Props) => {
+function generatePath(onlyForUser: User | undefined, sort: "best" | "new" | undefined) {
+    let path = '/posts?';
+    if (onlyForUser !== undefined) {
+        path += '&username=' + onlyForUser.username;
+    }
+    if(sort !== undefined) {
+        path += '&sort=' + sort;
+    }
+    return path;
+}
+
+const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort}: Props) => {
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         setLoading(true);
-        Api({path: (!onlyForUser ? '/posts' : '/posts?username=' + onlyForUser.username)}).then(
+        Api({path: generatePath(onlyForUser, sort)}).then(
             res => {
                 if (res.status === 200) {
                     res.json().then(

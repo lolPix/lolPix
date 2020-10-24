@@ -16,13 +16,27 @@ class Post < ApplicationRecord
 
   has_one_attached :image
 
+  scope :authored_by, ->(user) { where('posts.user_id == ?', user.id) }
+  scope :newest_first, -> { order(created_at: :desc) }
+  scope :oldest_first, -> { order(created_at: :desc) }
+  scope :best_first, lambda {
+    joins('left join reactions on reactions.post_id = posts.id')
+      .group('posts.id')
+      .order('count(posts.id) DESC')
+  }
+  scope :worst_first, lambda {
+    joins('left join reactions on reactions.post_id = posts.id')
+      .group('posts.id')
+      .order('count(posts.id) ASC')
+  }
+
   def as_json(options = {})
     ActiveStorage::Current.set(host: LolPix::Application.get_host_value) do
       confidential_fields = %i[image updated_at user_id reaction_id]
       enriched_values = {
-          image: url_for(image),
-          user: User.find(user_id),
-          reactions: Reaction.find(reaction_ids)
+        image: url_for(image),
+        user: User.find(user_id),
+        reactions: Reaction.find(reaction_ids)
       }
       super(options.merge({except: confidential_fields})).merge(enriched_values)
     end

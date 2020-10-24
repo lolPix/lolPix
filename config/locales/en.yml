@@ -49,8 +49,12 @@ en:
   ui:
     profile:
       alt_profile_picture_for: 'Profile picture for '
-      posts: "Posts"
-      comments: "Comments"
+      posts:
+        newest: "Newest Posts"
+        most_reactions: "Most Reacted To Posts"
+      comments:
+        newest: "Newest Comments"
+        most_reactions: "Most Reacted To Comments"
       posts_by: "Posts by "
       comments_by: "Comments by "
     form:

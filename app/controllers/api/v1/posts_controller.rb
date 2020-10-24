@@ -10,11 +10,13 @@ module Api
           user = User.find_by_username(params[:username])
           return render head :no_content unless user
 
-          posts_by_user = Post.all.order('created_at DESC') { |x| x.user_id == user.id } # TODO I bet this is really inefficient!
-          paginate posts_by_user, per_page: 15
+          posts = Post.authored_by(user)
+
         else
-          paginate Post.all.order('created_at DESC'), per_page: 15
+          posts = Post.all
         end
+
+        paginate sort_posts(params, posts), per_page: 15
       end
 
       # GET /posts/1
@@ -55,6 +57,19 @@ module Api
       end
 
       private
+
+      def sort_posts(params, posts)
+        case params[:sort]
+        when 'best'
+          posts.best_first
+        when 'worst'
+          posts.worst_first
+        when 'old'
+          posts.oldest_first
+        else
+          posts.newest_first
+        end
+      end
 
       # Use callbacks to share common setup or constraints between actions.
       def set_post

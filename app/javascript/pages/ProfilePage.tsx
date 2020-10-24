@@ -57,12 +57,22 @@ const ProfilePage: FunctionComponent<Props> = ({account}: Props) => {
             </div>
             <Tabs className="user-content">
                 <TabList>
-                    <Tab>{I18n.t('ui.profile.posts')}</Tab>
-                    <Tab>{I18n.t('ui.profile.comments')}</Tab>
+                    <Tab>{I18n.t('ui.profile.posts.newest')}</Tab>
+                    <Tab>{I18n.t('ui.profile.posts.most_reactions')}</Tab>
+                    <Tab>{I18n.t('ui.profile.comments.newest')}</Tab>
+                    <Tab>{I18n.t('ui.profile.comments.most_reactions')}</Tab>
                 </TabList>
 
                 <TabPanel>
-                    <PostFeed onlyForUser={user} account={user}/>
+                    <PostFeed onlyForUser={user} account={user} sort={'new'}/>
+                </TabPanel>
+                <TabPanel>
+                    <PostFeed onlyForUser={user} account={user} sort={'best'}/>
+                </TabPanel>
+                <TabPanel>
+                    <p className="todo">
+                        Comments are not yet implemented.
+                    </p>
                 </TabPanel>
                 <TabPanel>
                     <p className="todo">
