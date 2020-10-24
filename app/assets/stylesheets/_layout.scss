@@ -1,12 +1,19 @@
 @import "variables";
 
+html {
+  height: 100%;
+}
+
 body {
   background-color: $primary_light;
   color: $primary_text;
   font-family: sans-serif;
+  height: 100%;
+  margin: 0;
 }
 
 div#app {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -25,6 +32,10 @@ div#app {
       flex-shrink: 0;
     }
   }
+}
+
+.wrapper {
+  height: 100%;
 }
 
 div.wrapper,
