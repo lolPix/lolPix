@@ -30,7 +30,7 @@ const App: FunctionComponent<Props> = ({account}: Props) => {
                                 <RegistrationPage/>
                             </Route>
                             <Route exact path="/login">
-                                <LoginPage/>
+                                <LoginPage account={account}/>
                             </Route>
                             <Route exact path="/logout">
                                 <LogoutPage/>
