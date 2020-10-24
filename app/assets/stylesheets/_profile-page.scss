@@ -1,0 +1,59 @@
+@import "variables";
+
+.profile-page {
+  width: 80vw;
+
+  .header {
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 16px;
+
+    .profile-picture {
+      margin: 8px;
+
+      img {
+        height: 96px;
+        width: 96px;
+      }
+    }
+
+    .meta {
+      margin: 8px;
+
+      p.username {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      p.bio {
+
+      }
+    }
+  }
+
+  @import '../../../node_modules/react-tabs/style/react-tabs.scss';
+
+  .user-content {
+
+    .react-tabs__tab-list {
+      border-bottom-color: $divider;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      .react-tabs__tab {
+        width: 100%;
+        padding: 16px;
+
+        &.react-tabs__tab--selected {
+          background-color: rgba($accent, 0.1);
+          border-color: $divider;
+        }
+      }
+    }
+  }
+}

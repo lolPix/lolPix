@@ -1,12 +1,20 @@
 module Api
   module V1
     class PostsController < ActionController::API
-      before_action :set_post, only: [:show, :update, :destroy]
+      before_action :set_post, only: %i[show update destroy]
 
       # GET /posts
       # GET /posts.json
       def index
-        paginate Post.all.order('created_at DESC'), per_page: 15
+        if params.has_key?(:username)
+          user = User.find_by_username(params[:username])
+          return render head :no_content unless user
+
+          posts_by_user = Post.all.order('created_at DESC') { |x| x.user_id == user.id } # TODO I bet this is really inefficient!
+          paginate posts_by_user, per_page: 15
+        else
+          paginate Post.all.order('created_at DESC'), per_page: 15
+        end
       end
 
       # GET /posts/1

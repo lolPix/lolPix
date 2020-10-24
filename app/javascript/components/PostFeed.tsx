@@ -7,15 +7,16 @@ import User from "../model/user";
 
 type Props = {
     account: User,
+    onlyForUser?: User
 }
 
-const PostFeed: FunctionComponent<Props> = ({account}: Props) => {
+const PostFeed: FunctionComponent<Props> = ({account, onlyForUser}: Props) => {
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         setLoading(true);
-        Api({path: '/posts'}).then(
+        Api({path: (!onlyForUser ? '/posts' : '/posts?username=' + onlyForUser.username)}).then(
             res => {
                 if (res.status === 200) {
                     res.json().then(

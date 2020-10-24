@@ -8,6 +8,7 @@ en:
     found_next_link: 'Found ''next page'' link: '
     got_posts: 'Got posts: '
     loaded_post: 'Loaded post: '
+    loaded_user: 'Loaded user: '
     logged_in: 'Logged in: '
     login: Login...
     posted: 'Posted: '
@@ -46,6 +47,12 @@ en:
     alt_logo: lolPix Logo
     alt_profile_picture_for: Profile picture for
   ui:
+    profile:
+      alt_profile_picture_for: 'Profile picture for '
+      posts: "Posts"
+      comments: "Comments"
+      posts_by: "Posts by "
+      comments_by: "Comments by "
     form:
       alt_text: Image description
       bio: Bio
