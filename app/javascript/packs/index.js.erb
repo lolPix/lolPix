@@ -5,40 +5,27 @@ import I18n from "i18n-js"; import Loader from "../base/Loader"; import Api from
 
 I18n.translations = <%= I18n::JS.translations.to_json %>;
 
+async function fetchUser() {
+    const response = await Api({path: '/hi'});
+    const user = await response.json();
+    if (user.username && user.bio) {
+        console.log(I18n.t('console.authorized') + JSON.stringify(user));
+        return user;
+    } else {
+        console.error(I18n.t('console.error') + ' Unknown JSON returned: ' + JSON.stringify(user)) // TODO: error handling
+        return undefined;
+    }
+}
+
 /* React entrypoint */
 document.addEventListener('DOMContentLoaded', () => {
+    Promise.all([fetchUser()]).then(([user]) => {
+        ReactDOM.render(<App account={user}/>, document.getElementById('app'), () => {
+            const loader = document.getElementById('loader');
+            if (loader.classList.contains('initial')) {
+                loader.remove();
+            }
+        });
 
-    let rendered = false;
-    Api({path: '/hi'}).then(
-        res => {
-            if (res.status === 200) {
-                res.json().then(
-                    json => {
-                        if (json.username && json.bio) {
-                            console.log(I18n.t('console.authorized') + JSON.stringify(json));
-                            rendered=true;
-                            ReactDOM.render(<App account={json}/>, document.getElementById('app'));
-                        } else {
-                            console.error(I18n.t('console.error') + ' Unknown JSON returned: ' + JSON.stringify(json)) // TODO: error handling
-                        }
-                    }, err => {
-                        console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
-                    });
-            }
-        },
-        err => {
-            console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
-        }
-    ).then(
-        () => {
-            if(!rendered)  {
-                ReactDOM.render(<App account={undefined}/>, document.getElementById('app')); // this should come last
-            }
-        }
-    ).then(() => {
-        const loader = document.getElementById('loader');
-        if (loader.classList.contains('initial')) {
-            loader.remove();
-        }
-    })
+    });
 });
