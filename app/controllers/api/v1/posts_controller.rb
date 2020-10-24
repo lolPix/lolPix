@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
 module Api
   module V1
+    # A controller for posts.
     class PostsController < ActionController::API
       before_action :set_post, only: %i[show update destroy]
 
       # GET /posts
       # GET /posts.json
       def index
-        if params.has_key?(:username)
+        if params.key?(:username)
           user = User.find_by_username(params[:username])
           return render head :no_content unless user
 
