@@ -1,17 +1,9 @@
 @import "variables";
 
-body, html {
-  overflow: hidden;
-  min-height: 100%;
-  height: 100%;
-  width: 100%;
-}
-
 body {
   background-color: $primary_light;
   color: $primary_text;
   font-family: sans-serif;
-  width: 100%;
 }
 
 div#app {
@@ -19,17 +11,13 @@ div#app {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
 
   div.wrapper {
-    width: 100%;
-    overflow: scroll;
     margin-top: $navbar-height;
     display: flex;
     flex-direction: column;
 
     div.content {
-      width: 100%;
       flex: 1 0 auto;
     }
 
