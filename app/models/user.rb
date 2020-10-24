@@ -19,7 +19,7 @@ class User < ApplicationRecord
     ActiveStorage::Current.set(host: LolPix::Application.get_host_value) do
       confidential_fields = %i[email image password_digest created_at updated_at posts_id comments_id]
       generated_json = super(options.merge({except: confidential_fields}))
-      if @image
+      if image
         generated_json.merge({image: url_for(image)})
       else
         generated_json
