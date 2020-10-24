@@ -19,6 +19,19 @@ module Api
           posts = Post.all
         end
 
+        if params.key?(:only)
+          case params[:only]
+          when 'memes'
+            posts = posts.memes
+          when 'fails'
+            posts = posts.fails
+          when 'gifs'
+            posts = posts.gifs
+          else
+            return render head :bad_request
+          end
+        end
+
         paginate sort_posts(params, posts), per_page: 15
       end
 

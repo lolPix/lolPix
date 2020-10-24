@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useRef, useState} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import Post from "../model/post";
 import {formatDistanceToNow, formatRFC7231, parseISO} from 'date-fns'
 import I18n from "i18n-js";

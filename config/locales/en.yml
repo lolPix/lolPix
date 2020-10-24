@@ -65,9 +65,15 @@ en:
       title: Title
       username: Username
     heading:
+      home: Home
       join: Join lolPix!
       login: Login to continue...
       new_post: Post new stuff!
+      newest_fails: Newest Fails
+      newest_gifs: Newest GIFs
+      newest_memes: Newest Memes
+      newest_posts: Newest Posts
+      top_posts: Top Posts
     loading: Loading...
     nav:
       account:

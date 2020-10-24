@@ -11,6 +11,7 @@ import User from "../model/user";
 import PostPage from "../pages/PostPage";
 import Footer from "../components/Footer";
 import ProfilePage from "../pages/ProfilePage";
+import {FailsPage, GIFsPage, MemesPage, NewestPage, TopPage} from "../pages/TopLevelFeeds";
 
 type Props = {
     account: User | undefined;
@@ -35,6 +36,21 @@ const App: FunctionComponent<Props> = ({account}: Props) => {
                             </Route>
                             <Route exact path="/logout">
                                 <LogoutPage/>
+                            </Route>
+                            <Route exact path="/top">
+                                <TopPage account={account}/>
+                            </Route>
+                            <Route exact path="/newest">
+                                <NewestPage account={account}/>
+                            </Route>
+                            <Route exact path="/memes">
+                                <MemesPage account={account}/>
+                            </Route>
+                            <Route exact path="/fails">
+                                <FailsPage account={account}/>
+                            </Route>
+                            <Route exact path="/gifs">
+                                <GIFsPage account={account}/>
                             </Route>
                             <Route exact path={'/new'}>
                                 <NewPostPage account={account}/>

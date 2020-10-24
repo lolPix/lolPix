@@ -1,3 +1,11 @@
+# frozen_string_literal: true
+
+# Class representing a post record.
+#
+# Categories:
+#   - 0: Memes
+#   - 1: Fails
+#   - 2: GIFs
 class Post < ApplicationRecord
   include ActionView::Helpers
   include ActionDispatch::Routing
@@ -16,6 +24,9 @@ class Post < ApplicationRecord
 
   has_one_attached :image
 
+  scope :memes, -> { where(category: 0) }
+  scope :fails, -> { where(category: 1) }
+  scope :gifs, -> { where(category: 2) }
   scope :authored_by, ->(user) { where('posts.user_id == ?', user.id) }
   scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :desc) }

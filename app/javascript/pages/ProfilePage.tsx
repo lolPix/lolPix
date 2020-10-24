@@ -1,13 +1,12 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import User from "../model/user";
 import Api from "../base/Api";
 import I18n from "i18n-js";
 import Loader from "../base/Loader";
 import PostFeed from "../components/PostFeed";
-import {Redirect} from 'react-router-dom';
 import defaultPicture from "../../assets/images/logo_grey.svg";
-import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
+import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
 
 type Props = {
     account: User | undefined;

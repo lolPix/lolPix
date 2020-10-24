@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Class representing a user record.
 class User < ApplicationRecord
   include ActionView::Helpers
   include ActionDispatch::Routing
