@@ -48,18 +48,20 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false}
     return (
         <div className={'post-widget'}>
             <h2 className={'title'}>{statePost.title}</h2>
-            {showLinks && <Link to={'/post/' + statePost.id}>{postImage}</Link> || postImage}
-            <div className="bottom">
-                <ReactionsForm refreshPost={toggleRefreshPost} account={account} post={statePost}/>
-                <p className="meta">
-                    <abbr title={formatRFC7231(postDateFn)} className={'date'}>
-                        {formatDistanceToNow(postDateFn, {addSuffix: true})}
-                    </abbr>
-                    &nbsp;{I18n.t('ui.post.by')}&nbsp;
-                    <Link to={'/user/' + statePost.user.username} className={'user'}>
-                        {statePost.user.username}
-                    </Link>
-                </p>
+            <div className="content">
+                {showLinks && <Link to={'/post/' + statePost.id}>{postImage}</Link> || postImage}
+                <div className="meta">
+                    <p>
+                        <abbr title={formatRFC7231(postDateFn)} className={'date'}>
+                            {formatDistanceToNow(postDateFn, {addSuffix: true})}
+                        </abbr>
+                        &nbsp;{I18n.t('ui.post.by')}&nbsp;
+                        <Link to={'/user/' + statePost.user.username} className={'user'}>
+                            {statePost.user.username}
+                        </Link>
+                    </p>
+                    <ReactionsForm refreshPost={toggleRefreshPost} account={account} post={statePost}/>
+                </div>
             </div>
         </div>
     );

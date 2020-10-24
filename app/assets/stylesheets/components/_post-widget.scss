@@ -13,28 +13,32 @@ div.post-widget {
 
   border-radius: 5px;
 
-  padding: 12px;
-
   h2.title {
     width: 100%;
     text-align: center;
+    margin: 0;
+    padding: 8px;
   }
 
-  img {
-    // TODO: add breakpoints
-    width: 640px;
-    height: auto;
-  }
-
-  div.bottom {
-    width: 100%;
+  .content {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
 
-    p.meta {
+    img {
+      // TODO: add breakpoints
+      width: 640px;
+      height: auto;
+    }
 
+    div.meta {
+      margin: 12px;
+      margin-top: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
     }
   }
 }

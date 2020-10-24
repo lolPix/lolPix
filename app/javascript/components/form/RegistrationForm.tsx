@@ -35,7 +35,7 @@ function buildFormData(values: FormValues): FormData {
 
 const RegistrationForm: FunctionComponent = () => {
     const [registrationError, setRegistrationError] = useState(undefined);
-    return (<div id={'registration-form'}>
+    return (<div className={'registration-form'}>
             <h1>{I18n.t('ui.heading.join')}</h1>
 
             <Formik
