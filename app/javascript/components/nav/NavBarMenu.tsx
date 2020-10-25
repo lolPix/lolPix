@@ -9,12 +9,12 @@ type NavMenuProps = {
 const NavBarMenu: FunctionComponent<NavMenuProps> = (props: NavMenuProps) => (
    props &&
    <ul className={'nav-menu'}>
-       <li><NavLink to={'/'} >{I18n.t('ui.nav.home')}</NavLink></li>
-       <li><NavLink to={'/top'} >{I18n.t('ui.nav.top')}</NavLink></li>
-       <li><NavLink to={'/newest'} >{I18n.t('ui.nav.newest')}</NavLink></li>
-       <li><NavLink to={'/memes'}>{I18n.t('ui.nav.memes')}</NavLink></li>
-       <li><NavLink to={'/fails'}>{I18n.t('ui.nav.fails')}</NavLink></li>
-       <li><NavLink to={'/gifs'}>{I18n.t('ui.nav.gifs')}</NavLink></li>
+       <li><NavLink exact to={'/'} >{I18n.t('ui.nav.home')}</NavLink></li>
+       <li><NavLink exact to={'/top'} >{I18n.t('ui.nav.top')}</NavLink></li>
+       <li><NavLink exact to={'/newest'} >{I18n.t('ui.nav.newest')}</NavLink></li>
+       <li><NavLink exact to={'/memes'}>{I18n.t('ui.nav.memes')}</NavLink></li>
+       <li><NavLink exact to={'/fails'}>{I18n.t('ui.nav.fails')}</NavLink></li>
+       <li><NavLink exact to={'/gifs'}>{I18n.t('ui.nav.gifs')}</NavLink></li>
    </ul>
 );
 

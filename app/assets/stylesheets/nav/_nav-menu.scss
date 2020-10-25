@@ -14,15 +14,11 @@ ul.nav-menu {
     line-height: $navbar-height;
     vertical-align: middle;
     cursor: pointer;
-    margin-left: 8px;
-    margin-right: 8px;
     display: inline-block;
     color: #fff;
     border: 0;
-    padding-left: 8px;
-    padding-right: 8px;
 
-    &:hover {
+    a:hover {
       box-shadow: inset 0 0 142px -84px rgba($primary, 0.8);
     }
 
@@ -31,8 +27,18 @@ ul.nav-menu {
     a:visited,
     a:active,
     a:focus {
+      height: 100%;
+      display: inline-block;
       text-decoration: none;
       color: #fff;
+      padding-left: 8px;
+      padding-right: 8px;
+      margin-left: 8px;
+      margin-right: 8px;
+
+      &.active {
+        box-shadow: inset 0 0 142px -84px rgba($primary_light, 0.8);
+      }
     }
   }
 }
