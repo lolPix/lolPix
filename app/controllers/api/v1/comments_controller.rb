@@ -1,24 +1,20 @@
 module Api
   module V1
-    class CommentsController < ApplicationController
-      before_action :set_comment, only: [:show, :update, :destroy]
+    class CommentsController < ActionController::API
+      before_action :set_comment, only: %i[show update destroy]
 
       # GET /comments/<postId>
       # GET /comments.json
       def index
         @post = Post.find(params[:post_id])
         @comments = @post.comments
-        respond_to do |format|
-          format.all { render json: @comments }
-        end
+        render json: @comments
       end
 
       # GET /comments/1
       # GET /comments/1.json
       def show
-        respond_to do |format|
-          format.all { render json: @comment }
-        end
+        render json: @comment
       end
 
       # POST /comments
@@ -26,33 +22,28 @@ module Api
       def create
         @comment = Comment.new(comment_params)
 
-        respond_to do |format|
-          if @comment.save
-            format.all { render json: @comment, status: :created, location: @comment }
-          else
-            format.all { render json: @comment.errors, status: :unprocessable_entity }
-          end
+        if @comment.save
+          render json: @comment, status: :created
+        else
+          render json: @comment.errors, status: :unprocessable_entity
         end
       end
 
       # PATCH/PUT /comments/1
       # PATCH/PUT /comments/1.json
       def update
-        respond_to do |format|
-          if @comment.update(comment_params)
-            format.all { render json: @comment, status: :ok, location: @comment }
-          else
-            format.all { render json: @comment.errors, status: :unprocessable_entity }
-          end
+
+        if @comment.update(comment_params)
+          render json: @comment, status: :ok
+        else
+          render json: @comment.errors, status: :unprocessable_entity
         end
       end
 
       # DELETE /comments/1
       def destroy
         @comment.destroy
-        respond_to do |format|
-          format.all { head :no_content }
-        end
+        head :no_content
       end
 
       private
@@ -65,7 +56,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def comment_params
-        params.require(:comment).permit(:content)
+        params.require(:comment).permit(:content, :post_id, :user_id, :parent_id)
       end
     end
   end

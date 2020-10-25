@@ -50,6 +50,7 @@ en:
     footer:
       logout: logout
     form:
+      comment: "Your comment here..."
       alt_text: Image description
       bio: Bio
       categories:
