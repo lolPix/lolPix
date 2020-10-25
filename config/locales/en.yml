@@ -20,6 +20,7 @@ en:
     registration: Registration...
     warning:
       no_next_link_found: No 'next page‘ link found. Assuming end of content!
+    got_comments: "Got comments: "
   error:
     alt_text_required: Alt Text is required!
     alt_text_too_short: Alt Text must be longer than 8 chars!

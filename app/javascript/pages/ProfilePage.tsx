@@ -7,6 +7,7 @@ import Loader from "../base/Loader";
 import PostFeed from "../components/PostFeed";
 import defaultPicture from "../../assets/images/logo_grey.svg";
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
+import CommentFeed from "../components/CommentFeed";
 
 type Props = {
     account: User | undefined;
@@ -69,14 +70,10 @@ const ProfilePage: FunctionComponent<Props> = ({account}: Props) => {
                     <PostFeed onlyForUser={user} account={user} sort={'best'}/>
                 </TabPanel>
                 <TabPanel>
-                    <p className="todo">
-                        Comments are not yet implemented.
-                    </p>
+                    <CommentFeed onlyForUser={user} account={user} sort={'new'}/>
                 </TabPanel>
                 <TabPanel>
-                    <p className="todo">
-                        Comments are not yet implemented.
-                    </p>
+                    <CommentFeed onlyForUser={user} account={user} sort={'best'}/>
                 </TabPanel>
             </Tabs>
         </div>

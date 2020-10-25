@@ -1,3 +1,6 @@
+/* Please don't put any rules in here.
+   Create a new file and import it.    */
+
 @import "variables"; // this should come first
 @import "layout";
 @import "logo";
@@ -11,6 +14,7 @@
 @import "components/reactions-form";
 @import "components/comment-form";
 @import "components/comment-list";
+@import "components/comment-widget";
 @import "components/comment_reaction-form";
 @import "loader";
 @import "login";
@@ -18,4 +22,3 @@
 @import "new_post";
 @import "post-page";
 @import "profile-page";
-

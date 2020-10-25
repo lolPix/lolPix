@@ -1,0 +1,18 @@
+@import "../variables";
+
+div.comment-widget {
+  width: $comment-width;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  div.content {
+    span {
+      display: block;
+    }
+    span.meta {
+      color: $secondary_text;
+    }
+  }
+}

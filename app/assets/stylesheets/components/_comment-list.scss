@@ -5,18 +5,8 @@ ul.comment-list {
   padding: 24px;
 
   li {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-
-    div.content {
-      span {
-        display: block;
-      }
-      span.meta {
-        color: $secondary_text;
-      }
+    div.comment-widget {
+      width: 100%;
     }
   }
 }

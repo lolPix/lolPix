@@ -1,6 +1,6 @@
 import User from "./user";
 import Reaction from "./reaction";
-import LComment from "./LComment";
+import LolPixComment from "./LolPixComment";
 
 type PostCategory =
     0 | // memes
@@ -17,5 +17,5 @@ export default class Post {
     alt_text: string;
     category: PostCategory;
     reactions: Reaction[];
-    comments: LComment[];
+    comments: LolPixComment[];
 }

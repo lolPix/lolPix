@@ -4,12 +4,12 @@ import I18n from "i18n-js";
 import {Form, Formik} from "formik";
 import Api from "../../base/Api";
 import User from "../../model/user";
-import LComment from "../../model/LComment";
+import LolPixComment from "../../model/LolPixComment";
 
 type Props = {
     post: Post,
     account: User,
-    parent?: LComment | undefined,
+    parent?: LolPixComment | undefined,
     refreshPost: () => void,
 }
 
@@ -20,7 +20,7 @@ type FormValues = {
     user_id: number,
 }
 
-function getParentId(parent: LComment): number {
+function getParentId(parent: LolPixComment): number {
     if (parent !== undefined) {
         return parent.id;
     }

@@ -1,14 +1,24 @@
+# frozen_string_literal: true
+
 module Api
   module V1
+    # A controller for comments.
     class CommentsController < ActionController::API
       before_action :set_comment, only: %i[show update destroy]
 
-      # GET /comments/<postId>
+      # GET /comments
       # GET /comments.json
       def index
-        @post = Post.find(params[:post_id])
-        @comments = @post.comments
-        render json: @comments
+        if params.key?(:username)
+          user = User.find_by_username(params[:username])
+          return render head :no_content unless user
+
+          comments = Comment.authored_by(user)
+        else
+          comments = Comment.all
+        end
+
+        paginate sort_comments(params, comments), per_page: 15
       end
 
       # GET /comments/1
@@ -32,7 +42,6 @@ module Api
       # PATCH/PUT /comments/1
       # PATCH/PUT /comments/1.json
       def update
-
         if @comment.update(comment_params)
           render json: @comment, status: :ok
         else
@@ -47,6 +56,19 @@ module Api
       end
 
       private
+
+      def sort_comments(params, comments)
+        case params[:sort]
+        when 'best'
+          comments.best_first
+        when 'worst'
+          comments.worst_first
+        when 'old'
+          comments.oldest_first
+        else
+          comments.newest_first
+        end
+      end
 
       # Use callbacks to share common setup or constraints between actions.
       def set_comment

@@ -1,7 +1,7 @@
 import User from "./user";
 import CommentReaction from "./CommentReaction";
 
-export default class LComment {
+export default class LolPixComment {
     id: number;
     user: User;
     post_id: string;

@@ -3,12 +3,12 @@ import I18n from "i18n-js";
 import {Form, Formik} from "formik";
 import Api from "../../base/Api";
 import User from "../../model/user";
-import LComment from "../../model/LComment";
+import LolPixComment from "../../model/LolPixComment";
 
 type Props = {
-    comment: LComment,
+    comment: LolPixComment,
     account: User,
-    refreshPost: () => void,
+    refreshPost?: () => void | undefined,
 }
 
 type FormValues = {
@@ -17,12 +17,12 @@ type FormValues = {
     user_id: number,
 }
 
-function calculateScore(comment: LComment) {
+function calculateScore(comment: LolPixComment) {
     return comment.reactions.filter(r => r.positive).length
         - comment.reactions.filter(r => !r.positive).length;
 }
 
-function alreadyReacted(comment: LComment, account: User) {
+function alreadyReacted(comment: LolPixComment, account: User) {
     return comment.reactions.filter(r => {
         return r.user_id === account.id && r.comment_id === comment.id;
     }).length > 0;
@@ -50,7 +50,7 @@ const CommentReactionsForm: FunctionComponent<Props> = ({comment, account, refre
                             res.json().then(
                                 json => {
                                     if (!json.error && json.id) {
-                                        refreshPost();
+                                        {refreshPost && refreshPost()}
                                     } else {
                                         console.error('Error: ' + json.error); // TODO: error handling
                                     }
