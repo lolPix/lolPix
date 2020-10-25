@@ -20,7 +20,7 @@ module Api
       # POST /reactions
       # POST /reactions.json
       def create
-        @reaction = Reaction.new(reaction_params)
+        @reaction = CommentReaction.new(reaction_params)
 
         if @reaction.save
           render json: @reaction, status: :created
@@ -49,12 +49,12 @@ module Api
 
       # Use callbacks to share common setup or constraints between actions.
       def set_reaction
-        @reaction = Reaction.find(params[:id])
+        @reaction = CommentReaction.find(params[:id])
       end
 
       # Only allow a list of trusted parameters through.
       def reaction_params
-        params.require(:reaction).permit(:user_id, :comment_id, :positive)
+        params.require(:comment_reaction).permit(:user_id, :comment_id, :positive)
       end
     end
   end
