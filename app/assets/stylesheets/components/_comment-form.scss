@@ -1,0 +1,18 @@
+@import "../variables";
+
+form#comment-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  padding: 24px;
+
+  textarea#content {
+    width: 100%;
+    padding-right: 0;
+  }
+  button {
+
+  }
+}

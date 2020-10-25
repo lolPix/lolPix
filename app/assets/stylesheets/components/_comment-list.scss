@@ -1,0 +1,12 @@
+@import "../variables";
+
+ul.comment-list {
+  list-style-type: none;
+  padding: 24px;
+
+  li {
+    div.comment-widget {
+      width: 100%;
+    }
+  }
+}

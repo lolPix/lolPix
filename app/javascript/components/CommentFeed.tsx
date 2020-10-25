@@ -1,46 +1,41 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
 import Api from "../base/Api";
 import I18n from "i18n-js";
-import PostWidget from "./PostWidget";
 import Loader from "../base/Loader";
 import User from "../model/user";
+import CommentWidget from "./CommentWidget";
 
 type Props = {
     account: User,
     onlyForUser?: User,
     sort?: "best" | "new",
-    only?: "memes" | "fails" | "gifs"
 }
 
 function generatePath(onlyForUser: User | undefined,
-                      sort: "best" | "new" | undefined,
-                      only: "memes" | "fails" | "gifs" | undefined) {
-    let path = '/posts?';
+                      sort: "best" | "new" | undefined) {
+    let path = '/comments?';
     if (onlyForUser !== undefined) {
         path += '&username=' + onlyForUser.username;
     }
     if (sort !== undefined) {
         path += '&sort=' + sort;
     }
-    if (only !== undefined) {
-        path += '&only=' + only;
-    }
     return path;
 }
 
-const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: Props) => {
+const CommentFeed: FunctionComponent<Props> = ({account, onlyForUser, sort}: Props) => {
     const [loading, setLoading] = useState(true);
-    const [posts, setPosts] = useState([]);
+    const [comments, setComments] = useState([]);
 
     useEffect(() => {
         setLoading(true);
-        Api({path: generatePath(onlyForUser, sort, only)}).then(
+        Api({path: generatePath(onlyForUser, sort)}).then(
             res => {
                 if (res.status === 200) {
                     res.json().then(
                         json => {
                             if (json && json[0]) {
-                                console.log(I18n.t('console.got_posts') + JSON.stringify(json));
+                                console.log(I18n.t('console.got_comments') + JSON.stringify(json));
                                 const nextPageLinkMatch = res.headers.get('Link').match(/<([^<>]*)>; rel="next"/)
                                 if (nextPageLinkMatch && nextPageLinkMatch[1]) {
                                     const nextPageLink = nextPageLinkMatch[1];
@@ -48,7 +43,7 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: 
                                 } else {
                                     console.log(I18n.t('console.warning.no_next_link_found'))
                                 }
-                                setPosts(json);
+                                setComments(json);
                             } else {
                                 console.error(I18n.t('console.error') + ' Unknown JSON returned: ' + JSON.stringify(json)) // TODO: error handling
                             }
@@ -67,12 +62,12 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: 
 
     return (
         (loading && <Loader/>) ||
-        (posts.length &&
+        (comments.length &&
             <ul className={'post-feed'}>
-                {posts.map((p, k) => {
+                {comments.map((c, k) => {
                     return (
                         <li key={k}>
-                            <PostWidget showComments={false} showLinks={true} account={account} post={p}/>
+                            <CommentWidget account={account} comment={c} />
                         </li>
                     );
                 })}
@@ -80,4 +75,4 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: 
     );
 };
 
-export default PostFeed;
+export default CommentFeed;

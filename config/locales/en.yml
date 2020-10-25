@@ -6,6 +6,7 @@ en:
     fetching_api: 'Fetching: "'
     foo: Foo
     found_next_link: 'Found ''next page'' link: '
+    got_comments: 'Got comments: '
     got_posts: 'Got posts: '
     loaded_post: 'Loaded post: '
     loaded_user: 'Loaded user: '
@@ -47,6 +48,11 @@ en:
     alt_logo: lolPix Logo
     alt_profile_picture_for: Profile picture for
   ui:
+    comment:
+      by: by
+      reaction:
+        negative: "\U0001F44E"
+        positive: "\U0001F44D"
     footer:
       logout: logout
     form:
@@ -57,6 +63,7 @@ en:
         gif: GIF
         meme: Meme
       category: Category
+      comment: Your comment here...
       email: E-Mail
       password: Password
       profile_picture: Profile Picture
