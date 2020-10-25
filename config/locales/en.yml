@@ -6,6 +6,7 @@ en:
     fetching_api: 'Fetching: "'
     foo: Foo
     found_next_link: 'Found ''next page'' link: '
+    got_comments: 'Got comments: '
     got_posts: 'Got posts: '
     loaded_post: 'Loaded post: '
     loaded_user: 'Loaded user: '
@@ -20,7 +21,6 @@ en:
     registration: Registration...
     warning:
       no_next_link_found: No 'next page‘ link found. Assuming end of content!
-    got_comments: "Got comments: "
   error:
     alt_text_required: Alt Text is required!
     alt_text_too_short: Alt Text must be longer than 8 chars!
@@ -48,10 +48,14 @@ en:
     alt_logo: lolPix Logo
     alt_profile_picture_for: Profile picture for
   ui:
+    comment:
+      by: by
+      reaction:
+        negative: "\U0001F44E"
+        positive: "\U0001F44D"
     footer:
       logout: logout
     form:
-      comment: "Your comment here..."
       alt_text: Image description
       bio: Bio
       categories:
@@ -59,6 +63,7 @@ en:
         gif: GIF
         meme: Meme
       category: Category
+      comment: Your comment here...
       email: E-Mail
       password: Password
       profile_picture: Profile Picture
@@ -94,11 +99,6 @@ en:
       newest: "\U0001F4F0 New"
       top: "\U0001F4C8 Best"
     post:
-      by: by
-      reaction:
-        negative: "\U0001F44E"
-        positive: "\U0001F44D"
-    comment:
       by: by
       reaction:
         negative: "\U0001F44E"
