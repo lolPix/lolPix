@@ -47,6 +47,8 @@ en:
     alt_logo: lolPix Logo
     alt_profile_picture_for: Profile picture for
   ui:
+    footer:
+      logout: logout
     form:
       alt_text: Image description
       bio: Bio

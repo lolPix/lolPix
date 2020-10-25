@@ -7,4 +7,25 @@
   flex-shrink: 0;
   margin: 16px 0 0;
   padding-bottom: 16px;
+  color: $primary_text;
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  p.secondary {
+    font-size: 14px;
+    color: $secondary_text;
+    margin-top: 4px;
+
+    a,
+    a:hover,
+    a:visited,
+    a:active {
+      color: $secondary_text;
+      text-decoration: none;
+      border-bottom: 1px dotted $secondary_text;
+    }
+  }
 }
