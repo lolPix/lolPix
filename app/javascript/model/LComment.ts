@@ -3,7 +3,7 @@ import Reaction from "./reaction";
 
 export default class LComment {
     id: number;
-    user_id: User;
+    user: User;
     post_id: string;
     created_at: string;
     content: string;

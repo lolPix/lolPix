@@ -9,7 +9,7 @@ import LComment from "../../model/LComment";
 type Props = {
     post: Post,
     account: User,
-    parent: LComment | undefined,
+    parent?: LComment | undefined,
     refreshPost: () => void,
 }
 

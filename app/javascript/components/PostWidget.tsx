@@ -7,6 +7,7 @@ import ReactionsForm from "./form/ReactionsForm";
 import User from "../model/user";
 import Api from "../base/Api";
 import CommentForm from "./form/CommentForm";
+import CommentList from "./CommentList";
 
 type Props = {
     post: Post,
@@ -60,6 +61,7 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false}
                     <ReactionsForm refreshPost={refreshPost} account={account} post={statePost}/>
                 </div>
                 <CommentForm account={account} post={statePost} refreshPost={refreshPost} />
+                {post.comments && <CommentList account={account} post={statePost} refreshPost={refreshPost} />}
             </div>
         </div>
     );
