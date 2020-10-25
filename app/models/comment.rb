@@ -9,8 +9,11 @@ class Comment < ApplicationRecord
 
   def as_json(options = {})
     ActiveStorage::Current.set(host: LolPix::Application.get_host_value) do
-      confidential_fields = %i[updated_at user_id]
-      enriched_values = {user: User.find(user_id)}
+      confidential_fields = %i[updated_at user_id comment_reaction_ids]
+      enriched_values = {
+          user: User.find(user_id),
+          reactions: CommentReaction.find(comment_reaction_ids)
+      }
       super(options.merge({except: confidential_fields})).merge(enriched_values)
     end
   end

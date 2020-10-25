@@ -97,6 +97,11 @@ en:
       reaction:
         negative: "\U0001F44E"
         positive: "\U0001F44D"
+    comment:
+      by: by
+      reaction:
+        negative: "\U0001F44E"
+        positive: "\U0001F44D"
     profile:
       alt_profile_picture_for: 'Profile picture for '
       comments:

@@ -1,5 +1,5 @@
 import User from "./user";
-import Reaction from "./reaction";
+import CommentReaction from "./CommentReaction";
 
 export default class LComment {
     id: number;
@@ -7,6 +7,6 @@ export default class LComment {
     post_id: string;
     created_at: string;
     content: string;
-    reactions: Reaction[];
+    reactions: CommentReaction[];
     replies: number[];
 }
