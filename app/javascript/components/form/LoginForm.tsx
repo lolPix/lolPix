@@ -10,7 +10,7 @@ function emailInvalid(email: string): boolean {
 const LoginForm: FunctionComponent = () => {
     const [loginError, setLoginError] = useState(undefined);
     return (<div id={'login-form'}>
-            <h1>{I18n.t('ui.heading.login')}</h1>
+            <h1 className={'page-heading'}>{I18n.t('ui.heading.login')}</h1>
 
             <Formik
                 initialValues={{email: '', password: ''}}

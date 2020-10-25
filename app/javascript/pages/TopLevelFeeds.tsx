@@ -15,7 +15,7 @@ function assureAuthenticated(account: User | undefined, content: JSX.Element) {
 export const TopPage: FunctionComponent<Props> = ({account}: Props) => {
     return assureAuthenticated(account, (
         <>
-            <h1>{I18n.t('ui.heading.top_posts')}</h1>
+            <h1 className={'page-heading'}>{I18n.t('ui.heading.top_posts')}</h1>
             <PostFeed account={account} sort={'best'} />
         </>
     ));
@@ -24,7 +24,7 @@ export const TopPage: FunctionComponent<Props> = ({account}: Props) => {
 export const NewestPage: FunctionComponent<Props> = ({account}: Props) => {
     return assureAuthenticated(account, (
         <>
-            <h1>{I18n.t('ui.heading.newest_posts')}</h1>
+            <h1 className={'page-heading'}>{I18n.t('ui.heading.newest_posts')}</h1>
             <PostFeed account={account} sort={'new'} />
         </>
     ));
@@ -33,7 +33,7 @@ export const NewestPage: FunctionComponent<Props> = ({account}: Props) => {
 export const MemesPage: FunctionComponent<Props> = ({account}: Props) => {
     return assureAuthenticated(account, (
         <>
-            <h1>{I18n.t('ui.heading.newest_memes')}</h1>
+            <h1 className={'page-heading'}>{I18n.t('ui.heading.newest_memes')}</h1>
             <PostFeed account={account} only={'memes'} />
         </>
     ));
@@ -42,7 +42,7 @@ export const MemesPage: FunctionComponent<Props> = ({account}: Props) => {
 export const FailsPage: FunctionComponent<Props> = ({account}: Props) => {
     return assureAuthenticated(account, (
         <>
-            <h1>{I18n.t('ui.heading.newest_fails')}</h1>
+            <h1 className={'page-heading'}>{I18n.t('ui.heading.newest_fails')}</h1>
             <PostFeed account={account} only={'fails'} />
         </>
     ));
@@ -50,7 +50,7 @@ export const FailsPage: FunctionComponent<Props> = ({account}: Props) => {
 export const GIFsPage: FunctionComponent<Props> = ({account}: Props) => {
     return assureAuthenticated(account, (
         <>
-            <h1>{I18n.t('ui.heading.newest_gifs')}</h1>
+            <h1 className={'page-heading'}>{I18n.t('ui.heading.newest_gifs')}</h1>
             <PostFeed account={account} only={'gifs'} />
         </>
     ));

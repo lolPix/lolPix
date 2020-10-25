@@ -35,7 +35,7 @@ function buildFormData(values: FormValues, account: User): FormData {
 const NewPostForm: FunctionComponent<Props> = ({account}: Props) => {
     const [uploadError, setUploadError] = useState(undefined);
     return (<div id={'new-post-form'}>
-            <h1>{I18n.t('ui.heading.new_post')}</h1>
+            <h1 className={'page-heading'}>{I18n.t('ui.heading.new_post')}</h1>
 
             <Formik
                 initialValues={{title: '', alt_text: '', image: undefined, category: undefined}}
