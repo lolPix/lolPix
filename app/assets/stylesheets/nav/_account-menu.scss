@@ -15,16 +15,29 @@
 
   height: 100%;
 
+  user-select: none;
+
   .top {
     cursor: pointer;
     line-height: $navbar-height;
     vertical-align: middle;
+    padding-right: 32px;
 
     img {
       height: $profile-pic-size;
       width: $profile-pic-size;
       margin-right: 8px;
     }
+    span::after {
+      margin-left: 8px;
+      font-family: monospace;
+      display: inline-block;
+      content: ' \2303';
+    }
+  }
+
+  &:not(.active) .top span::after {
+    content: ' \2304';
   }
 
   ul.account-menu__menu {
@@ -54,8 +67,8 @@
         text-decoration: none;
         width: 100%;
         text-align: center;
-        margin-top: 8px;
-        margin-bottom: 8px;
+        line-height: 32px;
+        font-size: 16px;
       }
 
       &:hover {
