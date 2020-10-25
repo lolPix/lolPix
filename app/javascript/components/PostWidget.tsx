@@ -12,10 +12,11 @@ import CommentList from "./CommentList";
 type Props = {
     post: Post,
     account: User,
-    showLinks?: boolean
+    showLinks?: boolean,
+    showComments?: boolean
 }
 
-const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false}: Props) => {
+const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false, showComments = true}: Props) => {
     const [statePost, setStatePost] = useState(post);
 
     const refreshPost = () => {
@@ -60,8 +61,8 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false}
                     </p>
                     <ReactionsForm refreshPost={refreshPost} account={account} post={statePost}/>
                 </div>
-                <CommentForm account={account} post={statePost} refreshPost={refreshPost} />
-                {post.comments && <CommentList account={account} post={statePost} refreshPost={refreshPost} />}
+                {showComments && <CommentForm account={account} post={statePost} refreshPost={refreshPost} />}
+                {(showComments && post.comments) && <CommentList account={account} post={statePost} refreshPost={refreshPost} />}
             </div>
         </div>
     );

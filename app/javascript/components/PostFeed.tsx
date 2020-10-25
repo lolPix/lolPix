@@ -72,7 +72,7 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: 
                 {posts.map((p, k) => {
                     return (
                         <li key={k}>
-                            <PostWidget showLinks={true} account={account} post={p}/>
+                            <PostWidget showComments={false} showLinks={true} account={account} post={p}/>
                         </li>
                     );
                 })}
