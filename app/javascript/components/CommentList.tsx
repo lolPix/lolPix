@@ -19,14 +19,16 @@ const CommentList: FunctionComponent<Props> = ({post, account, refreshPost}: Pro
         const commentDateFn = parseISO(c.created_at);
         return (
             <li key={k}>
-                <span className={'content'}>{c.content}</span>
-                <span className={'meta'}>
+                <div className="content">
+                    <span>{c.content}</span>
+                    <span className={'meta'}>
                     <abbr title={formatRFC7231(commentDateFn)} className={'date'}>
                         {formatDistanceToNow(commentDateFn, {addSuffix: true})}
                     </abbr>
-                    &nbsp;{I18n.t('ui.comment.by')}&nbsp;
-                    <Link to={'/user/' + c.user.username} className={'user'}>{c.user.username}</Link>
+                        &nbsp;{I18n.t('ui.comment.by')}&nbsp;
+                        <Link to={'/user/' + c.user.username} className={'user'}>{c.user.username}</Link>
                 </span>
+                </div>
                 <CommentReactionsForm refreshPost={refreshPost} account={account} comment={c}/>
             </li>
         );

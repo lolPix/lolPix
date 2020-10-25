@@ -78,7 +78,7 @@ const CommentReactionsForm: FunctionComponent<Props> = ({comment, account, refre
                   /* and other goodies */
               }) => (
 
-                <Form onSubmit={handleSubmit} id={'reactions-form'}>
+                <Form onSubmit={handleSubmit} id={'comment_reactions-form'}>
                     <button className={'reaction-button'} role={'button'}
                             onClick={() => {
                                 setFieldValue("positive", true);
