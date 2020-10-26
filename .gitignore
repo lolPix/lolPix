@@ -48,3 +48,5 @@ yarn-debug.log*
 !/storage.keep
 
 .env
+
+config/credentials.yml.enc
