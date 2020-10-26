@@ -7,7 +7,7 @@ Type=simple
 User=lolpix
 WorkingDirectory=/home/lolpix/lolPix
 Environment="RAILS_ENV=production"
-Environment="PORT=3001"
+Environment="PORT=3030"
 ExecStart=/home/lolpix/.rbenv/shims/bundle exec puma -C config/puma.rb
 ExecReload=/bin/kill -SIGUSR1 $MAINPID
 TimeoutSec=15
