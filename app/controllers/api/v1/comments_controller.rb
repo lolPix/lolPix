@@ -11,7 +11,7 @@ module Api
       def index
         if params.key?(:username)
           user = User.find_by_username(params[:username])
-          return render head :no_content unless user
+          return render head :no_content && return unless user
 
           comments = Comment.authored_by(user)
         else
