@@ -12,13 +12,15 @@ Before running, copy `.env.example` to `.env` and configure according to your se
 After running, the server runs at `http://localhost:3000`.
 There is a rudimentary start page at `/` and an API for posts at `/api/v1/posts`.
 
-## Things left to cover in this README (ie. TODO)
-* Ruby version
-* System dependencies
-* Configuration
-* Database creation
-* Database initialization
-* How to run the test suite
-* Services (job queues, cache servers, search engines, etc.)
-* Deployment instructions
-* ...
+## Deploying lolPix
+
+You need a server running Linux.
+
+1. Create a new user: `adduser lolpix`
+2. Clone the repo (as the new user): `git clone https://github.com/lolPix/lolPix.git ~/lolPix`
+3. Install and configure redis
+    - Redis should only listen on `localhost:6379`
+    - TODO: Add link to docs
+4. Install and configure PostgreSQL
+    - TODO: Add link to docs
+    - Use pgTune to better fit the PostgreSQL config to your setup
