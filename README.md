@@ -21,7 +21,9 @@ There is a rudimentary start page at `/` and an API for posts at `/api/v1/posts`
 
 You need a server running Linux.
 
-1. Create a new user: `adduser lolpix`
+Dependencies for Ubuntu: `libidn11-dev libicu-dev libjemalloc-dev libreadline-dev zlib1g-dev yarn node libsqlite3-dev postgresql-server-dev-11`
+
+1. Create a new user: `adduser --disabled-login lolpix`
 2. Clone the repo (as the new user): `git clone https://github.com/lolPix/lolPix.git ~/lolPix`
 3. Install and configure redis
     - Redis should only listen on `localhost:6379`
@@ -32,9 +34,11 @@ You need a server running Linux.
 5. Install dependencies
     - Ruby: `bundle install`
     - JS: `yarn install --pure-lockfile`
-6. Setup the DB
-    1. Create it: `bundle exec rails db:create`
-    2. Run migrations: `bundle exec rails db:migrate`
-    3. Create initial data: `bundle exec rails db:seed`
-7. Copy the templates from `/dist` to their corresponding places
+6. Update `.env` to fit your setup    
+7. Rails stuff: `EDITOR="nano" rails credentials:edit`
+8. Setup the DB
+    1. Create it: `RAILS_ENV=production bundle exec rails db:create`
+    2. Run migrations: `RAILS_ENV=production bundle exec rails db:migrate`
+    3. Create initial data: `bundle exec rails db:seed` (maybe not in production 🙈)
+9. Copy the templates from `/dist` to their corresponding places
     - TODO: Add more detail regarding systemd and nginx config
