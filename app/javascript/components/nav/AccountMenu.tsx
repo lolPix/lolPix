@@ -11,6 +11,32 @@ type Props = {
 const AccountMenu: FunctionComponent<Props> = ({account}: Props) => {
     const [active, setActive] = useState(false);
 
+    const listener = () => {
+        closeMenu();
+    };
+
+    function closeMenu() {
+        setActive(false);
+        setTimeout(() => {
+            document.removeEventListener('click', listener);
+        }, 200);
+    }
+
+    function openMenu() {
+        setActive(true);
+        setTimeout(() => {
+            document.addEventListener('click', listener);
+        }, 200);
+    }
+
+    function toggleMenu() {
+        if (!active) {
+            openMenu();
+        } else {
+            closeMenu()
+        }
+    }
+
     const unauthenticatedMenu = <ul className={'account-menu__menu'}>
         <li>
             <Link to={'/login'}>{I18n.t('ui.nav.account.login')}</Link>
@@ -22,11 +48,7 @@ const AccountMenu: FunctionComponent<Props> = ({account}: Props) => {
 
     return (
         <div className={'account-menu' + (active ? ' active' : '')}>
-            <div className={'top'} onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setActive(!active);
-            }}>
+            <div className={'top'} onClick={toggleMenu}>
                 {(account && <>
                     {account.image && <img src={account.image} alt={I18n.t('nav.alt_profile_picture_for') + ' ' + account.username}/>
                     || <img src={defaultPicture} alt={I18n.t('error.no_image_found')} />}
