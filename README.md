@@ -9,6 +9,11 @@ The project can be imported using RubyMine which will automatically detect run c
 
 Before running, copy `.env.example` to `.env` and configure according to your setup.
 
+You also need to start a postgres DB. This can easily be done using Docker:
+```shell script
+docker run -d -v "$(pwd)/data:/docker-entrypoint-initdb.d" -p 5432:5432 -e POSTGRES_PASSWORD=changemepls --name=lolpixpg postgres:alpine
+```
+
 After running, the server runs at `http://localhost:3000`.
 There is a rudimentary start page at `/` and an API for posts at `/api/v1/posts`.
 
@@ -31,3 +36,5 @@ You need a server running Linux.
     1. Create it: `bundle exec rails db:create`
     2. Run migrations: `bundle exec rails db:migrate`
     3. Create initial data: `bundle exec rails db:seed`
+7. Copy the templates from `/dist` to their corresponding places
+    - TODO: Add more detail regarding systemd and nginx config
