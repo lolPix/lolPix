@@ -17,6 +17,19 @@ type Props = {
     showComments?: boolean
 }
 
+function getCategoryString(post: Post): string | undefined {
+    switch (post.category) {
+        case 0:
+            return I18n.t('ui.post.category.meme');
+        case 1:
+            return I18n.t('ui.post.category.fail');
+        case 2:
+            return I18n.t('ui.post.category.gif');
+        default:
+            return undefined;
+    }
+}
+
 const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false, showComments = true}: Props) => {
     const [statePost, setStatePost] = useState(post);
 
@@ -52,6 +65,7 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false,
                 {showLinks && <Link to={'/post/' + statePost.id}>{postImage}</Link> || postImage}
                 <div className="meta">
                     <p>
+                        <span>{getCategoryString(post) + I18n.t('ui.post.date-prefix')}</span>
                         <abbr title={formatRFC7231(postDateFn)} className={'date'}>
                             {formatDistanceToNow(postDateFn, {addSuffix: true})}
                         </abbr>
