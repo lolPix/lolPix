@@ -15,7 +15,7 @@ const PostPage: FunctionComponent<Props> = (props: Props) => {
     const {postId} = useParams();
 
     useEffect(() => {
-        Api({path: '/posts/' + postId}).then(
+        Api({path: '/posts/' + encodeURIComponent(postId)}).then(
             res => {
                 if (res.status === 200) {
                     res.json().then(

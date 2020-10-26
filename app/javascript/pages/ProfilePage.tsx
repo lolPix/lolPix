@@ -18,7 +18,7 @@ const ProfilePage: FunctionComponent<Props> = ({account}: Props) => {
     const [user, setUser] = useState<User>(undefined);
 
     useEffect(() => {
-        Api({path: '/users/' + username}).then(
+        Api({path: '/users/' + encodeURIComponent(username)}).then(
             res => {
                 if (res.status === 200) {
                     res.json().then(

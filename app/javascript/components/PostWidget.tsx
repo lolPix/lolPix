@@ -21,7 +21,7 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false,
     const [statePost, setStatePost] = useState(post);
 
     const refreshPost = () => {
-        Api({path: '/posts/' + statePost.id}).then(
+        Api({path: '/posts/' + encodeURIComponent(statePost.id)}).then(
             res => {
                 if (res.status === 200) {
                     res.json().then(

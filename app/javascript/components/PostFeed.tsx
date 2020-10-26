@@ -17,7 +17,7 @@ function generatePath(onlyForUser: User | undefined,
                       only: "memes" | "fails" | "gifs" | undefined) {
     let path = '/posts?';
     if (onlyForUser !== undefined) {
-        path += '&username=' + onlyForUser.username;
+        path += '&username=' + encodeURIComponent(onlyForUser.username);
     }
     if (sort !== undefined) {
         path += '&sort=' + sort;
