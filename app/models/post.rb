@@ -27,7 +27,7 @@ class Post < ApplicationRecord
   scope :memes, -> { where(category: 0) }
   scope :fails, -> { where(category: 1) }
   scope :gifs, -> { where(category: 2) }
-  scope :authored_by, ->(user) { where('posts.user_id == ?', user.id) }
+  scope :authored_by, ->(user) { where('posts.user_id = ?', user.id) }
   scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :desc) }
   scope :best_first, lambda {
