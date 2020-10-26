@@ -1,0 +1,44 @@
+@import "../variables";
+
+div.post-context-menu {
+  display: inline-block;
+
+  button.toggle {
+    background-color: transparent;
+    padding: 8px;
+    border: 1px solid $primary_dark;
+    border-radius: 5px;
+    font-size: 18px;
+    height: 40px;
+    width: 40px;
+  }
+
+  div.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    z-index: 15;
+    background-color: $primary_light;
+    border: 1px solid $primary_dark;
+
+    button {
+      background-color: transparent;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+
+      &:hover {
+        background-color: $primary_lighter;
+      }
+
+      &:not(:first-child) {
+        margin-top: 8px;
+      }
+    }
+  }
+}

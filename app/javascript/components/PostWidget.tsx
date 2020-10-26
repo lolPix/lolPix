@@ -8,6 +8,7 @@ import User from "../model/user";
 import Api from "../base/Api";
 import CommentForm from "./form/CommentForm";
 import CommentList from "./CommentList";
+import PostContextMenu from "./PostContextMenu";
 
 type Props = {
     post: Post,
@@ -46,7 +47,7 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false,
     const postImage = <img src={statePost.image} alt={statePost.alt_text}/>;
     return (
         <div className={'post-widget'}>
-            <h2 className={'title'}>{statePost.title}</h2>
+            <h2 className={'title'}>{statePost.title}<PostContextMenu account={account} post={post} /></h2>
             <div className="content">
                 {showLinks && <Link to={'/post/' + statePost.id}>{postImage}</Link> || postImage}
                 <div className="meta">

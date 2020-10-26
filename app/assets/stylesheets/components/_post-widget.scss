@@ -18,6 +18,15 @@ div.post-widget {
     text-align: center;
     margin: 0;
     padding: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 24px;
+
+    .post-context-menu {
+      margin-right: 16px;
+    }
   }
 
   .content {
