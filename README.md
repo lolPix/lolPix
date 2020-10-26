@@ -42,3 +42,5 @@ Dependencies for Ubuntu: `libidn11-dev libicu-dev libjemalloc-dev libreadline-de
     3. Create initial data: `bundle exec rails db:seed` (maybe not in production 🙈)
 9. Copy the templates from `/dist` to their corresponding places
     - TODO: Add more detail regarding systemd and nginx config
+10. Precompile assets: `RAILS_ENV=production bundle exec rails assets:precompile`
+
