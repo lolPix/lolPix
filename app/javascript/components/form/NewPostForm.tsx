@@ -105,6 +105,10 @@ const NewPostForm: FunctionComponent<Props> = ({account}: Props) => {
                   }) => (
 
                     <Form onSubmit={handleSubmit}>
+                        <label htmlFor="image">{I18n.t('ui.form.picture')}</label>
+                        <input id="image" accept="image/*" name="image" type="file" onChange={(event) => {
+                            setFieldValue("image", event.currentTarget.files[0]);
+                        }}/>
                         <label htmlFor="title">{I18n.t('ui.form.title')}</label>
                         <input
                             type="text"
@@ -138,12 +142,6 @@ const NewPostForm: FunctionComponent<Props> = ({account}: Props) => {
                                 {I18n.t('ui.form.categories.gif')}
                             </label>
                         </div>
-
-                        <label htmlFor="image">{I18n.t('ui.form.picture')}</label>
-                        <input id="image" accept="image/*" name="image" type="file" onChange={(event) => {
-                            setFieldValue("image", event.currentTarget.files[0]);
-                        }}/>
-
                         <ul className="errors">
                             {errors.title && touched.title && <li>{errors.title}</li>}
                             {errors.image && touched.image && <li>{errors.image}</li>}
