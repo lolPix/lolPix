@@ -14,7 +14,7 @@ You also need to start a postgres DB. This can easily be done using Docker:
 docker run -d -v "$(pwd)/data:/docker-entrypoint-initdb.d" -p 5432:5432 -e POSTGRES_PASSWORD=changemepls --name=lolpixpg postgres:alpine
 ```
 
-After running, the server runs at `http://localhost:3000`.
+After running, the server runs at `http://localhost:3001`.
 There is a rudimentary start page at `/` and an API for posts at `/api/v1/posts`.
 
 ## Deploying lolPix
