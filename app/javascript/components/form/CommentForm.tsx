@@ -38,7 +38,7 @@ const CommentForm: FunctionComponent<Props> = ({post, account, parent, refreshPo
             initialValues={initialValues}
             validate={() => ({})}
 
-            onSubmit={(values, {setSubmitting}) => {
+            onSubmit={(values, {setSubmitting, resetForm}) => {
                 console.log(I18n.t('console.reacting'));
                 setSubmitting(true);
                 Api({
@@ -54,6 +54,7 @@ const CommentForm: FunctionComponent<Props> = ({post, account, parent, refreshPo
                             res.json().then(
                                 json => {
                                     if (!json.error && json.id) {
+                                        resetForm();
                                         refreshPost();
                                     } else {
                                         console.error('Error: ' + json.error); // TODO: error handling
