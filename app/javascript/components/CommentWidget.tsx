@@ -28,9 +28,9 @@ const CommentWidget: FunctionComponent<Props> = ({account, comment, refreshPost,
     </>
 
     return (
-        <div className={'comment-widget'}>
+        <div className={'comment-widget'} id={'c' + comment.id}>
             <div className="content">
-                {showPostLink && <Link className={'post-link'} to={'/post/' + comment.post_id}>{commentContent}</Link> || commentContent}
+                {showPostLink && <Link className={'post-link'} to={'/post/' + comment.post_id + '#c' + comment.id}>{commentContent}</Link> || commentContent}
             </div>
             <CommentReactionsForm refreshPost={refreshPost} account={account} comment={comment}/>
         </div>
