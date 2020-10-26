@@ -8,7 +8,7 @@ type Props = {
 }
 
 const Footer: FunctionComponent<Props> = ({account}: Props) => {
-    const accountFragment = (
+    const accountFragment = account && (
         <p className={'secondary'}>
             {'logged in as ' + account.username}
             &nbsp;
