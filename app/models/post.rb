@@ -31,12 +31,12 @@ class Post < ApplicationRecord
   scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :desc) }
   scope :best_first, lambda {
-    joins('left join reactions on reactions.post_id = posts.id')
+    joins('left join reactions on reactions.post_id = posts.id and reactions.positive = true')
       .group('posts.id')
       .order('count(posts.id) DESC')
   }
   scope :worst_first, lambda {
-    joins('left join reactions on reactions.post_id = posts.id')
+    joins('left join reactions on reactions.post_id = posts.id and reactions.positive = false')
       .group('posts.id')
       .order('count(posts.id) ASC')
   }
