@@ -24,3 +24,10 @@ You need a server running Linux.
 4. Install and configure PostgreSQL
     - TODO: Add link to docs
     - Use pgTune to better fit the PostgreSQL config to your setup
+5. Install dependencies
+    - Ruby: `bundle install`
+    - JS: `yarn install --pure-lockfile`
+6. Setup the DB
+    1. Create it: `bundle exec rails db:create`
+    2. Run migrations: `bundle exec rails db:migrate`
+    3. Create initial data: `bundle exec rails db:seed`
