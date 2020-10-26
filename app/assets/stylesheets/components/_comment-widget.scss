@@ -10,6 +10,8 @@ div.comment-widget {
   div.content {
     span {
       display: block;
+      line-break: auto;
+      max-width: $comment-width;
     }
     span.meta {
       color: $secondary_text;
