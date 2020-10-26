@@ -48,18 +48,18 @@ en:
     alt_logo: lolPix Logo
     alt_profile_picture_for: Profile picture for
   ui:
-    context-menu:
-      trigger: "\U000022EE"
-      post:
-        share: "Share"
-        save: "Save"
-        report: "Report"
-        delete: "Delete"
     comment:
       by: by
       reaction:
         negative: "\U0001F44E"
         positive: "\U0001F44D"
+    context-menu:
+      post:
+        delete: Delete
+        report: Report
+        save: Save
+        share: Share
+      trigger: "⋮"
     footer:
       logout: logout
     form:
