@@ -11,9 +11,7 @@ module Api
       def index
         if params.key?(:username)
           user = User.find_by_username(params[:username])
-          unless user
-            return render head :no_content
-          end
+          render head :no_content unless user && return
 
           posts = Post.authored_by(user)
 
@@ -30,7 +28,7 @@ module Api
           when 'gifs'
             posts = posts.gifs
           else
-            return render head :bad_request
+            render head :bad_request && return
           end
         end
 
