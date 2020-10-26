@@ -139,7 +139,7 @@ const NewPostForm: FunctionComponent<Props> = ({account}: Props) => {
                             </label>
                         </div>
 
-                        <label htmlFor="image">{I18n.t('ui.form.profile_picture')}</label>
+                        <label htmlFor="image">{I18n.t('ui.form.picture')}</label>
                         <input id="image" accept="image/*" name="image" type="file" onChange={(event) => {
                             setFieldValue("image", event.currentTarget.files[0]);
                         }}/>

@@ -73,6 +73,7 @@ en:
       comment: Your comment here...
       email: E-Mail
       password: Password
+      picture: Picture
       profile_picture: Profile Picture
       submit:
         login: Login
