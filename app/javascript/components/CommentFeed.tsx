@@ -9,6 +9,7 @@ type Props = {
     account: User,
     onlyForUser?: User,
     sort?: "best" | "new",
+    showPostLinks?: boolean
 }
 
 function generatePath(onlyForUser: User | undefined,
@@ -23,7 +24,7 @@ function generatePath(onlyForUser: User | undefined,
     return path;
 }
 
-const CommentFeed: FunctionComponent<Props> = ({account, onlyForUser, sort}: Props) => {
+const CommentFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, showPostLinks = false}: Props) => {
     const [loading, setLoading] = useState(true);
     const [comments, setComments] = useState([]);
 
@@ -67,7 +68,7 @@ const CommentFeed: FunctionComponent<Props> = ({account, onlyForUser, sort}: Pro
                 {comments.map((c, k) => {
                     return (
                         <li key={k}>
-                            <CommentWidget account={account} comment={c} />
+                            <CommentWidget showPostLink={showPostLinks} account={account} comment={c} />
                         </li>
                     );
                 })}

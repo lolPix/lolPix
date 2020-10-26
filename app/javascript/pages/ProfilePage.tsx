@@ -70,10 +70,10 @@ const ProfilePage: FunctionComponent<Props> = ({account}: Props) => {
                     <PostFeed onlyForUser={user} account={user} sort={'best'}/>
                 </TabPanel>
                 <TabPanel>
-                    <CommentFeed onlyForUser={user} account={user} sort={'new'}/>
+                    <CommentFeed showPostLinks={true} onlyForUser={user} account={user} sort={'new'}/>
                 </TabPanel>
                 <TabPanel>
-                    <CommentFeed onlyForUser={user} account={user} sort={'best'}/>
+                    <CommentFeed showPostLinks={true} onlyForUser={user} account={user} sort={'best'}/>
                 </TabPanel>
             </Tabs>
         </div>

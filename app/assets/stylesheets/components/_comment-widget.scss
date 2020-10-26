@@ -8,13 +8,24 @@ div.comment-widget {
   align-items: center;
 
   div.content {
-    span {
-      display: block;
-      line-break: auto;
-      max-width: $comment-width;
-    }
-    span.meta {
-      color: $secondary_text;
+
+    a.post-link,
+    a.post-link:hover,
+    a.post-link:active,
+    a.post-link:visited,
+    a.post-link:focus {
+      color: $primary_text;
+      text-decoration: none;
+      cursor: pointer;
+
+      span {
+        display: block;
+        line-break: auto;
+        max-width: $comment-width;
+      }
+      span.meta {
+        color: $secondary_text;
+      }
     }
   }
 }
