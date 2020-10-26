@@ -22,6 +22,7 @@ div.post-context-menu {
     z-index: 15;
     background-color: $primary_light;
     border: 1px solid $primary_dark;
+    border-radius: 5px;
 
     button {
       background-color: transparent;
