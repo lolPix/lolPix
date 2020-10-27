@@ -31,24 +31,38 @@ class Post < ApplicationRecord
   scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :desc) }
   scope :best_first, lambda {
-    joins('left join reactions on reactions.post_id = posts.id and reactions.positive = true')
-      .group('posts.id')
-      .order('count(posts.id) DESC')
+    order('(CASE
+              WHEN EXISTS(SELECT reactions.id
+                          FROM reactions
+                          WHERE reactions.post_id = posts.id) THEN
+                  (SELECT sum(CASE
+                                    WHEN reactions.positive THEN 1
+                                    WHEN reactions.positive = false THEN -1 ELSE 0 END)
+                   FROM reactions
+                   WHERE reactions.post_id = posts.id)
+              ELSE 0 END) DESC')
   }
   scope :worst_first, lambda {
-    joins('left join reactions on reactions.post_id = posts.id and reactions.positive = false')
-      .group('posts.id')
-      .order('count(posts.id) ASC')
+    order('(CASE
+              WHEN EXISTS(SELECT reactions.id
+                          FROM reactions
+                          WHERE reactions.post_id = posts.id) THEN
+                  (SELECT sum(CASE
+                                    WHEN reactions.positive THEN 1
+                                    WHEN reactions.positive = false THEN -1 ELSE 0 END)
+                   FROM reactions
+                   WHERE reactions.post_id = posts.id)
+              ELSE 0 END)')
   }
 
   def as_json(options = {})
     ActiveStorage::Current.set(host: LolPix::Application.get_host_value) do
       confidential_fields = %i[image updated_at user_id reaction_id comment_id]
       enriched_values = {
-        image: url_for(image),
-        user: User.find(user_id),
-        reactions: Reaction.find(reaction_ids),
-        comments: Comment.find(comment_ids)
+          image: url_for(image),
+          user: User.find(user_id),
+          reactions: Reaction.find(reaction_ids),
+          comments: Comment.find(comment_ids)
       }
       super(options.merge({except: confidential_fields})).merge(enriched_values)
     end

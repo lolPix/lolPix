@@ -11,14 +11,28 @@ class Comment < ApplicationRecord
   scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :desc) }
   scope :best_first, lambda {
-    joins('left join comment_reactions on comment_reactions.comment_id = comments.id')
-      .group('comments.id')
-      .order('count(comments.id) DESC')
+    order('(CASE
+              WHEN EXISTS(SELECT comment_reactions.id
+                          FROM comment_reactions
+                          WHERE comment_reactions.comment_id = comments.id) THEN
+                  (SELECT sum(CASE
+                                    WHEN comment_reactions.positive THEN 1
+                                    WHEN comment_reactions.positive = false THEN -1 ELSE 0 END)
+                   FROM comment_reactions
+                   WHERE comment_reactions.comment_id = comments.id)
+              ELSE 0 END)')
   }
   scope :worst_first, lambda {
-    joins('left join comment_reactions on comment_reactions.comment_id = comments.id')
-      .group('comments.id')
-      .order('count(comments.id) ASC')
+    order('(CASE
+              WHEN EXISTS(SELECT comment_reactions.id
+                          FROM comment_reactions
+                          WHERE comment_reactions.comment_id = comments.id) THEN
+                  (SELECT sum(CASE
+                                    WHEN comment_reactions.positive THEN 1
+                                    WHEN comment_reactions.positive = false THEN -1 ELSE 0 END)
+                   FROM comment_reactions
+                   WHERE comment_reactions.comment_id = comments.id)
+              ELSE 0 END)')
   }
 
   def as_json(options = {})
