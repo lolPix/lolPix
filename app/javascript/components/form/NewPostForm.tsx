@@ -128,17 +128,17 @@ const NewPostForm: FunctionComponent<Props> = ({account}: Props) => {
                             value={values.alt_text}
                         />
                         <label id="category_label">{I18n.t('ui.form.category')}</label>
-                        <div role="group" aria-labelledby="category_label">
-                            <label>
-                                <Field type="radio" name="category" value="0"/>
+                        <div role="radiogroup" aria-labelledby="category_label">
+                            <label htmlFor={'category0'}>
+                                <Field id={'category0'} type="radio" name="category" value="0"/>
                                 {I18n.t('ui.form.categories.meme')}
                             </label>
-                            <label>
-                                <Field type="radio" name="category" value="1"/>
+                            <label htmlFor={'category1'}>
+                                <Field id={'category1'} type="radio" name="category" value="1"/>
                                 {I18n.t('ui.form.categories.fail')}
                             </label>
-                            <label>
-                                <Field type="radio" name="category" value="2"/>
+                            <label htmlFor={'category2'}>
+                                <Field id={'category2'} type="radio" name="category" value="2"/>
                                 {I18n.t('ui.form.categories.gif')}
                             </label>
                         </div>

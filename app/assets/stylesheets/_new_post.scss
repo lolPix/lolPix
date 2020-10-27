@@ -2,7 +2,7 @@
 
 #new-post-form {
   height: 100%;
-  width: 100%;
+  width: 640px;
 
   display: flex;
   flex-direction: column;
@@ -10,6 +10,45 @@
   align-items: center;
 
   h1 {
+    width: 100%;
     font-weight: 100;
+  }
+
+  form {
+    padding: 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    > label, > input, > div[role="radiogroup"] {
+      width: 100%;
+    }
+
+    > label {
+      margin-bottom: 8px;
+    }
+
+    > div[role="radiogroup"] {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-evenly;
+
+      label {
+        padding: 8px;
+        border: 1px solid $primary_dark;
+        border-radius: 5px;
+
+        input[type="radio"] {
+          margin-right: 8px;
+        }
+      }
+    }
+
+    button[type="submit"] {
+      width: 100%;
+    }
   }
 }
