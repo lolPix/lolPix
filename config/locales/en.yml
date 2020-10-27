@@ -74,6 +74,8 @@ en:
       category: Category
       comment: Your comment here...
       email: E-Mail
+      image:
+        crop-result-alt: Cropped profile picture
       password: Password
       picture: Picture
       profile_picture: Profile Picture
@@ -83,8 +85,6 @@ en:
         register: Join
       title: Title
       username: Username
-      image:
-        crop-result-alt: "Cropped profile picture"
     heading:
       home: Home
       join: Join lolPix!
