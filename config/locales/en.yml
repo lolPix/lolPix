@@ -53,6 +53,8 @@ en:
       reaction:
         negative: "\U0001F44E"
         positive: "\U0001F44D"
+      reply: reply
+      stop-reply: cancel
     context-menu:
       post:
         delete: Delete
@@ -108,14 +110,14 @@ en:
       top: "\U0001F4C8 Best"
     post:
       by: by
+      category:
+        fail: Fail
+        gif: GIF
+        meme: Meme
+      date-prefix: " posted "
       reaction:
         negative: "\U0001F44E"
         positive: "\U0001F44D"
-      category:
-        meme: "Meme"
-        fail: "Fail"
-        gif: "GIF"
-      date-prefix: " posted "
     profile:
       alt_profile_picture_for: 'Profile picture for '
       comments:

@@ -7,7 +7,7 @@ import User from "../../model/user";
 import LolPixComment from "../../model/LolPixComment";
 
 type Props = {
-    post: Post,
+    post_id: number,
     account: User,
     parent?: LolPixComment | undefined,
     refreshPost: () => void,
@@ -27,10 +27,10 @@ function getParentId(parent: LolPixComment): number {
     return -1;
 }
 
-const CommentForm: FunctionComponent<Props> = ({post, account, parent, refreshPost}: Props) => {
+const CommentForm: FunctionComponent<Props> = ({post_id, account, parent, refreshPost}: Props) => {
     const initialValues: FormValues = {
         content: '',
-        post_id: post.id,
+        post_id: post_id,
         user_id: account.id,
         parent_id: getParentId(parent)
     };

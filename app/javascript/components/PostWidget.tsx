@@ -76,7 +76,7 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false,
                     </p>
                     <ReactionsForm refreshPost={refreshPost} account={account} post={statePost}/>
                 </div>
-                {showComments && <CommentForm account={account} post={statePost} refreshPost={refreshPost} />}
+                {showComments && <CommentForm account={account} post_id={statePost.id} refreshPost={refreshPost} />}
                 {(showComments && post.comments) && <CommentList account={account} post={statePost} refreshPost={refreshPost} />}
             </div>
         </div>
