@@ -21,7 +21,7 @@ class Comment < ApplicationRecord
                                     WHEN comment_reactions.positive = false THEN -1 ELSE 0 END)
                    FROM comment_reactions
                    WHERE comment_reactions.comment_id = comments.id)
-              ELSE 0 END)')
+              ELSE 0 END) DESC')
   }
   scope :worst_first, lambda {
     order('(CASE
