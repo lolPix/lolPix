@@ -7,6 +7,7 @@ en:
     foo: Foo
     found_next_link: 'Found ''next page'' link: '
     got_comments: 'Got comments: '
+    got_more_posts: 'Got more posts: '
     got_posts: 'Got posts: '
     loaded_post: 'Loaded post: '
     loaded_user: 'Loaded user: '
@@ -62,6 +63,8 @@ en:
         save: Save
         share: Share
       trigger: "⋮"
+    feed:
+      load-more: Load more...
     footer:
       logout: logout
     form:

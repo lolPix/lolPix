@@ -68,10 +68,10 @@ const CommentFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, show
     return (
         (loading && <Loader/>) ||
         (comments.length &&
-            <ul className={'post-feed'}>
-                {comments.map((c, k) => {
+            <ul className={'comment-feed'}>
+                {comments.map((c) => {
                     return (
-                        <li key={k}>
+                        <li key={c.id}>
                             <CommentWidget refreshPost={refreshFeed} showPostLink={showPostLinks} account={account} comment={c} />
                         </li>
                     );

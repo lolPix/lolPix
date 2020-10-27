@@ -11,9 +11,9 @@ type Props = {
 }
 
 const CommentList: FunctionComponent<Props> = ({post, account, refreshPost}: Props) => {
-    const comments = post.comments.map((c: LolPixComment, k) => {
+    const comments = post.comments.map((c: LolPixComment) => {
         return (
-            <li key={k}>
+            <li key={c.id}>
                 <CommentWidget comment={c} account={account} refreshPost={refreshPost} />
             </li>
         );
