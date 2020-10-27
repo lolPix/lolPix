@@ -1,7 +1,9 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 import {Formik} from 'formik';
 import I18n from "i18n-js";
-import Api from "../../base/Api";
+import Api from "../../../base/Api";
+import ReactCrop from 'react-image-crop';
+import {getCroppedImg} from "./ImageUtils";
 
 type FormValues = {
     username: string,
@@ -35,7 +37,49 @@ function buildFormData(values: FormValues): FormData {
 
 const RegistrationForm: FunctionComponent = () => {
     const [registrationError, setRegistrationError] = useState(undefined);
-    return (<div className={'registration-form'}>
+    const [imageSrc, setImageSrc] = useState(undefined);
+    const [imageRef, setImageRef] = useState(undefined);
+    const [crop, setCrop] = useState({
+        unit: '%',
+        height: 100,
+        aspect: 1,
+    });
+
+    const onSelectFile = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const reader = new FileReader();
+            reader.addEventListener('load', () =>
+                setImageSrc(reader.result)
+            );
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    };
+
+    // If you setState the crop in here you should return false.
+    const onImageLoaded = image => {
+        setImageRef(image);
+    };
+
+    async function makeClientCrop(crop, callback) {
+        if (imageRef && crop.width && crop.height) {
+            const croppedImage = await getCroppedImg(
+                imageRef,
+                crop
+            );
+            console.log(croppedImage);
+            callback(croppedImage);
+        }
+    }
+
+    const onCropComplete = (crop, callback) => {
+        makeClientCrop(crop, callback);
+    };
+
+    const onCropChange = (crop, percentCrop) => {
+        setCrop(crop)
+    };
+
+    return (<div id={'registration-form'}>
             <h1 className={'page-heading'}>{I18n.t('ui.heading.join')}</h1>
 
             <Formik
@@ -143,15 +187,25 @@ const RegistrationForm: FunctionComponent = () => {
                             onBlur={handleBlur}
                             value={values.password}
                         />
-                        <label htmlFor="image">{I18n.t('ui.form.profile_picture')}</label>
-                        <input id="image" accept="image/*" name="image" type="file" onChange={(event) => {
-                            setFieldValue("image", event.currentTarget.files[0]);
-                        }}/>
                         <label htmlFor="bio">{I18n.t('ui.form.bio')}</label>
                         <textarea name="bio" id="bio" cols={30} rows={5}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   value={values.bio} />
+                        <label htmlFor="image">{I18n.t('ui.form.profile_picture')}</label>
+                        <input id="image" accept="image/*" name="image" type="file" onChange={onSelectFile}/>
+                        {imageSrc && (
+                            <ReactCrop
+                                src={imageSrc}
+                                crop={crop}
+                                ruleOfThirds
+                                onImageLoaded={onImageLoaded}
+                                onComplete={(crop) => onCropComplete(crop, (cropUrl) => {
+                                    setFieldValue("image", cropUrl);
+                                })}
+                                onChange={onCropChange}
+                            />
+                        )}
                         <ul className="errors">
                             {errors.email && touched.email && <li>{errors.email}</li>}
                             {errors.password && touched.password && <li>{errors.password}</li>}
