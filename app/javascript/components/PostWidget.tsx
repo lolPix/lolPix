@@ -17,6 +17,8 @@ type Props = {
     active?: boolean,
     showComments?: boolean,
     onPostCompletelyVisible: (post) => void,
+    shouldScroll: boolean,
+    setShouldScroll: (b: boolean) => void
 }
 
 
@@ -33,7 +35,7 @@ function getCategoryString(post: Post): string | undefined {
     }
 }
 
-const PostWidget: FunctionComponent<Props> = ({post, account, onPostCompletelyVisible, showLinks = false, showComments = true, active = false}: Props) => {
+const PostWidget: FunctionComponent<Props> = ({post, account, onPostCompletelyVisible, showLinks = false, showComments = true, active = false, shouldScroll, setShouldScroll}: Props) => {
     const [statePost, setStatePost] = useState(post);
     const widgetRef = useRef<HTMLDivElement | undefined>(undefined);
 
@@ -62,21 +64,29 @@ const PostWidget: FunctionComponent<Props> = ({post, account, onPostCompletelyVi
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting && entry.intersectionRatio >= 0.8) {
-                    console.log('am visible')
-                    onPostCompletelyVisible(post);
-                }
-            })
+            if(!shouldScroll) {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        console.log(post.title + ', ' + entry.intersectionRatio)
+                        onPostCompletelyVisible(post);
+                        return;
+                    }
+                })
+            }
+        }, {
+            root: null,
+            threshold: .0001
         });
         observer.observe(widgetRef.current);
 
         return () => observer.disconnect();
-    }, [widgetRef.current]);
+    }, []);
 
     useEffect(() => {
-        if (active && widgetRef.current) {
-            widgetRef.current.scrollIntoView({ block: "center"});
+        if (shouldScroll && active && widgetRef.current) {
+            console.log('-----------------')
+            widgetRef.current.scrollIntoView({block: "center"});
+            setShouldScroll(false);
         }
     })
 

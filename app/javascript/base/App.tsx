@@ -20,7 +20,7 @@ type Props = {
 const App: FunctionComponent<Props> = ({account}: Props) => {
     return (
         <>
-            <div className="wrapper">
+            <div id="wrapper">
                 <Router>
                     <NavBar showLogo={true} account={account}/>
                     <div className="content">

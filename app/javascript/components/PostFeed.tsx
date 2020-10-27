@@ -1,12 +1,10 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import React, {FunctionComponent, useEffect, useRef, useState} from 'react';
 import Api from "../base/Api";
 import I18n from "i18n-js";
 import PostWidget from "./PostWidget";
 import Loader from "./Loader";
 import User from "../model/user";
 import Post from "../model/Post";
-import {func} from "prop-types";
-import {debounce} from "../base/Util";
 
 type Props = {
     account: User,
@@ -35,10 +33,10 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: 
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState([]);
     const [mostVisiblePost, setMostVisiblePost] = useState<Post | undefined>(undefined);
+    const [shouldScroll, setShouldScroll] = useState(false);
 
     useEffect(() => {
         const handlePostFeedKeyboardNavigation = function (e: KeyboardEvent) {
-            console.warn('handlePostFeedKeyboardNavigation!!')
             if (!mostVisiblePost) return;
 
             const previousPost = posts[posts.indexOf(mostVisiblePost) - 1];
@@ -49,11 +47,13 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: 
                     if (previousPost) {
                         setMostVisiblePost(previousPost)
                     }
+                    setShouldScroll(true);
                     return;
                 case 'j':
                     if (nextPost) {
                         setMostVisiblePost(nextPost);
                     }
+                    setShouldScroll(true);
                     return;
                 default :
                     return;
@@ -108,7 +108,8 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: 
                         <li key={k}>
                             <PostWidget onPostCompletelyVisible={setMostVisiblePost}
                                         active={mostVisiblePost?.id === p.id} showComments={false} showLinks={true}
-                                        account={account} post={p}/>
+                                        account={account} post={p}
+                                        setShouldScroll={setShouldScroll} shouldScroll={shouldScroll}/>
                         </li>
                     );
                 })}

@@ -19,7 +19,7 @@ div#app {
   justify-content: flex-start;
   align-items: center;
 
-  div.wrapper {
+  div#wrapper {
     margin-top: $navbar-height;
     padding-top: 16px;
     display: flex;
@@ -54,11 +54,11 @@ div#app {
   align-items: center;
 }
 
-.wrapper {
+#wrapper {
   height: 100%;
 }
 
-div.wrapper,
+div#wrapper,
 div.content {
   z-index: 10;
 }
