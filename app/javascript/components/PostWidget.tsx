@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useEffect, useRef, useState} from 'react';
 import Post from "../model/post";
 import {formatDistanceToNow, formatRFC7231, parseISO} from 'date-fns'
 import I18n from "i18n-js";
@@ -14,8 +14,11 @@ type Props = {
     post: Post,
     account: User,
     showLinks?: boolean,
-    showComments?: boolean
+    active?: boolean,
+    showComments?: boolean,
+    onPostCompletelyVisible: (post) => void,
 }
+
 
 function getCategoryString(post: Post): string | undefined {
     switch (post.category) {
@@ -30,8 +33,9 @@ function getCategoryString(post: Post): string | undefined {
     }
 }
 
-const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false, showComments = true}: Props) => {
+const PostWidget: FunctionComponent<Props> = ({post, account, onPostCompletelyVisible, showLinks = false, showComments = true, active = false}: Props) => {
     const [statePost, setStatePost] = useState(post);
+    const widgetRef = useRef<HTMLDivElement | undefined>(undefined);
 
     const refreshPost = () => {
         Api({path: '/posts/' + encodeURIComponent(statePost.id)}).then(
@@ -56,11 +60,31 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false,
         )
     };
 
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting && entry.intersectionRatio >= 0.8) {
+                    console.log('am visible')
+                    onPostCompletelyVisible(post);
+                }
+            })
+        });
+        observer.observe(widgetRef.current);
+
+        return () => observer.disconnect();
+    }, [widgetRef.current]);
+
+    useEffect(() => {
+        if (active && widgetRef.current) {
+            widgetRef.current.scrollIntoView({ block: "center"});
+        }
+    })
+
     const postDateFn = parseISO(statePost.created_at);
     const postImage = <img src={statePost.image} alt={statePost.alt_text}/>;
     return (
-        <div className={'post-widget'}>
-            <h2 className={'title'}>{statePost.title}<PostContextMenu account={account} post={post} /></h2>
+        <div className={'post-widget'} ref={widgetRef}>
+            <h2 className={'title'}>{statePost.title}<PostContextMenu account={account} post={post}/></h2>
             <div className="content">
                 {showLinks && <Link to={'/post/' + statePost.id}>{postImage}</Link> || postImage}
                 <div className="meta">
@@ -76,8 +100,9 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false,
                     </p>
                     <ReactionsForm refreshPost={refreshPost} account={account} post={statePost}/>
                 </div>
-                {showComments && <CommentForm account={account} post_id={statePost.id} refreshPost={refreshPost} />}
-                {(showComments && post.comments) && <CommentList account={account} post={statePost} refreshPost={refreshPost} />}
+                {showComments && <CommentForm account={account} post_id={statePost.id} refreshPost={refreshPost}/>}
+                {(showComments && post.comments) &&
+                <CommentList account={account} post={statePost} refreshPost={refreshPost}/>}
             </div>
         </div>
     );

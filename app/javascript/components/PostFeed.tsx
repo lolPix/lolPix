@@ -4,6 +4,9 @@ import I18n from "i18n-js";
 import PostWidget from "./PostWidget";
 import Loader from "./Loader";
 import User from "../model/user";
+import Post from "../model/Post";
+import {func} from "prop-types";
+import {debounce} from "../base/Util";
 
 type Props = {
     account: User,
@@ -31,6 +34,36 @@ function generatePath(onlyForUser: User | undefined,
 const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: Props) => {
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState([]);
+    const [mostVisiblePost, setMostVisiblePost] = useState<Post | undefined>(undefined);
+
+    useEffect(() => {
+        const handlePostFeedKeyboardNavigation = function (e: KeyboardEvent) {
+            console.warn('handlePostFeedKeyboardNavigation!!')
+            if (!mostVisiblePost) return;
+
+            const previousPost = posts[posts.indexOf(mostVisiblePost) - 1];
+            const nextPost = posts[posts.indexOf(mostVisiblePost) + 1];
+
+            switch ((e as KeyboardEvent).key) {
+                case 'k':
+                    if (previousPost) {
+                        setMostVisiblePost(previousPost)
+                    }
+                    return;
+                case 'j':
+                    if (nextPost) {
+                        setMostVisiblePost(nextPost);
+                    }
+                    return;
+                default :
+                    return;
+            }
+        }
+
+        document.addEventListener("keydown", handlePostFeedKeyboardNavigation)
+
+        return () => document.removeEventListener("keydown", handlePostFeedKeyboardNavigation);
+    }, [mostVisiblePost]);
 
     useEffect(() => {
         setLoading(true);
@@ -49,6 +82,7 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: 
                                     console.log(I18n.t('console.warning.no_next_link_found'))
                                 }
                                 setPosts(json);
+                                setMostVisiblePost(json[0]);
                             } else {
                                 console.error(I18n.t('console.error') + ' Unknown JSON returned: ' + JSON.stringify(json)) // TODO: error handling
                             }
@@ -63,7 +97,7 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: 
                 setLoading(false); // this should come last
             }
         );
-    }, [])
+    }, []);
 
     return (
         (loading && <Loader/>) ||
@@ -72,7 +106,9 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: 
                 {posts.map((p, k) => {
                     return (
                         <li key={k}>
-                            <PostWidget showComments={false} showLinks={true} account={account} post={p}/>
+                            <PostWidget onPostCompletelyVisible={setMostVisiblePost}
+                                        active={mostVisiblePost?.id === p.id} showComments={false} showLinks={true}
+                                        account={account} post={p}/>
                         </li>
                     );
                 })}
