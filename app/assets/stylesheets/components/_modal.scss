@@ -1,0 +1,44 @@
+@import "../variables";
+
+#modal {
+  width: 640px;
+  height: 320px;
+
+  padding: 8px;
+  border: 1px solid $primary_dark;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary_light;
+
+  .modal-content {
+    width: 100%;
+  }
+
+  .modal-buttons {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    button {
+      padding: 8px;
+      border: 1px solid $primary_dark;
+      border-radius: 5px;
+      color: $primary_text;
+
+      &.neutral {
+        background-color: $primary_light;
+      }
+
+      &.positive {
+        background-color: $primary;
+      }
+    }
+  }
+}

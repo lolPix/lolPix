@@ -3,7 +3,7 @@ import {Redirect, useParams} from "react-router-dom";
 import User from "../model/user";
 import Api from "../base/Api";
 import I18n from "i18n-js";
-import Loader from "../base/Loader";
+import Loader from "../components/Loader";
 import PostFeed from "../components/PostFeed";
 import defaultPicture from "../../assets/images/logo_grey.svg";
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';

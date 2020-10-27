@@ -2,7 +2,7 @@ import React, {FunctionComponent, useEffect, useState} from 'react';
 import Api from "../base/Api";
 import I18n from "i18n-js";
 import PostWidget from "./PostWidget";
-import Loader from "../base/Loader";
+import Loader from "./Loader";
 import User from "../model/user";
 
 type Props = {

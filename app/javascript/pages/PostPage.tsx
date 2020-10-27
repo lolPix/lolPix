@@ -3,7 +3,7 @@ import User from "../model/user";
 import PostWidget from "../components/PostWidget";
 import Api from "../base/Api";
 import I18n from "i18n-js";
-import Loader from "../base/Loader";
+import Loader from "../components/Loader";
 import {useParams} from "react-router-dom";
 
 type Props = {

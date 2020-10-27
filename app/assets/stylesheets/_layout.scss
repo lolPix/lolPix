@@ -41,6 +41,19 @@ div#app {
   }
 }
 
+#modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .wrapper {
   height: 100%;
 }
