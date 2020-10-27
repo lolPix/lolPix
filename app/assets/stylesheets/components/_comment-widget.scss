@@ -17,15 +17,15 @@ div.comment-widget {
       color: $primary_text;
       text-decoration: none;
       cursor: pointer;
+    }
 
-      span {
-        display: block;
-        line-break: auto;
-        max-width: $comment-width;
-      }
-      span.meta {
-        color: $secondary_text;
-      }
+    span {
+      display: block;
+      line-break: auto;
+      max-width: $comment-width;
+    }
+    span.meta {
+      color: $secondary_text;
     }
   }
 }
