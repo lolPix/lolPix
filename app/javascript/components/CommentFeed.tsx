@@ -28,8 +28,7 @@ const CommentFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, show
     const [loading, setLoading] = useState(true);
     const [comments, setComments] = useState([]);
 
-    useEffect(() => {
-        setLoading(true);
+    function refreshFeed() {
         Api({path: generatePath(onlyForUser, sort)}).then(
             res => {
                 if (res.status === 200) {
@@ -59,6 +58,11 @@ const CommentFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, show
                 setLoading(false); // this should come last
             }
         );
+    }
+
+    useEffect(() => {
+        setLoading(true);
+        refreshFeed();
     }, [])
 
     return (
@@ -68,7 +72,7 @@ const CommentFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, show
                 {comments.map((c, k) => {
                     return (
                         <li key={k}>
-                            <CommentWidget showPostLink={showPostLinks} account={account} comment={c} />
+                            <CommentWidget refreshPost={refreshFeed} showPostLink={showPostLinks} account={account} comment={c} />
                         </li>
                     );
                 })}
