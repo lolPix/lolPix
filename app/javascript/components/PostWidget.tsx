@@ -7,8 +7,8 @@ import ReactionsForm from "./form/ReactionsForm";
 import User from "../model/user";
 import Api from "../base/Api";
 import CommentForm from "./form/CommentForm";
-import CommentList from "./CommentList";
 import PostContextMenu from "./PostContextMenu";
+import CommentFeed from "./CommentFeed";
 
 type Props = {
     post: Post,
@@ -77,7 +77,7 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false,
                     <ReactionsForm refreshPost={refreshPost} account={account} post={statePost}/>
                 </div>
                 {showComments && <CommentForm account={account} post_id={statePost.id} refreshPost={refreshPost} />}
-                {(showComments && post.comments) && <CommentList account={account} post={statePost} refreshPost={refreshPost} />}
+                {(showComments) && <CommentFeed account={account} sort={'best'} onlyForPost={statePost} refreshPost={refreshPost} />}
             </div>
         </div>
     );

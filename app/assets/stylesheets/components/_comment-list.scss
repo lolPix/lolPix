@@ -1,6 +1,6 @@
 @import "../variables";
 
-ul.comment-list {
+ul.comment-feed {
   list-style-type: none;
   padding: 24px;
 
@@ -9,4 +9,9 @@ ul.comment-list {
       width: 100%;
     }
   }
+}
+
+h1.no-comments {
+  text-align: center;
+  width: 100%;
 }

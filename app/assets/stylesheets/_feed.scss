@@ -1,0 +1,12 @@
+@import "variables";
+
+li.load-more {
+  button.load-more-button {
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid $primary_dark;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+  }
+}

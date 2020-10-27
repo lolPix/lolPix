@@ -9,6 +9,7 @@ module Api
       # GET /comments
       # GET /comments.json
       def index
+
         if params.key?(:username)
           user = User.find_by_username(params[:username])
           return render head :no_content && return unless user
@@ -16,6 +17,13 @@ module Api
           comments = Comment.authored_by(user)
         else
           comments = Comment.all
+        end
+
+        if params.key?(:post_id)
+          post = Post.find(params[:post_id])
+          return render head :no_content && return unless post
+
+          comments = comments.of_post(post)
         end
 
         paginate sort_comments(params, comments), per_page: 15

@@ -7,6 +7,7 @@ en:
     foo: Foo
     found_next_link: 'Found ''next page'' link: '
     got_comments: 'Got comments: '
+    got_more_comments: 'Got more comments: '
     got_more_posts: 'Got more posts: '
     got_posts: 'Got posts: '
     loaded_post: 'Loaded post: '
@@ -33,6 +34,7 @@ en:
     javascript_required: "This page requires JavaScript! \U0001F916"
     logged_in_to_post: You need to be logged in to create new posts!
     login_error: Invalid username or password
+    no_comments_found: No comments found!
     no_image_found: No image found!
     no_posts_found: No posts found!
     page_not_found: Page not found!

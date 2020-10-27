@@ -8,6 +8,7 @@ class Comment < ApplicationRecord
   has_many :replies, class_name: 'Comment', foreign_key: :parent_id, dependent: :destroy
 
   scope :authored_by, ->(user) { where('comments.user_id = ?', user.id) }
+  scope :of_post, ->(post) { where('comments.post_id = ?', post.id) }
   scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :desc) }
   scope :best_first, lambda {
@@ -39,8 +40,8 @@ class Comment < ApplicationRecord
     ActiveStorage::Current.set(host: LolPix::Application.get_host_value) do
       confidential_fields = %i[updated_at user_id comment_reaction_ids]
       enriched_values = {
-        user: User.find(user_id),
-        reactions: CommentReaction.find(comment_reaction_ids)
+          user: User.find(user_id),
+          reactions: CommentReaction.find(comment_reaction_ids)
       }
       super(options.merge({except: confidential_fields})).merge(enriched_values)
     end

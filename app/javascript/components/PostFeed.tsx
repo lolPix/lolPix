@@ -5,6 +5,7 @@ import PostWidget from "./PostWidget";
 import Loader from "./Loader";
 import User from "../model/user";
 import Post from "../model/Post";
+import {extractNextPageLink, randomChars} from "../base/Util";
 
 type Props = {
     account: User,
@@ -27,19 +28,6 @@ function generatePath(onlyForUser: User | undefined,
         path += '&only=' + only;
     }
     return path;
-}
-
-function extractNextPageLink(res: Response,
-                             setNextLink: (nextLink: string) => void) {
-    const nextPageLinkMatch = res.headers.get('Link').match(/<([^<>]*)>; rel="next"/)
-    if (nextPageLinkMatch && nextPageLinkMatch[1]) {
-        const nextPageLink = nextPageLinkMatch[1];
-        console.log(I18n.t('console.found_next_link') + nextPageLink) // TODO: do something with pagination
-        setNextLink(nextPageLink);
-    } else {
-        console.log(I18n.t('console.warning.no_next_link_found'))
-        setNextLink(undefined);
-    }
 }
 
 function getMorePosts(nextLink: string,
@@ -114,14 +102,17 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: 
                         </li>
                     );
                 })}
-                {nextLink && <li>
+                {nextLink && <li className={'load-more'} key={randomChars(3)}>
+                    {/* The random key makes react keep the scroll position
+                        instead of scrolling to where the button will be
+                        after adding more content! */}
                     <button onClick={() => {
                         getMorePosts(nextLink, setNextLink, setLoading, newPosts => {
                             setPosts([...posts, ...newPosts]);
                         })
                     }} className={'load-more-button'}>{I18n.t('ui.feed.load-more')}</button>
                 </li>}
-            </ul>) || <h1>{I18n.t('error.no_posts_found')}</h1>
+            </ul>) || <h1 className={'no-posts'}>{I18n.t('error.no_posts_found')}</h1>
     );
 };
 
