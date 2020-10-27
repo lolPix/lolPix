@@ -64,16 +64,16 @@ const ProfilePage: FunctionComponent<Props> = ({account}: Props) => {
                 </TabList>
 
                 <TabPanel>
-                    <PostFeed onlyForUser={user} account={user} sort={'new'}/>
+                    <PostFeed onlyForUser={user} account={account} sort={'new'}/>
                 </TabPanel>
                 <TabPanel>
-                    <PostFeed onlyForUser={user} account={user} sort={'best'}/>
+                    <PostFeed onlyForUser={user} account={account} sort={'best'}/>
                 </TabPanel>
                 <TabPanel>
-                    <CommentFeed showPostLinks={true} onlyForUser={user} account={user} sort={'new'}/>
+                    <CommentFeed showPostLinks={true} onlyForUser={user} account={account} sort={'new'}/>
                 </TabPanel>
                 <TabPanel>
-                    <CommentFeed showPostLinks={true} onlyForUser={user} account={user} sort={'best'}/>
+                    <CommentFeed showPostLinks={true} onlyForUser={user} account={account} sort={'best'}/>
                 </TabPanel>
             </Tabs>
         </div>
