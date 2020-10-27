@@ -11,7 +11,7 @@ Before running, copy `.env.example` to `.env` and configure according to your se
 
 You also need to start a postgres DB. This can easily be done using Docker:
 ```shell script
-docker run -d -v "$(pwd)/data:/docker-entrypoint-initdb.d" -p 5432:5432 -e POSTGRES_PASSWORD=changemepls --name=lolpixpg postgres:alpine
+docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=changemepls --name=lolpixpg postgres:alpine
 ```
 
 After running, the server runs at `http://localhost:3030`.
