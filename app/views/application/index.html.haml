@@ -15,5 +15,4 @@
         = image_tag 'logo.svg', alt: I18n.t('ui.loading')
     #modal-overlay
     #app
-      = react_component('ServerSideApp', {user: logged_in_user}, {prerender: true})
     = yield

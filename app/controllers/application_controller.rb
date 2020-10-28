@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :authorized, only: %i[authorized auth_header decoded_token logged_in_user logged_in?]
 
   def encode_token(payload)
-    JWT.encode(payload, 's3cr3t') # TODO: FIX THIS KEY
+    JWT.encode(payload, Rails.application.credentials.secret_key_base,)
   end
 
   def auth_header
