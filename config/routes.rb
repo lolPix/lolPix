@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/post/:postId', to: 'application#post'
   get '/user/:username', to: 'application#profile'
   get '/login', to: 'application#login'
+  get '/join', to: 'application#join'
 
   get '/top', to: 'feed#top'
   get '/newest', to: 'feed#new'

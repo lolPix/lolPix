@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
         @user = User.find_by(id: user_id)
         redirect_to '/' if request.fullpath == '/login'
       else
-        Rails.logger.info 'no cookie found!, path:' + request.fullpath
+        Rails.logger.info 'no cookie found!'
         redirect_to '/login' unless request.fullpath == '/login'
       end
     end
@@ -77,6 +77,8 @@ class ApplicationController < ActionController::Base
   def profile; end
 
   def login; end
+
+  def join; end
 
   def get_post
     Post.find(params[:postId])
