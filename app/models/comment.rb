@@ -36,7 +36,8 @@ class Comment < ApplicationRecord
               ELSE 0 END)')
   }
 
-  def as_json(options = {})
+  def serializable_hash(options = nil)
+    options = {} if options.nil?
     ActiveStorage::Current.set(host: LolPix::Application.get_host_value) do
       confidential_fields = %i[updated_at user_id comment_reaction_ids]
       enriched_values = {
