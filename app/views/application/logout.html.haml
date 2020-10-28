@@ -8,6 +8,7 @@
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_pack_tag 'application'
   %body
+    = delete_session.nil?
     %noscript
       = I18n.t('error.javascript_required')
     #overlay

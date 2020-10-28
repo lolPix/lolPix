@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_28_104905) do
+ActiveRecord::Schema.define(version: 2020_10_28_203806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2020_10_28_104905) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "comments_id"
     t.boolean "admin"
+    t.string "jwtsecret"
     t.index ["comments_id"], name: "index_users_on_comments_id"
     t.index ["username", "email"], name: "index_users_on_username_and_email", unique: true
   end

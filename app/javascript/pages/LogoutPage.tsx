@@ -1,8 +1,11 @@
-import {FunctionComponent} from 'react';
+import React, {FunctionComponent} from 'react';
+import {Redirect} from 'react-router-dom';
 
 const LogoutPage: FunctionComponent = () => {
+    console.log('deleting token...')
     localStorage.setItem('lolPix_Token', '');
-    setTimeout(() => window.location.href = '/', 150);
-    return null;
+    console.log('setting url...')
+    return <Redirect to={'/'} />;
 }
+
 export default LogoutPage;

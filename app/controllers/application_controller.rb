@@ -1,10 +1,14 @@
 class ApplicationController < ActionController::Base
   before_action :authorized, only: %i[authorized auth_header decoded_token logged_in_user logged_in?]
   before_action :logged_in_user, only: %i[index post login profile]
-  helper_method :get_post, :get_profile
+  helper_method :get_post, :get_profile, :delete_session
 
-  def encode_token(payload)
-    JWT.encode(payload, Rails.application.credentials.secret_key_base)
+  def encode_token
+    unless @user.jwtsecret
+      @user.jwtsecret = SecureRandom.hex(30).to_s
+      @user.save
+    end
+    JWT.encode(@user.id, @user.jwtsecret.to_s)
   end
 
   def auth_header
@@ -13,24 +17,23 @@ class ApplicationController < ActionController::Base
   end
 
   def decoded_token
-    if auth_header
-      token = auth_header.split(' ')[1]
-      # header: { 'Authorization': 'Bearer <token>' }
-      begin
-        JWT.decode(token, Rails.application.credentials.secret_key_base, true, algorithm: 'HS256')
-        response.set_cookie(
-            :lolpix_jwt,
-            {
-                value: token,
-                expires: 10.years.from_now,
-                path: '/',
-                secure: Rails.env.production?,
-                httponly: true
-            }
-        )
-      rescue JWT::DecodeError
-        nil
-      end
+    return unless auth_header
+
+    token = auth_header.split(' ')[1]
+    # header: { 'Authorization': 'Bearer <token>' }
+    begin
+      Rails.logger.info "Token: '#{token}'"
+      jwts_from_user = get_jwts_from_user(token)
+      Rails.logger.info "JWTS: '#{jwts_from_user}'"
+
+      # FIXME so apparently `jwts_from_user` has to be a KEY, not a STRING m(
+      # I wonder what is different between 's3cr3t' (a string) and @user.jwts (a string)...
+
+      decoded = JWT.decode(token, jwts_from_user.to_s, true, algorithm: 'HS256')
+      set_cookie(token) if decoded
+      decoded
+    rescue JWT::DecodeError
+      nil
     end
   end
 
@@ -47,6 +50,7 @@ class ApplicationController < ActionController::Base
       user_id = decoded_token[0]['user_id']
       @user = User.find_by(id: user_id)
       Rails.logger.info "user: #{@user.as_json}"
+      @user
     else
       Rails.logger.info 'no token found, trying cookie!'
       the_decoded_cookie = decoded_cookie
@@ -54,10 +58,14 @@ class ApplicationController < ActionController::Base
       if the_decoded_cookie
         user_id = the_decoded_cookie[0]['user_id']
         @user = User.find_by(id: user_id)
-        redirect_to '/' if request.fullpath == '/login'
+        redirect_to('/') && return if request.fullpath == '/login'
+
+        @user
       else
         Rails.logger.info 'no cookie found!'
-        redirect_to '/login' unless request.fullpath == '/login'
+        redirect_to('/login') && return unless request.fullpath == '/login' || request.fullpath.start_with?('/api')
+
+        nil
       end
     end
   end
@@ -80,9 +88,7 @@ class ApplicationController < ActionController::Base
 
   def join; end
 
-  def logout
-    cookies.delete :lolpix_jwt
-  end
+  def logout; end
 
   def get_post
     Post.find(params[:postId])
@@ -90,5 +96,48 @@ class ApplicationController < ActionController::Base
 
   def get_profile
     User.find_by_username(params[:username])
+  end
+
+  def delete_session
+    if cookies.key?(:lolpix_jwt)
+      user = User.find(get_userid_from_jwt(cookies[:lolpix_jwt]))
+      user.jwts = nil
+      user.save
+    end
+    reset_session
+    cookies.delete :lolpix_jwt, domain: :all
+    nil
+  end
+
+  private
+
+  def get_jwts_from_user(token)
+    user_id_from_jwt = get_userid_from_jwt(token).to_i
+    user = User.find_by(id: user_id_from_jwt)
+    if !user
+      nil
+    else
+      user.jwtsecret
+    end
+  end
+
+  def set_cookie(token)
+    response.set_cookie(
+        :lolpix_jwt,
+        {
+            value: token,
+            expires: 10.years.from_now,
+            path: '/',
+            secure: Rails.env.production?,
+            httponly: true
+        }
+    )
+  end
+
+  def get_userid_from_jwt(token)
+    payload_section = token.split('.')[1]
+    decoded_payload = JWT::Base64.url_decode(payload_section)
+    Rails.logger.info "Payload: '#{decoded_payload}'"
+    JWT::JSON.parse(decoded_payload).to_s.to_i
   end
 end

@@ -6,7 +6,7 @@ class AuthController < ApplicationController
   def register
     @user = User.create(user_params)
     if @user.valid?
-      token = encode_token({user_id: @user.id})
+      token = encode_token
       render json: {user: @user, token: token}
     else
       render json: {error: I18n.t('error.user_invalid'), detail: @user.errors}
@@ -18,7 +18,7 @@ class AuthController < ApplicationController
     @user = User.find_by(email: params[:email])
 
     if @user && @user.authenticate(params[:password])
-      token = encode_token({user_id: @user.id})
+      token = encode_token
       response.set_cookie(
         :lolpix_jwt,
         {
