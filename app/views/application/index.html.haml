@@ -5,9 +5,8 @@
     %title lolPix
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'index'
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_pack_tag 'application'
   %body
     %noscript
       = I18n.t('error.javascript_required')
@@ -16,4 +15,5 @@
         = image_tag 'logo.svg', alt: I18n.t('ui.loading')
     #modal-overlay
     #app
+      = react_component('ServerSideApp', {user: logged_in_user}, {prerender: true})
     = yield

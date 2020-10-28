@@ -84,3 +84,5 @@ gem "rubocop", "~> 1.0"
 gem "sidekiq", "~> 6.1"
 
 gem "pg", "~> 1.2"
+
+gem "tty-prompt", "~> 0.22.0"

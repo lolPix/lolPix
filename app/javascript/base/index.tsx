@@ -1,9 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from "../base/App";
-import I18n from "i18n-js"; import Api from "../base/Api";
-
-I18n.translations = <%= I18n::JS.translations.to_json %>;
+import App from "./App";
+import I18n from "i18n-js"; import Api from "./Api";
 
 async function fetchUser() {
     const response = await Api({path: '/hi'});
