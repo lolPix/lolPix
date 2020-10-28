@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   post '/api/v1/register', to: 'auth#register'
   get '/api/v1/hi', to: 'auth#auto_login'
 
+  get '/admin', to: 'admin#index'
+
   get '*all' => 'application#index', constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'
   }

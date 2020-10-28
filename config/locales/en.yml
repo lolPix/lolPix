@@ -1,5 +1,9 @@
 ---
 en:
+  admin:
+    heading:
+      main: "Admin Area"
+    todo: "This part is currently TODO!"
   console:
     authorized: 'Authorized: '
     error: 'Error: '

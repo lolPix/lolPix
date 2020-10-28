@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title lolPix - Admin Area
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all'
+  %body
+    %noscript
+      = I18n.t('error.javascript_required')
+    #overlay
+    #modal-overlay
+    #app
+      .wrapper
+        .content
+          %h1
+            = I18n.t('admin.heading.main')
+          %p
+            = I18n.t('admin.todo')
+    = yield
