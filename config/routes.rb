@@ -19,6 +19,10 @@ Rails.application.routes.draw do
   get '/login', to: 'application#login'
 
   get '/top', to: 'feed#top'
+  get '/newest', to: 'feed#new'
+  get '/memes', to: 'feed#memes'
+  get '/fails', to: 'feed#fails'
+  get '/gifs', to: 'feed#gifs'
 
   #get '*all' => 'application#index', constraints: lambda { |req|
   #  req.path.exclude? 'rails/active_storage'

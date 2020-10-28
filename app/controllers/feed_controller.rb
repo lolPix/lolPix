@@ -1,7 +1,9 @@
 class FeedController < ActionController::Base
+  include ActiveModel::Serializers::JSON
+
   before_action :authorized, only: %i[authorized auth_header decoded_token logged_in_user logged_in?]
-  before_action :logged_in_user, only: %i[top]
-  helper_method :get_posts_top
+  before_action :logged_in_user, only: %i[top new memes fails gifs]
+  helper_method :get_posts_top, :get_posts_new, :get_posts_memes, :get_posts_fails, :get_posts_gifs
 
   def encode_token(payload)
     JWT.encode(payload, Rails.application.credentials.secret_key_base)
@@ -73,9 +75,32 @@ class FeedController < ActionController::Base
 
   def top; end
 
+  def new; end
+
+  def memes; end
+
+  def fails; end
+
+  def gifs; end
 
   def get_posts_top
-    Post.best_first.limit(15)
+    Post.best_first.limit(15).to_a.map(&:serializable_hash)
+  end
+
+  def get_posts_new
+    Post.newest_first.limit(15).to_a.map(&:serializable_hash)
+  end
+
+  def get_posts_memes
+    Post.newest_first.memes.limit(15).to_a.map(&:serializable_hash)
+  end
+
+  def get_posts_fails
+    Post.newest_first.fails.limit(15).to_a.map(&:serializable_hash)
+  end
+
+  def get_posts_gifs
+    Post.newest_first.gifs.limit(15).to_a.map(&:serializable_hash)
   end
 
 end

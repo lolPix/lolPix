@@ -13,5 +13,5 @@
     #overlay
     #modal-overlay
     #app{{"data-ssruser": @user.as_json}}
-      = react_component('ssr/feeds/ServerSideTopPage', {account: @user, url: request.url, posts: get_posts_top}, {prerender: true})
+      = react_component('ssr/feeds/ServerSideFailsPage', {account: @user, url: request.url, posts: get_posts_fails}, {prerender: true})
   = yield
