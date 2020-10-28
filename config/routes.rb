@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get '/user/:username', to: 'application#profile'
   get '/login', to: 'application#login'
 
+  get '/top', to: 'feed#top'
+
   #get '*all' => 'application#index', constraints: lambda { |req|
   #  req.path.exclude? 'rails/active_storage'
   #}

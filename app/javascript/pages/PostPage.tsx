@@ -6,7 +6,7 @@ import I18n from "i18n-js";
 import Loader from "../components/Loader";
 import {useParams} from "react-router-dom";
 import Post from "../model/Post";
-import {extractSSRPost} from "../components/ssr/SSRDataExtractors";
+import {extractSSRPost} from "../base/SSRDataExtractors";
 
 type Props = {
     account: User,

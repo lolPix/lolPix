@@ -4,7 +4,7 @@ import App from "./App";
 import I18n from "i18n-js";
 import Api from "./Api";
 import User from "../model/User";
-import {extractSSRUser} from "../components/ssr/SSRDataExtractors";
+import {extractSSRUser} from "./SSRDataExtractors";
 
 async function fetchUser() {
     const ssruser = extractSSRUser();

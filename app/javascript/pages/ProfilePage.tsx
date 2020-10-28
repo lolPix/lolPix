@@ -8,7 +8,7 @@ import PostFeed from "../components/PostFeed";
 import defaultPicture from "../../assets/images/logo_grey.svg";
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
 import CommentFeed from "../components/CommentFeed";
-import {extractSSRProfile} from "../components/ssr/SSRDataExtractors";
+import {extractSSRProfile} from "../base/SSRDataExtractors";
 
 type Props = {
     account: User | undefined;

@@ -6,12 +6,14 @@ import Loader from "./Loader";
 import User from "../model/user";
 import Post from "../model/Post";
 import {extractNextPageLink, randomChars} from "../base/Util";
+import {extractSSRPosts} from "../base/SSRDataExtractors";
 
 type Props = {
     account: User,
     onlyForUser?: User,
     sort?: "best" | "new",
-    only?: "memes" | "fails" | "gifs"
+    only?: "memes" | "fails" | "gifs",
+    posts?: Post[]
 }
 
 function generatePath(onlyForUser: User | undefined,
@@ -59,43 +61,50 @@ function getMorePosts(nextLink: string,
     );
 }
 
-const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: Props) => {
-    const [loading, setLoading] = useState(true);
-    const [posts, setPosts] = useState([]);
+const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only, posts = []}: Props) => {
+    const [loading, setLoading] = useState(false);
+    const [statePosts, setStatePosts] = useState(posts);
     const [nextLink, setNextLink] = useState(undefined);
 
     useEffect(() => {
-        setLoading(true);
-        Api({path: generatePath(onlyForUser, sort, only)}).then(
-            res => {
-                if (res.status === 200) {
-                    res.json().then(
-                        json => {
-                            if (json && json[0]) {
-                                console.log(I18n.t('console.got_posts') + JSON.stringify(json));
-                                extractNextPageLink(res, setNextLink);
-                                setPosts(json);
-                            } else {
-                                console.error(I18n.t('console.error') + ' Unknown JSON returned: ' + JSON.stringify(json)) // TODO: error handling
-                            }
-                        }, err => {
-                            console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
-                        });
-                }
-                setLoading(false); // this should come last
-            },
-            err => {
-                console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
-                setLoading(false); // this should come last
+        if(!statePosts.length) {
+            const extractedPosts = extractSSRPosts();
+            if(extractedPosts) {
+                setStatePosts(extractedPosts);
+            } else {
+                setLoading(true);
+                Api({path: generatePath(onlyForUser, sort, only)}).then(
+                    res => {
+                        if (res.status === 200) {
+                            res.json().then(
+                                json => {
+                                    if (json && json[0]) {
+                                        console.log(I18n.t('console.got_posts') + JSON.stringify(json));
+                                        extractNextPageLink(res, setNextLink);
+                                        setStatePosts(json);
+                                    } else {
+                                        console.error(I18n.t('console.error') + ' Unknown JSON returned: ' + JSON.stringify(json)) // TODO: error handling
+                                    }
+                                }, err => {
+                                    console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
+                                });
+                        }
+                        setLoading(false); // this should come last
+                    },
+                    err => {
+                        console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
+                        setLoading(false); // this should come last
+                    }
+                );
             }
-        );
+        }
     }, [])
 
     return (
         (loading && <Loader/>) ||
-        (posts.length &&
+        (statePosts.length &&
             <ul className={'post-feed'}>
-                {posts.map((p) => {
+                {statePosts.map((p) => {
                     return (
                         <li key={p.id}>
                             <PostWidget showComments={false} showLinks={true} account={account} post={p}/>
@@ -108,7 +117,7 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only}: 
                         after adding more content! */}
                     <button onClick={() => {
                         getMorePosts(nextLink, setNextLink, setLoading, newPosts => {
-                            setPosts([...posts, ...newPosts]);
+                            setStatePosts([...statePosts, ...newPosts]);
                         })
                     }} className={'load-more-button'}>{I18n.t('ui.feed.load-more')}</button>
                 </li>}

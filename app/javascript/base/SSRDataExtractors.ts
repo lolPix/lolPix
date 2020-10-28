@@ -1,5 +1,5 @@
-import User from "../../model/User";
-import Post from "../../model/Post";
+import User from "../model/User";
+import Post from "../model/Post";
 
 export function extractSSRUser(): User | undefined {
     const appElem = document.getElementById('app');
@@ -59,3 +59,14 @@ export function extractSSRProfile(): User | undefined {
     return undefined;
 }
 
+export function extractSSRPosts(): Post[] | undefined {
+    const appElem = document.getElementById('app');
+    if (appElem.dataset.ssrposts) {
+        let decodedText = decodeURIComponent(appElem.dataset.ssrposts);
+        console.log('decoded: "' + decodedText + '"');
+        const ssrposts: Post[] = JSON.parse(decodedText);
+        console.log('Serverside user in client: ' + JSON.stringify(ssrposts))
+        return ssrposts;
+    }
+    return undefined;
+}
