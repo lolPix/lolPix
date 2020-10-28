@@ -66,7 +66,7 @@ const PostContextMenu: FunctionComponent<Props> = ({account, post}: Props) => {
                 <button onClick={downloadPost(history, post)}>{I18n.t('ui.context-menu.post.save')}</button>
                 {(post.user.id !== account.id) &&
                 <button onClick={reportPost(history, post)}>{I18n.t('ui.context-menu.post.report')}</button>}
-                {(post.user.id === account.id) &&
+                {(post.user.id === account.id || account.admin) &&
                 <button onClick={deletePost(history, post)}>{I18n.t('ui.context-menu.post.delete')}</button>}
             </div>}
         </div>
