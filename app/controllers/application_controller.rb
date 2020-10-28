@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authorized, only: %i[authorized auth_header decoded_token logged_in_user logged_in?]
-  before_action :logged_in_user, only: %i[index post login]
-  helper_method :get_post
+  before_action :logged_in_user, only: %i[index post login profile]
+  helper_method :get_post, :get_profile
 
   def encode_token(payload)
     JWT.encode(payload, Rails.application.credentials.secret_key_base)
@@ -74,9 +74,15 @@ class ApplicationController < ActionController::Base
 
   def post; end
 
+  def profile; end
+
   def login; end
 
   def get_post
     Post.find(params[:postId])
+  end
+
+  def get_profile
+    User.find_by_username(params[:username])
   end
 end

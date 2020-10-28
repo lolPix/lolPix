@@ -42,3 +42,20 @@ export function extractSSRPost(): Post | undefined {
     }
     return undefined;
 }
+
+export function extractSSRProfile(): User | undefined {
+    const appElem = document.getElementById('app');
+    if (appElem.dataset.ssrprofileId) {
+        const ssrprofile: User = {
+            bio: appElem.dataset.ssrprofileBio,
+            id: parseInt(appElem.dataset.ssrprofileId, 10),
+            username: appElem.dataset.ssrprofileUsername,
+            image: appElem.dataset.ssrprofileImage,
+            admin: appElem.dataset.ssrprofileAdmin === 'true'
+        };
+        console.log('Serverside user in client: ' + JSON.stringify(ssrprofile))
+        return ssrprofile;
+    }
+    return undefined;
+}
+

@@ -13,12 +13,8 @@ type Props = {
     post?: Post
 }
 
-function getPost(post: Post, statePost) {
-    return post ? post : statePost;
-}
-
 const PostPage: FunctionComponent<Props> = ({account, post}: Props) => {
-    const [statePost, setStatePost] = useState(undefined);
+    const [statePost, setStatePost] = useState(post);
     const {postId} = useParams();
 
     useEffect(() => {
@@ -27,7 +23,7 @@ const PostPage: FunctionComponent<Props> = ({account, post}: Props) => {
             setStatePost(extractedSSRPost);
             console.log('Using SSR post...');
         } else {
-            if(!post){
+            if(!statePost){
                 Api({path: '/posts/' + encodeURIComponent(postId)}).then(
                     res => {
                         if (res.status === 200) {
@@ -52,9 +48,9 @@ const PostPage: FunctionComponent<Props> = ({account, post}: Props) => {
         }
     }, []);
 
-    return ((!getPost(post, statePost) && <Loader/>) ||
+    return ((!statePost && <Loader/>) ||
         <div className={'post-page'}>
-            <PostWidget account={account} post={getPost(post, statePost)}/>
+            <PostWidget account={account} post={statePost}/>
         </div>
     );
 };
