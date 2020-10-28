@@ -80,6 +80,10 @@ class ApplicationController < ActionController::Base
 
   def join; end
 
+  def logout
+    cookies.delete :lolpix_jwt
+  end
+
   def get_post
     Post.find(params[:postId])
   end

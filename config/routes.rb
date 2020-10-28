@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get '/login', to: 'application#login'
   get '/join', to: 'application#join'
 
+  get '/logout', to: 'application#logout'
+
   get '/top', to: 'feed#top'
   get '/newest', to: 'feed#new'
   get '/memes', to: 'feed#memes'
