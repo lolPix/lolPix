@@ -79,7 +79,11 @@ const LoginForm: FunctionComponent = () => {
                       /* and other goodies */
                   }) => (
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleSubmit(e);
+                    }}>
                         <label htmlFor="email">{I18n.t('ui.form.email')}</label>
                         <input
                             type="email"

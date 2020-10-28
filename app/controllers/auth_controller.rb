@@ -14,7 +14,7 @@ class AuthController < ApplicationController
   end
 
   # LOGGING IN
-  def login
+  def login_api
     @user = User.find_by(email: params[:email])
 
     if @user && @user.authenticate(params[:password])

@@ -60,8 +60,8 @@ class Post < ApplicationRecord
       confidential_fields = %i[image updated_at user_id reaction_id comment_id]
       enriched_values = {
           image: url_for(image),
-          user: User.find(user_id),
-          reactions: Reaction.find(reaction_ids)
+          user: User.find(user_id).as_json,
+          reactions: Reaction.find(reaction_ids).as_json
       }
       super(options.merge({except: confidential_fields})).merge(enriched_values)
     end

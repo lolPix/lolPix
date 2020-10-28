@@ -13,5 +13,5 @@
     #overlay
     #modal-overlay
     #app{{"data-ssruser": @user.as_json}}
-      = react_component('ssr/ServerSideHomePage', {account: @user, url: request.url}, {prerender: true})
+      = react_component('ssr/ServerSideLoginPage', {account: @user, url: request.url}, {prerender: true})
     = yield

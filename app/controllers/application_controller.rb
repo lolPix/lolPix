@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authorized, only: %i[authorized auth_header decoded_token logged_in_user logged_in?]
-  before_action :logged_in_user, only: :index
+  before_action :logged_in_user, only: %i[index post login]
+  helper_method :get_post
 
   def encode_token(payload)
     JWT.encode(payload, Rails.application.credentials.secret_key_base)
@@ -17,6 +18,16 @@ class ApplicationController < ActionController::Base
       # header: { 'Authorization': 'Bearer <token>' }
       begin
         JWT.decode(token, Rails.application.credentials.secret_key_base, true, algorithm: 'HS256')
+        response.set_cookie(
+            :lolpix_jwt,
+            {
+                value: token,
+                expires: 10.years.from_now,
+                path: '/',
+                secure: Rails.env.production?,
+                httponly: true
+            }
+        )
       rescue JWT::DecodeError
         nil
       end
@@ -43,8 +54,10 @@ class ApplicationController < ActionController::Base
       if the_decoded_cookie
         user_id = the_decoded_cookie[0]['user_id']
         @user = User.find_by(id: user_id)
+        redirect_to '/' if request.fullpath == '/login'
       else
-        Rails.logger.info 'no cookie found!'
+        Rails.logger.info 'no cookie found!, path:' + request.fullpath
+        redirect_to '/login' unless request.fullpath == '/login'
       end
     end
   end
@@ -58,4 +71,12 @@ class ApplicationController < ActionController::Base
   end
 
   def index; end
+
+  def post; end
+
+  def login; end
+
+  def get_post
+    Post.find(params[:postId])
+  end
 end
