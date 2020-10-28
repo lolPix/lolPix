@@ -19,6 +19,16 @@ class AuthController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       token = encode_token({user_id: @user.id})
+      response.set_cookie(
+        :lolpix_jwt,
+        {
+          value: token,
+          expires: 10.years.from_now,
+          path: '/',
+          secure: Rails.env.production?,
+          httponly: true
+        }
+      )
       render json: {user: @user, token: token}
     else
       render json: {error: I18n.t('error.login_error')}

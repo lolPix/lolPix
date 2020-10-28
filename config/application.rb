@@ -18,6 +18,20 @@ module LolPix
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+
+    # Settings for the pool of renderers:
+    config.react.server_renderer_pool_size ||= 1 # ExecJS doesn't allow more than one on MRI
+    config.react.server_renderer_timeout ||= 20 # seconds
+    config.react.server_renderer = React::ServerRendering::BundleRenderer
+    config.react.server_renderer_options = {
+        files: ["server_rendering.js"], # files to load for prerendering
+        replay_console: true, # if true, console.* will be replayed client-side
+    }
+    # Changing files matching these dirs/exts will cause the server renderer to reload:
+    config.react.server_renderer_extensions = ["jsx", "js"]
+    config.react.server_renderer_directories = ["/app/assets/javascripts", "/app/javascript/"]
+
+
     # Set host and port once and for all
     LolPix::Application.default_url_options = {host: ENV['LOLPIX_HOST'], port: ENV['LOLPIX_HOST']}
     Rails.application.config.action_mailer.default_url_options = {host: ENV['LOLPIX_HOST'], port: ENV['LOLPIX_HOST']}
