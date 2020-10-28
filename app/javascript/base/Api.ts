@@ -21,6 +21,7 @@ function Api({path, method = "GET", headers = {}, body}: ApiProps): Promise<Resp
             body
         });
     } else {
+        // assume we're in SSR mode
         return fetch(fetchUrl, {
             method,
             headers: {...headers},
