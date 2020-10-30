@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authorized, only: %i[authorized auth_header decoded_token logged_in_user logged_in?]
-  before_action :logged_in_user, only: %i[index post login profile]
+  before_action :logged_in_user, only: %i[index post login profile logout]
   helper_method :get_post, :get_profile, :delete_session
 
   def encode_token
@@ -63,7 +63,13 @@ class ApplicationController < ActionController::Base
         @user
       else
         Rails.logger.info 'no cookie found!'
-        redirect_to('/login') && return unless request.fullpath == '/login' || request.fullpath.start_with?('/api')
+        unless request.fullpath == '/login' ||
+               request.fullpath.start_with?('/api') ||
+               request.fullpath == '/logout' ||
+               request.fullpath == '/join'
+          redirect_to('/login') &&
+            return
+        end
 
         nil
       end
@@ -100,9 +106,17 @@ class ApplicationController < ActionController::Base
 
   def delete_session
     if cookies.key?(:lolpix_jwt)
-      user = User.find(get_userid_from_jwt(cookies[:lolpix_jwt]))
-      user.jwts = nil
-      user.save
+      userid_from_jwt = get_userid_from_jwt(cookies[:lolpix_jwt])
+      user = nil
+      if User.exists?(id: userid_from_jwt)
+        user = User.find(userid_from_jwt)
+      elsif !@user.nil?
+        user = @user
+      end
+      unless user.nil?
+        user.jwtsecret = nil
+        user.save
+      end
     end
     reset_session
     cookies.delete :lolpix_jwt, domain: :all
@@ -135,6 +149,8 @@ class ApplicationController < ActionController::Base
   end
 
   def get_userid_from_jwt(token)
+    return nil if token.nil?
+
     payload_section = token.split('.')[1]
     decoded_payload = JWT::Base64.url_decode(payload_section)
     Rails.logger.info "Payload: '#{decoded_payload}'"
