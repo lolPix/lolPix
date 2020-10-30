@@ -1,20 +1,24 @@
 class ApplicationController < ActionController::Base
-  require 'rbnacl'
-
   before_action :authorized, only: %i[authorized auth_header decoded_token logged_in_user logged_in?]
   before_action :logged_in_user, only: %i[index post login profile logout]
   helper_method :get_post, :get_profile, :delete_session
 
   def encode_token
-    unless @user.jwtsecret
+    unless JWTKey.exists?(user_id: @user.id)
       ecdsa_key = OpenSSL::PKey::EC.new 'prime256v1'
       ecdsa_key.generate_key
       ecdsa_public = OpenSSL::PKey::EC.new ecdsa_key
       ecdsa_public.private_key = nil
-      # TODO: save keys and stuff
+
+      jwt_key = JWTKey.new(privkey: ecdsa_key.private_key.to_s,
+                           pubkey: ecdsa_key.public_key,
+                           user: @user)
+
+      jwt_key.save
       @user.save
     end
-    JWT.encode(@user.id, @user.jwtsecret, algorithm: 'ES512')
+    jwt_key_for_user = JWTKey.find_by(user_id: @user.id)
+    JWT.encode(@user.id, jwt_key_for_user.privkey, algorithm: 'ES512')
   end
 
   def auth_header
@@ -29,10 +33,10 @@ class ApplicationController < ActionController::Base
     # header: { 'Authorization': 'Bearer <token>' }
     begin
       Rails.logger.info "Token: '#{token}'"
-      jwts_from_user = get_jwts_from_user(token)
-      Rails.logger.info "JWTS: '#{jwts_from_user}'"
+      jwt_key_for_user = JWTKey.find_by(user_id: @user.id)
+      Rails.logger.info "JWTS: '#{jwt_key_for_user.pubkey}'"
 
-      decoded = JWT.decode(token, jwts_from_user, true, algorithm: 'ES512')
+      decoded = JWT.decode(token, jwt_key_for_user.pubkey, true, algorithm: 'ES512')
       set_cookie(token) if decoded
       Rails.logger.info "Decoded: #{decoded}"
       decoded
@@ -68,11 +72,11 @@ class ApplicationController < ActionController::Base
       else
         Rails.logger.info 'no cookie found!'
         unless request.fullpath == '/login' ||
-               request.fullpath.start_with?('/api') ||
-               request.fullpath == '/logout' ||
-               request.fullpath == '/join'
+            request.fullpath.start_with?('/api') ||
+            request.fullpath == '/logout' ||
+            request.fullpath == '/join'
           redirect_to('/login') &&
-            return
+              return
         end
 
         nil
