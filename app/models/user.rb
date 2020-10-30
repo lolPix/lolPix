@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :comments
   has_many :posts
   has_many :reactions
+  has_many :jwt_keys
 
   has_one_attached :image
 
