@@ -1,5 +1,5 @@
 # JWT Key entity
-class JWTKey < ApplicationRecord
+class JwtKey < ApplicationRecord
   belongs_to :user
 
   validates_presence_of :privkey, :pubkey
