@@ -4,21 +4,21 @@ class ApplicationController < ActionController::Base
   helper_method :get_post, :get_profile, :delete_session
 
   def encode_token
-    unless JWTKey.exists?(user_id: @user.id)
+    unless JwtKey.exists?(user_id: @user.id)
       ecdsa_key = OpenSSL::PKey::EC.new 'prime256v1'
       ecdsa_key.generate_key
       ecdsa_public = OpenSSL::PKey::EC.new ecdsa_key
       ecdsa_public.private_key = nil
 
-      jwt_key = JWTKey.new(privkey: ecdsa_key.private_key.to_pem,
-                           pubkey: ecdsa_key.public_key.to_pem,
+      jwt_key = JwtKey.new(privkey: ecdsa_key.private_key.to_s,
+                           pubkey: ecdsa_key.public_key.to_s,
                            user: @user)
 
       jwt_key.save
       @user.save
     end
-    jwt_key_for_user = JWTKey.find_by(user_id: @user.id)
-    JWT.encode(@user.id, jwt_key_for_user.privkey, algorithm: 'ES512')
+    jwt_key_for_user = JwtKey.find_by(user_id: @user.id)
+    JWT.encode({ id: @user.id }, jwt_key_for_user.privkey, algorithm: 'ES512')
   end
 
   def auth_header
@@ -33,13 +33,17 @@ class ApplicationController < ActionController::Base
     # header: { 'Authorization': 'Bearer <token>' }
     begin
       Rails.logger.info "Token: '#{token}'"
-      jwt_key_for_user = JWTKey.find_by(user_id: @user.id)
-      Rails.logger.info "JWTS: '#{jwt_key_for_user.pubkey}'"
+      if !@user.nil? && JwtKey.exists?(user_id: @user.id)
+        jwt_key_for_user = JwtKey.find_by(user_id: @user.id)
+        Rails.logger.info "JWTS: '#{jwt_key_for_user.pubkey}'"
 
-      decoded = JWT.decode(token, jwt_key_for_user.pubkey, true, algorithm: 'ES512')
-      set_cookie(token) if decoded
-      Rails.logger.info "Decoded: #{decoded}"
-      decoded
+        decoded = JWT.decode(token, jwt_key_for_user.pubkey, true, algorithm: 'ES512')
+        set_cookie(token) if decoded
+        Rails.logger.info "Decoded: #{decoded}"
+        decoded
+      end
+
+      nil
     rescue JWT::DecodeError
       nil
     end
