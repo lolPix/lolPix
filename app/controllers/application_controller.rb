@@ -1,14 +1,20 @@
 class ApplicationController < ActionController::Base
+  require 'rbnacl'
+
   before_action :authorized, only: %i[authorized auth_header decoded_token logged_in_user logged_in?]
   before_action :logged_in_user, only: %i[index post login profile logout]
   helper_method :get_post, :get_profile, :delete_session
 
   def encode_token
     unless @user.jwtsecret
-      @user.jwtsecret = SecureRandom.hex(30).to_s
+      ecdsa_key = OpenSSL::PKey::EC.new 'prime256v1'
+      ecdsa_key.generate_key
+      ecdsa_public = OpenSSL::PKey::EC.new ecdsa_key
+      ecdsa_public.private_key = nil
+      # TODO: save keys and stuff
       @user.save
     end
-    JWT.encode(@user.id, @user.jwtsecret.to_s)
+    JWT.encode(@user.id, @user.jwtsecret, algorithm: 'ES512')
   end
 
   def auth_header
@@ -26,11 +32,9 @@ class ApplicationController < ActionController::Base
       jwts_from_user = get_jwts_from_user(token)
       Rails.logger.info "JWTS: '#{jwts_from_user}'"
 
-      # FIXME so apparently `jwts_from_user` has to be a KEY, not a STRING m(
-      # I wonder what is different between 's3cr3t' (a string) and @user.jwts (a string)...
-
-      decoded = JWT.decode(token, jwts_from_user.to_s, true, algorithm: 'HS256')
+      decoded = JWT.decode(token, jwts_from_user, true, algorithm: 'ES512')
       set_cookie(token) if decoded
+      Rails.logger.info "Decoded: #{decoded}"
       decoded
     rescue JWT::DecodeError
       nil
