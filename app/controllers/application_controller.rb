@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
       ecdsa_public = OpenSSL::PKey::EC.new ecdsa_key
       ecdsa_public.private_key = nil
 
-      jwt_key = JWTKey.new(privkey: ecdsa_key.private_key.to_s,
-                           pubkey: ecdsa_key.public_key,
+      jwt_key = JWTKey.new(privkey: ecdsa_key.private_key.to_pem,
+                           pubkey: ecdsa_key.public_key.to_pem,
                            user: @user)
 
       jwt_key.save
