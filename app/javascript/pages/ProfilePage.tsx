@@ -24,7 +24,6 @@ const ProfilePage: FunctionComponent<Props> = ({account, user}: Props) => {
         if(!stateUser) {
             if(extractedProfile) {
                 setStateUser(extractedProfile)
-                console.log('Using SSR profile...')
             } else {
                 Api({path: '/users/' + encodeURIComponent(username)}).then(
                     res => {

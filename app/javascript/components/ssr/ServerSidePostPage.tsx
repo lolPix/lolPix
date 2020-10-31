@@ -14,11 +14,7 @@ type Props = {
 };
 
 const ServerSidePostPage: FunctionComponent<Props> = ({account, url, post}: Props) => {
-    console.log('Server side user: ' + JSON.stringify(account))
-    console.log('Server side post: ' + JSON.stringify(post))
-    console.log('Server side url: ' + url)
     const pathname = new URL(url).pathname;
-    console.log('Server side pathname: ' + pathname)
     const history = createMemoryHistory({initialEntries: [pathname]});
     return (
         <>

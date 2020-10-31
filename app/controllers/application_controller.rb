@@ -4,14 +4,10 @@ class ApplicationController < ActionController::Base
   helper_method :get_post, :get_profile, :delete_session
 
   def encode_token
-    Rails.logger.info "Starting token encoding for user #{@user.username}"
     if @user.jwts.nil?
-      Rails.logger.info "Generating new key for user #{@user.username}"
       @user.jwts = SecureRandom.alphanumeric(28)
-      Rails.logger.info "Saving key for user #{@user.username}"
       @user.save
     end
-    Rails.logger.info "Encoding JWT for user #{@user.username}"
     JWT.encode({ id: @user.id }, @user.jwts)
   end
 
@@ -26,15 +22,12 @@ class ApplicationController < ActionController::Base
     token = auth_header.split(' ')[1]
     # header: { 'Authorization': 'Bearer <token>' }
     begin
-      Rails.logger.info "Token: '#{token}'"
       parsed_userid = get_userid_from_jwt(token)
       if User.exists?(id: parsed_userid)
         user = User.find_by(id: parsed_userid)
-        Rails.logger.info "JWTS: '#{user.jwts}'"
 
         decoded = JWT.decode(token, user.jwts, true, algorithm: 'HS256')
         add_cookie_to_response(token) if decoded
-        Rails.logger.info "Decoded: #{decoded}"
         return decoded
       end
 
@@ -58,10 +51,10 @@ class ApplicationController < ActionController::Base
     if decoded_token
       user_id = decoded_token[0]['id']
       @user = User.find_by(id: user_id)
-      Rails.logger.info "user: #{@user.as_json}"
+      Rails.logger.info "Logged in: #{@user.username}"
       @user
     else
-      Rails.logger.info 'no token found, trying cookie!'
+      Rails.logger.info 'No token found, trying cookie...'
       parse_user_from_cookie
     end
   end
@@ -69,10 +62,8 @@ class ApplicationController < ActionController::Base
   def parse_user_from_cookie
     the_decoded_cookie = decoded_cookie
     if the_decoded_cookie
-      user_id = the_decoded_cookie[0]['id']
-      Rails.logger.info "Found userid #{user_id}"
-      @user = User.find_by(id: user_id)
-      Rails.logger.info "Found user #{@user.username}"
+      @user = User.find_by(id: the_decoded_cookie[0]['id'])
+      Rails.logger.info "Logged in: #{@user.username}"
       redirect_to('/') && return if request.fullpath == '/login'
 
       @user
@@ -88,7 +79,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorized
-    render json: {message: I18n.t('error.unauthorized')}, status: :unauthorized unless logged_in?
+    render json: { message: I18n.t('error.unauthorized') }, status: :unauthorized unless logged_in?
   end
 
   def index; end
@@ -165,10 +156,7 @@ class ApplicationController < ActionController::Base
 
     payload_section = token.split('.')[1]
     decoded_payload = JWT::Base64.url_decode(payload_section)
-    Rails.logger.info "Payload: '#{decoded_payload}'"
     parsed_json = JWT::JSON.parse(decoded_payload)
-    Rails.logger.info "Parsed JSON: '#{parsed_json}'"
-    Rails.logger.info "Parsed ID: '#{parsed_json['id']}'"
     parsed_json['id']
   end
 end

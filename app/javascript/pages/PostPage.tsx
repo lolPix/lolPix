@@ -21,7 +21,6 @@ const PostPage: FunctionComponent<Props> = ({account, post}: Props) => {
         const extractedSSRPost = extractSSRPost();
         if(extractedSSRPost){
             setStatePost(extractedSSRPost);
-            console.log('Using SSR post...');
         } else {
             if(!statePost){
                 Api({path: '/posts/' + encodeURIComponent(postId)}).then(

@@ -34,7 +34,6 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false,
     const [statePost, setStatePost] = useState(post);
 
     const refreshPost = () => {
-        console.log('Refreshing post...')
         Api({path: '/posts/' + encodeURIComponent(statePost.id)}).then(
             res => {
                 if (res.status === 200) {

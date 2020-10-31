@@ -16,11 +16,7 @@ type Props = {
 };
 
 const ServerSideFailsPage: FunctionComponent<Props> = ({account, url, posts}: Props) => {
-    console.log('Server side user: ' + JSON.stringify(account))
-    console.log('Server side url: ' + url)
-    console.log('Server side posts: ' + JSON.stringify(posts))
     const pathname = new URL(url).pathname;
-    console.log('Server side pathname: ' + pathname)
     const history = createMemoryHistory({initialEntries: [pathname]});
     return (
         <>

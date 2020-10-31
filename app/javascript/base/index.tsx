@@ -9,7 +9,6 @@ import {extractSSRUser} from "./SSRDataExtractors";
 async function fetchUser() {
     const ssruser = extractSSRUser();
     if (ssruser) {
-        console.log('Using SSR user...')
         return ssruser;
     }
     const response = await Api({path: '/hi'});

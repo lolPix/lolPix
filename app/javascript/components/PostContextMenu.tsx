@@ -34,7 +34,6 @@ const PostContextMenu: FunctionComponent<Props> = ({account, post}: Props) => {
 
     function closeMenu() {
         setShowMenu(false);
-        console.log('Show: false')
         setTimeout(() => {
             document.removeEventListener('click', listener);
         }, 200);
@@ -48,12 +47,9 @@ const PostContextMenu: FunctionComponent<Props> = ({account, post}: Props) => {
     }
 
     function toggleMenu() {
-        console.log('toggle called...')
         if (!showMenu) {
-            console.log('opening menu...')
             openMenu();
         } else {
-            console.log('closing menu...')
             closeMenu()
         }
     }

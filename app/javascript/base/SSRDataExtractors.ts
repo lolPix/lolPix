@@ -11,7 +11,6 @@ export function extractSSRUser(): User | undefined {
             image: appElem.dataset.ssruserImage,
             admin: appElem.dataset.ssruserAdmin === 'true'
         };
-        console.log('Serverside user in client: ' + JSON.stringify(ssruser))
         return ssruser;
     }
     return undefined;
@@ -37,7 +36,6 @@ export function extractSSRPost(): Post | undefined {
                 admin: appElem.dataset.ssrpostUserAdmin === 'true'
             }
         };
-        console.log('Serverside post in client: ' + JSON.stringify(ssrpost))
         return ssrpost;
     }
     return undefined;
@@ -53,7 +51,6 @@ export function extractSSRProfile(): User | undefined {
             image: appElem.dataset.ssrprofileImage,
             admin: appElem.dataset.ssrprofileAdmin === 'true'
         };
-        console.log('Serverside user in client: ' + JSON.stringify(ssrprofile))
         return ssrprofile;
     }
     return undefined;
@@ -62,10 +59,8 @@ export function extractSSRProfile(): User | undefined {
 export function extractSSRPosts(): Post[] | undefined {
     const appElem = document.getElementById('app');
     if (appElem.dataset.ssrposts) {
-        let decodedText = decodeURIComponent(appElem.dataset.ssrposts);
-        console.log('decoded: "' + decodedText + '"');
+        const decodedText = decodeURIComponent(appElem.dataset.ssrposts);
         const ssrposts: Post[] = JSON.parse(decodedText);
-        console.log('Serverside user in client: ' + JSON.stringify(ssrposts))
         return ssrposts;
     }
     return undefined;
