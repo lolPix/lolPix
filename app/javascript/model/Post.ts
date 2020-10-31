@@ -4,7 +4,8 @@ import Reaction from "./reaction";
 type PostCategory =
     0 | // memes
     1 | // fails
-    2   // gifs
+    2 |  // gifs
+    number
 
 export default class Post {
     id: number;

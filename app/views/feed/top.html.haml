@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title lolPix
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_pack_tag 'application'
+  %body
+    %noscript
+      = I18n.t('error.javascript_required')
+    #overlay
+    #modal-overlay
+    #app{{"data-ssruser": @user.as_json}}
+      = react_component('ssr/feeds/ServerSideTopPage', {account: @user, url: request.url, posts: get_posts_top}, {prerender: true})
+  = yield

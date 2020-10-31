@@ -48,7 +48,7 @@ const LoginForm: FunctionComponent = () => {
                                         if (!json.error && json.token && json.user) {
                                             console.log(I18n.t('console.logged_in') + JSON.stringify(json.user));
                                             localStorage.setItem('lolPix_Token', json.token);
-                                            window.location.href = '/';
+                                            setTimeout(() => window.location.href = '/', 300)
                                         } else {
                                             console.error('Error: ' + json.error);
                                             setLoginError(json.error);
@@ -79,7 +79,11 @@ const LoginForm: FunctionComponent = () => {
                       /* and other goodies */
                   }) => (
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleSubmit(e);
+                    }}>
                         <label htmlFor="email">{I18n.t('ui.form.email')}</label>
                         <input
                             type="email"

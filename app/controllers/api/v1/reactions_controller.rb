@@ -1,7 +1,7 @@
 module Api
   module V1
     class ReactionsController < ActionController::API
-      before_action :set_reaction, only: [:show, :update, :destroy]
+      before_action :set_reaction, only: %i[show update destroy]
 
       # GET /reactions/<postId>
       # GET /reactions.json

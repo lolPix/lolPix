@@ -18,14 +18,15 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  def as_json(options = {})
+  def serializable_hash(options = nil)
+    options = {} if options.nil?
     ActiveStorage::Current.set(host: LolPix::Application.get_host_value) do
-      confidential_fields = %i[email image password_digest created_at updated_at posts_id comments_id]
-      generated_json = super(options.merge({except: confidential_fields}))
+      confidential_fields = %i[jwts email image password_digest created_at updated_at posts_id comments_id]
+      generated_stuff = super(options.merge({ except: confidential_fields }))
       if image.attached?
-        generated_json.merge({image: url_for(image)})
+        generated_stuff.merge({ image: url_for(image) })
       else
-        generated_json
+        generated_stuff
       end
     end
   end

@@ -8,51 +8,60 @@ import PostFeed from "../components/PostFeed";
 import defaultPicture from "../../assets/images/logo_grey.svg";
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
 import CommentFeed from "../components/CommentFeed";
+import {extractSSRProfile} from "../base/SSRDataExtractors";
 
 type Props = {
     account: User | undefined;
+    user?: User
 }
 
-const ProfilePage: FunctionComponent<Props> = ({account}: Props) => {
+const ProfilePage: FunctionComponent<Props> = ({account, user}: Props) => {
     const {username} = useParams();
-    const [user, setUser] = useState<User>(undefined);
+    const [stateUser, setStateUser] = useState<User>(user);
 
     useEffect(() => {
-        Api({path: '/users/' + encodeURIComponent(username)}).then(
-            res => {
-                if (res.status === 200) {
-                    res.json().then(
-                        json => {
-                            if (json && json.bio) {
-                                console.log(I18n.t('console.loaded_user') + JSON.stringify(json));
-                                setUser(json);
-                            } else {
-                                console.error(I18n.t('console.error') + ' Unknown JSON returned: ' + JSON.stringify(json)) // TODO: error handling
-                            }
-                        }, err => {
-                            console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
-                        });
-                }
-            },
-            err => {
-                console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
+        const extractedProfile = extractSSRProfile();
+        if (!stateUser) {
+            if (extractedProfile) {
+                setStateUser(extractedProfile)
+            } else {
+                Api({path: '/users/' + encodeURIComponent(username)}).then(
+                    res => {
+                        if (res.status === 200) {
+                            res.json().then(
+                                json => {
+                                    if (json && json.bio) {
+                                        console.log(I18n.t('console.loaded_user') + JSON.stringify(json));
+                                        setStateUser(json);
+                                    } else {
+                                        console.error(I18n.t('console.error') + ' Unknown JSON returned: ' + JSON.stringify(json)) // TODO: error handling
+                                    }
+                                }, err => {
+                                    console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
+                                });
+                        }
+                    },
+                    err => {
+                        console.error(I18n.t('console.error') + JSON.stringify(err)) // TODO: error handling
+                    }
+                );
             }
-        );
+        }
     }, []);
 
     return (
         (!account && <Redirect to={'/login'}/>) ||
-        (!user && <Loader/>) ||
+        (!stateUser && <Loader/>) ||
         <div className={'profile-page'}>
             <div className="header">
                 <div className="profile-picture">
-                    {user.image &&
-                    <img src={user.image} alt={I18n.t('ui.profile.alt_profile_picture_for') + user.username}/>
+                    {stateUser.image &&
+                    <img src={stateUser.image} alt={I18n.t('ui.profile.alt_profile_picture_for') + stateUser.username}/>
                     || <img src={defaultPicture} alt={I18n.t('error.no_image_found')}/>}
                 </div>
                 <div className="meta">
-                    <p className="username">{user.username}</p>
-                    <p className="bio">{user.bio}</p>
+                    <p className="username">{stateUser.username}</p>
+                    <p className="bio">{stateUser.bio}</p>
                 </div>
             </div>
             <Tabs className="user-content">
@@ -64,16 +73,16 @@ const ProfilePage: FunctionComponent<Props> = ({account}: Props) => {
                 </TabList>
 
                 <TabPanel>
-                    <PostFeed onlyForUser={user} account={account} sort={'new'}/>
+                    <PostFeed onlyForUser={stateUser} account={account} sort={'new'}/>
                 </TabPanel>
                 <TabPanel>
-                    <PostFeed onlyForUser={user} account={account} sort={'best'}/>
+                    <PostFeed onlyForUser={stateUser} account={account} sort={'best'}/>
                 </TabPanel>
                 <TabPanel>
-                    <CommentFeed showPostLinks={true} onlyForUser={user} account={account} sort={'new'}/>
+                    <CommentFeed showPostLinks={true} onlyForUser={stateUser} account={account} sort={'new'}/>
                 </TabPanel>
                 <TabPanel>
-                    <CommentFeed showPostLinks={true} onlyForUser={user} account={account} sort={'best'}/>
+                    <CommentFeed showPostLinks={true} onlyForUser={stateUser} account={account} sort={'best'}/>
                 </TabPanel>
             </Tabs>
         </div>

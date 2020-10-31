@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title lolPix
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_pack_tag 'application'
+  %body
+    %noscript
+      = I18n.t('error.javascript_required')
+    #overlay
+    #modal-overlay
+    #app
+      = react_component('ssr/ServerSideRegistrationPage', {url: request.url}, {prerender: true})
+    = yield

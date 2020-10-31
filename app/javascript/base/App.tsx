@@ -26,7 +26,7 @@ const App: FunctionComponent<Props> = ({account}: Props) => {
                     <div className="content">
                         <Switch>
                             <Route exact path="/">
-                                <HomePage account={account} />
+                                <HomePage account={account}/>
                             </Route>
                             <Route exact path="/join">
                                 <RegistrationPage/>

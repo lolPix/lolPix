@@ -50,8 +50,9 @@ const AccountMenu: FunctionComponent<Props> = ({account}: Props) => {
         <div className={'account-menu' + (active ? ' active' : '')}>
             <div className={'top'} onClick={toggleMenu}>
                 {(account && <>
-                    {account.image && <img src={account.image} alt={I18n.t('nav.alt_profile_picture_for') + ' ' + account.username}/>
-                    || <img src={defaultPicture} alt={I18n.t('error.no_image_found')} />}
+                    {account.image &&
+                    <img src={account.image} alt={I18n.t('nav.alt_profile_picture_for') + ' ' + account.username}/>
+                    || <img src={defaultPicture} alt={I18n.t('error.no_image_found')}/>}
                     <span>{account.username}</span>
                 </>) || <span>{I18n.t('ui.nav.account.not_logged_in')}</span>}
             </div>

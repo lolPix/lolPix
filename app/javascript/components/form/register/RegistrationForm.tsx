@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import {Formik} from 'formik';
 import I18n from "i18n-js";
 import Api from "../../../base/Api";
@@ -107,7 +107,7 @@ const RegistrationForm: FunctionComponent = () => {
                     }
                     if (!values.username) {
                         errors.username = I18n.t('error.username_required');
-                    } else if(values.username.length <=5 ){
+                    } else if (values.username.length <= 5) {
                         errors.username = I18n.t('error.username_too_short');
                     }
                     return errors;
@@ -191,7 +191,7 @@ const RegistrationForm: FunctionComponent = () => {
                         <textarea name="bio" id="bio" cols={30} rows={5}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
-                                  value={values.bio} />
+                                  value={values.bio}/>
                         <label htmlFor="image">{I18n.t('ui.form.profile_picture')}</label>
                         <input id="image" accept="image/*" name="image" type="file" onChange={onSelectFile}/>
                         {imageSrc && (

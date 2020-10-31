@@ -8,8 +8,9 @@ class Reaction < ApplicationRecord
   scope :of_post, ->(post) { where('post_id == ?', post.id) }
   scope :of_user, ->(user) { where('user_id == ?', user.id) }
 
-  def as_json(options = {})
+  def serializable_hash(options = nil)
+    options = {} if options.nil?
     confidential_fields = %i[created_at updated_at]
-    super(options.merge({except: confidential_fields}))
+    super(options.merge({ except: confidential_fields }))
   end
 end
