@@ -16,7 +16,7 @@ export const TopPage: FunctionComponent<Props> = ({account}: Props) => {
     return assureAuthenticated(account, (
         <>
             <h1 className={'page-heading'}>{I18n.t('ui.heading.top_posts')}</h1>
-            <PostFeed account={account} sort={'best'} />
+            <PostFeed account={account} sort={'best'}/>
         </>
     ));
 };
@@ -25,7 +25,7 @@ export const NewestPage: FunctionComponent<Props> = ({account}: Props) => {
     return assureAuthenticated(account, (
         <>
             <h1 className={'page-heading'}>{I18n.t('ui.heading.newest_posts')}</h1>
-            <PostFeed account={account} sort={'new'} />
+            <PostFeed account={account} sort={'new'}/>
         </>
     ));
 };
@@ -34,7 +34,7 @@ export const MemesPage: FunctionComponent<Props> = ({account}: Props) => {
     return assureAuthenticated(account, (
         <>
             <h1 className={'page-heading'}>{I18n.t('ui.heading.newest_memes')}</h1>
-            <PostFeed account={account} only={'memes'} />
+            <PostFeed account={account} only={'memes'}/>
         </>
     ));
 };
@@ -43,7 +43,7 @@ export const FailsPage: FunctionComponent<Props> = ({account}: Props) => {
     return assureAuthenticated(account, (
         <>
             <h1 className={'page-heading'}>{I18n.t('ui.heading.newest_fails')}</h1>
-            <PostFeed account={account} only={'fails'} />
+            <PostFeed account={account} only={'fails'}/>
         </>
     ));
 };
@@ -51,7 +51,7 @@ export const GIFsPage: FunctionComponent<Props> = ({account}: Props) => {
     return assureAuthenticated(account, (
         <>
             <h1 className={'page-heading'}>{I18n.t('ui.heading.newest_gifs')}</h1>
-            <PostFeed account={account} only={'gifs'} />
+            <PostFeed account={account} only={'gifs'}/>
         </>
     ));
 };

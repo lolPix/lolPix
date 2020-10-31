@@ -25,6 +25,7 @@ en:
     refreshed_post: 'Refreshed post: '
     registered: 'Registered: '
     registration: Registration...
+    sending_report: Sending Report...
     warning:
       no_next_link_found: No 'next page‘ link found. Assuming end of content!
   error:
@@ -55,6 +56,11 @@ en:
     alt_logo: lolPix Logo
     alt_profile_picture_for: Profile picture for
   ui:
+    report:
+      description: Please describe why you decided to report this content!
+      heading: 'Report the '
+    login:
+      no_account_link: "No account? Register!"
     comment:
       by: by
       reaction:
@@ -92,6 +98,7 @@ en:
         login: Login
         post: Post
         register: Join
+        report: Report
       title: Title
       username: Username
     heading:
@@ -139,3 +146,4 @@ en:
         most_reactions: Most Reacted To Posts
         newest: Newest Posts
       posts_by: 'Posts by '
+    redirecting: Redirecting...

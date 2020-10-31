@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useState} from 'react';
-import Post from "../model/post";
+import Post, {getCategoryString} from "../model/post";
 import {formatDistanceToNow, formatRFC7231, parseISO} from 'date-fns'
 import I18n from "i18n-js";
 import {Link} from 'react-router-dom';
@@ -15,19 +15,6 @@ type Props = {
     account: User,
     showLinks?: boolean,
     showComments?: boolean
-}
-
-function getCategoryString(post: Post): string | undefined {
-    switch (post.category) {
-        case 0:
-            return I18n.t('ui.post.category.meme');
-        case 1:
-            return I18n.t('ui.post.category.fail');
-        case 2:
-            return I18n.t('ui.post.category.gif');
-        default:
-            return undefined;
-    }
 }
 
 const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false, showComments = true}: Props) => {
@@ -60,7 +47,7 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false,
     const postImage = <img src={statePost.image} alt={statePost.alt_text}/>;
     return (
         <div className={'post-widget'}>
-            <h2 className={'title'}>{statePost.title}<PostContextMenu account={account} post={post} /></h2>
+            <h2 className={'title'}>{statePost.title}<PostContextMenu account={account} post={post}/></h2>
             <div className="content">
                 {showLinks && <Link to={'/post/' + statePost.id}>{postImage}</Link> || postImage}
                 <div className="meta">
@@ -76,8 +63,9 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false,
                     </p>
                     <ReactionsForm refreshPost={refreshPost} account={account} post={statePost}/>
                 </div>
-                {showComments && <CommentForm account={account} post_id={statePost.id} refreshPost={refreshPost} />}
-                {(showComments) && <CommentFeed account={account} sort={'best'} onlyForPost={statePost} refreshPost={refreshPost} />}
+                {showComments && <CommentForm account={account} post_id={statePost.id} refreshPost={refreshPost}/>}
+                {(showComments) &&
+                <CommentFeed account={account} sort={'best'} onlyForPost={statePost} refreshPost={refreshPost}/>}
             </div>
         </div>
     );

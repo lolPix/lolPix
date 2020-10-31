@@ -2,6 +2,7 @@ import React, {FunctionComponent, useState} from 'react';
 import {Formik} from 'formik';
 import I18n from "i18n-js";
 import Api from "../../base/Api";
+import {Link} from "react-router-dom";
 
 function emailInvalid(email: string): boolean {
     return !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
@@ -48,7 +49,7 @@ const LoginForm: FunctionComponent = () => {
                                         if (!json.error && json.token && json.user) {
                                             console.log(I18n.t('console.logged_in') + JSON.stringify(json.user));
                                             localStorage.setItem('lolPix_Token', json.token);
-                                            window.location.href = '/';
+                                            setTimeout(() => window.location.href = '/', 300)
                                         } else {
                                             console.error('Error: ' + json.error);
                                             setLoginError(json.error);
@@ -79,7 +80,11 @@ const LoginForm: FunctionComponent = () => {
                       /* and other goodies */
                   }) => (
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleSubmit(e);
+                    }}>
                         <label htmlFor="email">{I18n.t('ui.form.email')}</label>
                         <input
                             type="email"
@@ -109,6 +114,7 @@ const LoginForm: FunctionComponent = () => {
                     </form>
                 )}
             </Formik>
+            <Link className={'join-link'} to={'/join'}>{I18n.t('ui.login.no_account_link')}</Link>
         </div>
     );
 };

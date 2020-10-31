@@ -50,7 +50,9 @@ const CommentReactionsForm: FunctionComponent<Props> = ({comment, account, refre
                             res.json().then(
                                 json => {
                                     if (!json.error && json.id) {
-                                        {refreshPost && refreshPost()}
+                                        {
+                                            refreshPost && refreshPost()
+                                        }
                                     } else {
                                         console.error('Error: ' + json.error); // TODO: error handling
                                     }

@@ -7,9 +7,9 @@ I18n.available_locales = %i[en]
 class I18nComponentMount < React::Rails::ComponentMount
   def react_component(name, props = {}, options = {}, &block)
     props[:i18n] = {
-        locale: I18n.locale,
-        default_locale: I18n.default_locale,
-        available_locales: I18n.available_locales
+      locale: I18n.locale,
+      default_locale: I18n.default_locale,
+      available_locales: I18n.available_locales
     }
 
     super

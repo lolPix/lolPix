@@ -30,7 +30,8 @@ const CommentWidget: FunctionComponent<Props> = ({account, comment, refreshPost,
             <Link to={'/user/' + comment.user.username} className={'user'}>{comment.user.username}</Link>
             &nbsp;-&nbsp;
             <button onClick={() => setShowReplyForm(!showReplyForm)}>{replyButtonText}</button>
-            {showReplyForm && <CommentForm post_id={comment.post_id} account={account} refreshPost={refreshPost} parent={comment}/>}
+            {showReplyForm &&
+            <CommentForm post_id={comment.post_id} account={account} refreshPost={refreshPost} parent={comment}/>}
         </span>
     </>
 

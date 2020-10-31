@@ -11,8 +11,7 @@
     %noscript
       = I18n.t('error.javascript_required')
     #overlay
-      #loader.initial
-        = image_tag 'logo.svg', alt: I18n.t('ui.loading')
     #modal-overlay
-    #app
+    #app{{"data-ssruser": @user.as_json}}
+      = react_component('ssr/ServerSideHomePage', {account: @user, url: request.url}, {prerender: true})
     = yield

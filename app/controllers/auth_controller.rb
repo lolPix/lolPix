@@ -6,22 +6,23 @@ class AuthController < ApplicationController
   def register
     @user = User.create(user_params)
     if @user.valid?
-      token = encode_token({user_id: @user.id})
-      render json: {user: @user, token: token}
+      token = encode_token
+      render json: { user: @user, token: token }
     else
-      render json: {error: I18n.t('error.user_invalid'), detail: @user.errors}
+      render json: { error: I18n.t('error.user_invalid'), detail: @user.errors }
     end
   end
 
   # LOGGING IN
-  def login
+  def login_api
     @user = User.find_by(email: params[:email])
 
-    if @user && @user.authenticate(params[:password])
-      token = encode_token({user_id: @user.id})
-      render json: {user: @user, token: token}
+    if @user&.authenticate(params[:password])
+      token = encode_token
+      add_cookie_to_response(token)
+      render json: { user: @user, token: token }
     else
-      render json: {error: I18n.t('error.login_error')}
+      render json: { error: I18n.t('error.login_error') }
     end
   end
 
@@ -34,5 +35,4 @@ class AuthController < ApplicationController
   def user_params
     params.permit(:username, :password, :bio, :email, :image)
   end
-
 end

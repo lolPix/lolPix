@@ -33,7 +33,7 @@ gem 'listen', '~> 3.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
@@ -53,36 +53,38 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "haml-rails", "~> 2.0"
+gem 'haml-rails', '~> 2.0'
 
-gem "schema2type", "~> 0.3.0"
+gem 'schema2type', '~> 0.3.0'
 
-gem "i18n-js", "~> 3.8"
+gem 'i18n-js', '~> 3.8'
 
-gem "react-rails", "~> 2.6"
+gem 'react-rails', '~> 2.6'
 
-gem "bcrypt", "~> 3.1"
+gem 'bcrypt', '~> 3.1'
 
-gem "rack-cors", "~> 1.1"
+gem 'rack-cors', '~> 1.1'
 
-gem "jwt", "~> 2.2"
+gem 'jwt', '~> 2.2'
 
-gem "pagy", "~> 3.9"
+gem 'pagy', '~> 3.9'
 
-gem "pager_api", "~> 0.3.2"
+gem 'pager_api', '~> 0.3.2'
 
-gem "dotenv", "~> 2.7"
+gem 'dotenv', '~> 2.7'
 
-gem "dotenv-rails", "~> 2.7"
+gem 'dotenv-rails', '~> 2.7'
 
-gem "i18n-tasks", "~> 0.9.31"
+gem 'i18n-tasks', '~> 0.9.31'
 
-gem "rubocop", "~> 1.0"
+gem 'rubocop', '~> 1.1'
 
-gem "sidekiq", "~> 6.1"
+gem 'sidekiq', '~> 6.1'
 
-gem "pg", "~> 1.2"
+gem 'pg', '~> 1.2'
 
-gem "tty-prompt", "~> 0.22.0"
+gem 'tty-prompt', '~> 0.22.0'
+
+gem 'rbnacl', '~> 7.1'
