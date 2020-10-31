@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-  before_action :authorized, only: %i[index]
+  before_action :logged_in_user, only: %i[index]
 
   def index; end
 end

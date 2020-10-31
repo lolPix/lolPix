@@ -79,6 +79,7 @@ en:
       load-more: Load more...
     footer:
       logout: logout
+      main-page: back to main page
     form:
       alt_text: Image description
       bio: Bio
@@ -113,6 +114,9 @@ en:
       top_posts: Top Posts
     loading: Loading...
     nav:
+      admin:
+        home: "Home"
+        reports: "Reports"
       account:
         login: Login
         logout: Logout
