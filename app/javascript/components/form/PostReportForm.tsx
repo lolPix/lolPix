@@ -1,11 +1,12 @@
 import React, {FunctionComponent, useState} from 'react';
-import Post, {getCategoryString} from "../../model/Post";
+import Post from "../../model/Post";
 import I18n from "i18n-js";
 import {Redirect} from 'react-router-dom';
 import User from "../../model/User";
 import Api from "../../base/Api";
 import PostContextMenu from "../PostContextMenu";
 import {Form, Formik} from "formik";
+import {getCategoryString} from "../../base/Util";
 
 type Props = {
     post: Post,

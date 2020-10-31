@@ -19,18 +19,16 @@ const ServerSideNewPage: FunctionComponent<Props> = ({account, url, posts}: Prop
     const pathname = new URL(url).pathname;
     const history = createMemoryHistory({initialEntries: [pathname]});
     return (
-        <>
-            <div className="wrapper">
-                <Router history={history} location={pathname}>
-                    <NavBar showLogo={true} account={account}/>
-                    <div className="content">
-                        <h1 className={'page-heading'}>{I18n.t('ui.heading.top_posts')}</h1>
-                        <PostFeed account={account} sort={'new'} posts={posts}/>
-                    </div>
-                    <Footer account={account}/>
-                </Router>
-            </div>
-        </>
+        <div className="wrapper">
+            <Router history={history} location={pathname}>
+                <NavBar showLogo={true} account={account}/>
+                <div className="content">
+                    <h1 className={'page-heading'}>{I18n.t('ui.heading.top_posts')}</h1>
+                    <PostFeed account={account} sort={'new'} posts={posts}/>
+                </div>
+                <Footer account={account}/>
+            </Router>
+        </div>
     );
 };
 

@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useState} from 'react';
-import Post, {getCategoryString} from "../model/post";
+import Post from "../model/post";
 import {formatDistanceToNow, formatRFC7231, parseISO} from 'date-fns'
 import I18n from "i18n-js";
 import {Link} from 'react-router-dom';
@@ -9,6 +9,7 @@ import Api from "../base/Api";
 import CommentForm from "./form/CommentForm";
 import PostContextMenu from "./PostContextMenu";
 import CommentFeed from "./CommentFeed";
+import {getCategoryString} from "../base/Util";
 
 type Props = {
     post: Post,

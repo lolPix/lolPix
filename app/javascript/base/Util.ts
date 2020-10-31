@@ -1,4 +1,5 @@
 import I18n from "i18n-js";
+import Post from "../model/Post";
 
 /**
  * Utility function to extract the "next page" link from the APIs pagination responses.
@@ -33,4 +34,18 @@ export function randomChars(length: number): string {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+}
+
+
+export function getCategoryString(post: Post): string | undefined {
+    switch (post.category) {
+        case 0:
+            return I18n.t('ui.post.category.meme');
+        case 1:
+            return I18n.t('ui.post.category.fail');
+        case 2:
+            return I18n.t('ui.post.category.gif');
+        default:
+            return undefined;
+    }
 }
