@@ -13,7 +13,6 @@ class User < ApplicationRecord
   has_many :comments
   has_many :posts
   has_many :reactions
-  has_many :jwt_keys
 
   has_one_attached :image
 
@@ -22,7 +21,7 @@ class User < ApplicationRecord
   def serializable_hash(options = nil)
     options = {} if options.nil?
     ActiveStorage::Current.set(host: LolPix::Application.get_host_value) do
-      confidential_fields = %i[email image password_digest created_at updated_at posts_id comments_id]
+      confidential_fields = %i[jwts email image password_digest created_at updated_at posts_id comments_id]
       generated_stuff = super(options.merge({except: confidential_fields}))
       if image.attached?
         generated_stuff.merge({image: url_for(image)})

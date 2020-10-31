@@ -4,21 +4,15 @@ class ApplicationController < ActionController::Base
   helper_method :get_post, :get_profile, :delete_session
 
   def encode_token
-    unless JwtKey.exists?(user_id: @user.id)
-      ecdsa_key = OpenSSL::PKey::EC.new 'prime256v1'
-      ecdsa_key.generate_key
-      ecdsa_public = OpenSSL::PKey::EC.new ecdsa_key
-      ecdsa_public.private_key = nil
-
-      jwt_key = JwtKey.new(privkey: ecdsa_key.private_key.to_s,
-                           pubkey: ecdsa_key.public_key.to_s,
-                           user: @user)
-
-      jwt_key.save
+    Rails.logger.info "Starting token encoding for user #{@user.username}"
+    if @user.jwts.nil?
+      Rails.logger.info "Generating new key for user #{@user.username}"
+      @user.jwts = SecureRandom.alphanumeric(28)
+      Rails.logger.info "Saving key for user #{@user.username}"
       @user.save
     end
-    jwt_key_for_user = JwtKey.find_by(user_id: @user.id)
-    JWT.encode({ id: @user.id }, jwt_key_for_user.privkey, algorithm: 'ES512')
+    Rails.logger.info "Encoding JWT for user #{@user.username}"
+    JWT.encode({ id: @user.id }, @user.jwts)
   end
 
   def auth_header
@@ -33,14 +27,15 @@ class ApplicationController < ActionController::Base
     # header: { 'Authorization': 'Bearer <token>' }
     begin
       Rails.logger.info "Token: '#{token}'"
-      if !@user.nil? && JwtKey.exists?(user_id: @user.id)
-        jwt_key_for_user = JwtKey.find_by(user_id: @user.id)
-        Rails.logger.info "JWTS: '#{jwt_key_for_user.pubkey}'"
+      parsed_userid = get_userid_from_jwt(token)
+      if User.exists?(id: parsed_userid)
+        user = User.find_by(id: parsed_userid)
+        Rails.logger.info "JWTS: '#{user.jwts}'"
 
-        decoded = JWT.decode(token, jwt_key_for_user.pubkey, true, algorithm: 'ES512')
-        set_cookie(token) if decoded
+        decoded = JWT.decode(token, user.jwts, true, algorithm: 'HS256')
+        add_cookie_to_response(token) if decoded
         Rails.logger.info "Decoded: #{decoded}"
-        decoded
+        return decoded
       end
 
       nil
@@ -50,41 +45,41 @@ class ApplicationController < ActionController::Base
   end
 
   def decoded_cookie
-    begin
-      JWT.decode(cookies[:lolpix_jwt], Rails.application.credentials.secret_key_base, true, algorithm: 'HS256')
-    rescue JWT::DecodeError
-      nil
-    end
+    return nil unless cookies[:lolpix_jwt]
+
+    user_id_from_jwt = get_userid_from_jwt(cookies[:lolpix_jwt])
+    @user = User.find_by(id: user_id_from_jwt)
+    JWT.decode(cookies[:lolpix_jwt], @user.jwts, true, algorithm: 'HS256')
+  rescue JWT::DecodeError
+    nil
   end
 
   def logged_in_user
     if decoded_token
-      user_id = decoded_token[0]['user_id']
+      user_id = decoded_token[0]['id']
       @user = User.find_by(id: user_id)
       Rails.logger.info "user: #{@user.as_json}"
       @user
     else
       Rails.logger.info 'no token found, trying cookie!'
-      the_decoded_cookie = decoded_cookie
-      Rails.logger.info "cookie: #{the_decoded_cookie}"
-      if the_decoded_cookie
-        user_id = the_decoded_cookie[0]['user_id']
-        @user = User.find_by(id: user_id)
-        redirect_to('/') && return if request.fullpath == '/login'
+      parse_user_from_cookie
+    end
+  end
 
-        @user
-      else
-        Rails.logger.info 'no cookie found!'
-        unless request.fullpath == '/login' ||
-            request.fullpath.start_with?('/api') ||
-            request.fullpath == '/logout' ||
-            request.fullpath == '/join'
-          redirect_to('/login') &&
-              return
-        end
+  def parse_user_from_cookie
+    the_decoded_cookie = decoded_cookie
+    if the_decoded_cookie
+      user_id = the_decoded_cookie[0]['id']
+      Rails.logger.info "Found userid #{user_id}"
+      @user = User.find_by(id: user_id)
+      Rails.logger.info "Found user #{@user.username}"
+      redirect_to('/') && return if request.fullpath == '/login'
 
-        nil
-      end
+      @user
+    else
+      redirect_to('/login') && return unless request_path_unauthenticated
+
+      nil
     end
   end
 
@@ -126,7 +121,7 @@ class ApplicationController < ActionController::Base
         user = @user
       end
       unless user.nil?
-        user.jwtsecret = nil
+        user.jwts = nil
         user.save
       end
     end
@@ -135,7 +130,12 @@ class ApplicationController < ActionController::Base
     nil
   end
 
-  private
+  def request_path_unauthenticated
+    request.fullpath == '/login' ||
+      request.fullpath.start_with?('/api') ||
+      request.fullpath == '/logout' ||
+      request.fullpath == '/join'
+  end
 
   def get_jwts_from_user(token)
     user_id_from_jwt = get_userid_from_jwt(token).to_i
@@ -143,20 +143,20 @@ class ApplicationController < ActionController::Base
     if !user
       nil
     else
-      user.jwtsecret
+      user.jwts
     end
   end
 
-  def set_cookie(token)
+  def add_cookie_to_response(token)
     response.set_cookie(
-        :lolpix_jwt,
-        {
-            value: token,
-            expires: 10.years.from_now,
-            path: '/',
-            secure: Rails.env.production?,
-            httponly: true
-        }
+      :lolpix_jwt,
+      {
+        value: token,
+        expires: 10.years.from_now,
+        path: '/',
+        secure: Rails.env.production?,
+        httponly: true
+      }
     )
   end
 
@@ -166,6 +166,9 @@ class ApplicationController < ActionController::Base
     payload_section = token.split('.')[1]
     decoded_payload = JWT::Base64.url_decode(payload_section)
     Rails.logger.info "Payload: '#{decoded_payload}'"
-    JWT::JSON.parse(decoded_payload).to_s.to_i
+    parsed_json = JWT::JSON.parse(decoded_payload)
+    Rails.logger.info "Parsed JSON: '#{parsed_json}'"
+    Rails.logger.info "Parsed ID: '#{parsed_json['id']}'"
+    parsed_json['id']
   end
 end

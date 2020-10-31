@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_30_205439) do
+ActiveRecord::Schema.define(version: 2020_10_30_233019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,15 +57,6 @@ ActiveRecord::Schema.define(version: 2020_10_30_205439) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "jwt_keys", force: :cascade do |t|
-    t.string "privkey"
-    t.string "pubkey"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_jwt_keys_on_user_id"
-  end
-
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.string "postId"
@@ -98,6 +89,7 @@ ActiveRecord::Schema.define(version: 2020_10_30_205439) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "comments_id"
     t.boolean "admin"
+    t.string "jwts"
     t.index ["comments_id"], name: "index_users_on_comments_id"
     t.index ["username", "email"], name: "index_users_on_username_and_email", unique: true
   end
@@ -107,7 +99,6 @@ ActiveRecord::Schema.define(version: 2020_10_30_205439) do
   add_foreign_key "comment_reactions", "users"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
-  add_foreign_key "jwt_keys", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "reactions", "posts"
   add_foreign_key "reactions", "users"

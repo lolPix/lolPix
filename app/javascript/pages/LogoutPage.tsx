@@ -6,7 +6,7 @@ const LogoutPage: FunctionComponent = () => {
     localStorage.setItem('lolPix_Token', '');
     console.log('reloading...');
     if(new URLSearchParams(window.location.search).get('reload') !== 'false') {
-        window.location.href = '/logout&reload=false';
+        window.location.href = '/logout?reload=false';
     }
     return <Redirect to={'/'} />;
 }

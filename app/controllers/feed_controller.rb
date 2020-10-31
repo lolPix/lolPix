@@ -1,7 +1,6 @@
 class FeedController < ApplicationController
   include ActiveModel::Serializers::JSON
 
-  before_action :authorized, only: %i[authorized auth_header decoded_token logged_in_user logged_in?]
   before_action :logged_in_user, only: %i[top new memes fails gifs]
   helper_method :get_posts_top, :get_posts_new, :get_posts_memes, :get_posts_fails, :get_posts_gifs
 

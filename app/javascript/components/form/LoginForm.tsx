@@ -49,7 +49,7 @@ const LoginForm: FunctionComponent = () => {
                                             console.log(I18n.t('console.logged_in') + JSON.stringify(json.user));
                                             localStorage.setItem('lolPix_Token', json.token);
                                             console.log('Redirecting to "/"...');
-                                            window.location.href = '/';
+                                            setTimeout(() => window.location.href = '/', 300)
                                         } else {
                                             console.error('Error: ' + json.error);
                                             setLoginError(json.error);
