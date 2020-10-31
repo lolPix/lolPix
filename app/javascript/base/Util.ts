@@ -36,7 +36,12 @@ export function randomChars(length: number): string {
     return result;
 }
 
-
+/**
+ * Utility function that returns the i18n name for a
+ * category or undefined in case the category is not known.
+ *
+ * @param post the post to get the category for
+ */
 export function getCategoryString(post: Post): string | undefined {
     switch (post.category) {
         case 0:
