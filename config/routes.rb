@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   get '/admin', to: 'admin#index'
   get '/admin/reports', to: 'admin#reports'
+  get '/admin/report/:reportId', to: 'admin#report'
 
   get '/post/:postId', to: 'application#post'
   get '/report/:postId', to: 'application#report'
