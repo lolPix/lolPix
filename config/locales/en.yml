@@ -1,5 +1,9 @@
 ---
 en:
+  admin:
+    heading:
+      main: Admin Area
+    todo: This part is currently TODO!
   console:
     authorized: 'Authorized: '
     error: 'Error: '
@@ -52,11 +56,6 @@ en:
     alt_logo: lolPix Logo
     alt_profile_picture_for: Profile picture for
   ui:
-    report:
-      description: Please describe why you decided to report this content!
-      heading: 'Report the '
-    login:
-      no_account_link: "No account? Register!"
     comment:
       by: by
       reaction:
@@ -75,6 +74,7 @@ en:
       load-more: Load more...
     footer:
       logout: logout
+      main-page: back to main page
     form:
       alt_text: Image description
       bio: Bio
@@ -108,14 +108,20 @@ en:
       newest_posts: Newest Posts
       top_posts: Top Posts
     loading: Loading...
+    login:
+      no_account_link: No account? Register!
     nav:
       account:
         login: Login
         logout: Logout
+        admin: "Admin Interface"
         new: New Post
         not_logged_in: Not logged in!
         profile: Profile
         register: Register
+      admin:
+        home: Home
+        reports: Reports
       fails: "\U0001F3A2 Fails"
       gifs: "\U0001F37F GIFs"
       home: "\U0001F3E0 Home"
@@ -143,3 +149,10 @@ en:
         newest: Newest Posts
       posts_by: 'Posts by '
     redirecting: Redirecting...
+    report:
+      description: Please describe why you decided to report this content!
+      go-to-post: Go to post...
+      go-to-report: Go to report...
+      heading: 'Report the '
+      list:
+        heading: Report by

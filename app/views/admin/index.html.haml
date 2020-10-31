@@ -1,0 +1,45 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title lolPix - Admin Area
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all'
+  %body
+    %noscript
+      = I18n.t('error.javascript_required')
+    #app
+      .wrapper
+        #navbar
+          %div
+            .logo
+              = image_tag('logo.svg', {alt: I18n.t('nav.alt_logo')})
+            %ul.nav-menu
+              %li
+                %a.active{href: '/admin'}
+                  = I18n.t('ui.nav.admin.home')
+              %li
+                %a{href: '/admin/reports'}
+                  = I18n.t('ui.nav.admin.reports')
+          .account-menu
+            .top.admin
+              - if @user.image.attached?
+                = image_tag(url_for(@user.image), {alt: "#{I18n.t('nav.alt_profile_picture_for')} #{@user.username}"})
+              - else
+                = image_tag('logo_grey.svg', {alt: I18n.t('error.no_image_found')})
+              %span
+                = @user.username
+        .content
+          %h1
+            = I18n.t('admin.heading.main')
+          %p
+            = I18n.t('admin.todo')
+      #footer
+        %p
+          = "© 2020 lolPix"
+        %p.secondary
+          = "logged in as #{@user.username}"
+          %a{href: '/'}
+            = I18n.t('ui.footer.main-page')
+    = yield

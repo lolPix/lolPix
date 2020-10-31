@@ -28,7 +28,7 @@
       width: $profile-pic-size;
       margin-right: 8px;
     }
-    span::after {
+    &:not(.admin) span::after {
       margin-left: 8px;
       font-family: monospace;
       display: inline-block;
@@ -36,7 +36,7 @@
     }
   }
 
-  &:not(.active) .top span::after {
+  &:not(.active) .top:not(.admin) span::after {
     content: ' \2304';
   }
 
