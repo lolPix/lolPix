@@ -20,6 +20,7 @@ class Post < ApplicationRecord
 
   has_many :comments
   has_many :reactions
+  has_many :reports
   belongs_to :user
 
   has_one_attached :image

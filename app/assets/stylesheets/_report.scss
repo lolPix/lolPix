@@ -1,0 +1,31 @@
+@import "variables";
+
+.post-report-page {
+  .post-report-widget {
+    width: 640px;
+
+    h2.title {
+      text-align: center;
+    }
+    form#post-report-form {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      padding: 24px;
+
+      label {
+        margin-bottom: 16px;
+      }
+
+      textarea#content {
+        width: 100%;
+        padding-right: 0;
+      }
+      button {
+
+      }
+    }
+  }
+}

@@ -22,7 +22,7 @@ div#login-form {
     align-items: flex-start;
     justify-content: flex-start;
 
-    > label, > input{
+    > label, > input {
       width: 100%;
     }
 
@@ -34,7 +34,18 @@ div#login-form {
       width: 100%;
     }
   }
+
   h1 {
     font-weight: 100;
+  }
+
+  a.join-link,
+  a.join-link:active,
+  a.join-link:focus,
+  a.join-link:visited {
+    margin-top: 16px;
+    color: $secondary_text;
+    text-decoration: none;
+    border-bottom: 1px dotted $secondary_text;
   }
 }

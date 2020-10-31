@@ -12,6 +12,7 @@ import PostPage from "../pages/PostPage";
 import Footer from "../components/Footer";
 import ProfilePage from "../pages/ProfilePage";
 import {FailsPage, GIFsPage, MemesPage, NewestPage, TopPage} from "../pages/TopLevelFeeds";
+import PostReportPage from "../pages/PostReportPage";
 
 type Props = {
     account: User | undefined;
@@ -60,6 +61,9 @@ const App: FunctionComponent<Props> = ({account}: Props) => {
                             </Route>
                             <Route exact path={'/user/:username'}>
                                 <ProfilePage account={account}/>
+                            </Route>
+                            <Route exact path={'/report/:postId'}>
+                                <PostReportPage account={account}/>
                             </Route>
                             <Route render={() => <h1>{I18n.t('error.page_not_found')}</h1>}/>
                         </Switch>
