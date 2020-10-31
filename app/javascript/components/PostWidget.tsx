@@ -60,7 +60,7 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false,
     const postImage = <img src={statePost.image} alt={statePost.alt_text}/>;
     return (
         <div className={'post-widget'}>
-            <h2 className={'title'}>{statePost.title}<PostContextMenu account={account} post={post} /></h2>
+            <h2 className={'title'}>{statePost.title}<PostContextMenu account={account} post={post}/></h2>
             <div className="content">
                 {showLinks && <Link to={'/post/' + statePost.id}>{postImage}</Link> || postImage}
                 <div className="meta">
@@ -76,8 +76,9 @@ const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false,
                     </p>
                     <ReactionsForm refreshPost={refreshPost} account={account} post={statePost}/>
                 </div>
-                {showComments && <CommentForm account={account} post_id={statePost.id} refreshPost={refreshPost} />}
-                {(showComments) && <CommentFeed account={account} sort={'best'} onlyForPost={statePost} refreshPost={refreshPost} />}
+                {showComments && <CommentForm account={account} post_id={statePost.id} refreshPost={refreshPost}/>}
+                {(showComments) &&
+                <CommentFeed account={account} sort={'best'} onlyForPost={statePost} refreshPost={refreshPost}/>}
             </div>
         </div>
     );

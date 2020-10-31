@@ -2,10 +2,8 @@ import React, {FunctionComponent} from "react";
 import {StaticRouter as Router,} from 'react-router-dom';
 import NavBar from "../nav/NavBar";
 import User from "../../model/User";
-import PostPage from "../../pages/PostPage";
 import Footer from "../Footer";
 import {createMemoryHistory} from 'history';
-import Post from "../../model/Post";
 import ProfilePage from "../../pages/ProfilePage";
 
 type Props = {

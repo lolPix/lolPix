@@ -18,7 +18,7 @@ const ServerSideRegistrationPage: FunctionComponent<Props> = ({url}: Props) => {
                 <Router history={history} location={pathname}>
                     <NavBar showLogo={true} account={undefined}/>
                     <div className="content">
-                        <RegistrationPage />
+                        <RegistrationPage/>
                     </div>
                     <Footer account={undefined}/>
                 </Router>

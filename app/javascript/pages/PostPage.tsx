@@ -19,10 +19,10 @@ const PostPage: FunctionComponent<Props> = ({account, post}: Props) => {
 
     useEffect(() => {
         const extractedSSRPost = extractSSRPost();
-        if(extractedSSRPost){
+        if (extractedSSRPost) {
             setStatePost(extractedSSRPost);
         } else {
-            if(!statePost){
+            if (!statePost) {
                 Api({path: '/posts/' + encodeURIComponent(postId)}).then(
                     res => {
                         if (res.status === 200) {

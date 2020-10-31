@@ -67,9 +67,9 @@ const PostFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, only, p
     const [nextLink, setNextLink] = useState(undefined);
 
     useEffect(() => {
-        if(!statePosts.length) {
+        if (!statePosts.length) {
             const extractedPosts = extractSSRPosts();
-            if(extractedPosts) {
+            if (extractedPosts) {
                 setStatePosts(extractedPosts);
             } else {
                 setLoading(true);

@@ -21,8 +21,8 @@ const ProfilePage: FunctionComponent<Props> = ({account, user}: Props) => {
 
     useEffect(() => {
         const extractedProfile = extractSSRProfile();
-        if(!stateUser) {
-            if(extractedProfile) {
+        if (!stateUser) {
+            if (extractedProfile) {
                 setStateUser(extractedProfile)
             } else {
                 Api({path: '/users/' + encodeURIComponent(username)}).then(

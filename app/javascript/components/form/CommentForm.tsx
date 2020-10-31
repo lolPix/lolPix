@@ -1,5 +1,4 @@
 import React, {FunctionComponent} from 'react';
-import Post from "../../model/post";
 import I18n from "i18n-js";
 import {Form, Formik} from "formik";
 import Api from "../../base/Api";

@@ -25,7 +25,7 @@ const ServerSideFailsPage: FunctionComponent<Props> = ({account, url, posts}: Pr
                     <NavBar showLogo={true} account={account}/>
                     <div className="content">
                         <h1 className={'page-heading'}>{I18n.t('ui.heading.top_posts')}</h1>
-                        <PostFeed account={account} sort={'new'} only={'fails'} posts={posts} />
+                        <PostFeed account={account} sort={'new'} only={'fails'} posts={posts}/>
                     </div>
                     <Footer account={account}/>
                 </Router>
