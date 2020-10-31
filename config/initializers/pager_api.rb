@@ -3,7 +3,6 @@
 # Made with love by @icalialabs
 
 PagerApi.setup do |config|
-
   # Includes Pagination information on Meta
   #
   config.include_pagination_on_meta = true

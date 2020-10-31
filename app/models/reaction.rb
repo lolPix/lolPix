@@ -11,6 +11,6 @@ class Reaction < ApplicationRecord
   def serializable_hash(options = nil)
     options = {} if options.nil?
     confidential_fields = %i[created_at updated_at]
-    super(options.merge({except: confidential_fields}))
+    super(options.merge({ except: confidential_fields }))
   end
 end

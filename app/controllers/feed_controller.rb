@@ -33,5 +33,4 @@ class FeedController < ApplicationController
   def get_posts_gifs
     Post.newest_first.gifs.limit(15).to_a.map(&:serializable_hash)
   end
-
 end

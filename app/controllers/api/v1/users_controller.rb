@@ -9,7 +9,6 @@ module Api
         @user = User.find_by_username(params[:id])
         render json: @user
       end
-
     end
   end
 end

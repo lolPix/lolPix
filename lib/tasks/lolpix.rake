@@ -13,7 +13,7 @@ namespace :lolpix do
       env['LOLPIX_HOST'] = prompt.ask('Server name (host):') do |q|
         q.required true
         q.modify :strip
-        q.validate(/\A[a-z0-9\.\-]+\z/i)
+        q.validate(/\A[a-z0-9.\-]+\z/i)
         q.messages[:valid?] = 'Invalid domain. Use punycode in case of special domain names.'
       end
 
@@ -63,12 +63,12 @@ namespace :lolpix do
         # The chosen database may not exist yet. Connect to default database
         # to avoid "database does not exist" error.
         db_options = {
-            adapter: :postgresql,
-            database: 'postgres',
-            host: env['DB_HOST'],
-            port: env['DB_PORT'],
-            user: env['DB_USER'],
-            password: env['DB_PASS']
+          adapter: :postgresql,
+          database: 'postgres',
+          host: env['DB_HOST'],
+          port: env['DB_PORT'],
+          user: env['DB_USER'],
+          password: env['DB_PASS']
         }
 
         begin
@@ -100,8 +100,8 @@ namespace :lolpix do
         end
 
         redis_options = {
-            host: env['REDIS_HOST'],
-            port: env['REDIS_PORT']
+          host: env['REDIS_HOST'],
+          port: env['REDIS_PORT']
         }
 
         env['REDIS_URL'] = "redis://#{env['REDIS_HOST']}:#{env['REDIS_PORT']}"
@@ -186,7 +186,7 @@ namespace :lolpix do
           end
 
           env['S3_PROTOCOL'] = env['S3_ENDPOINT'].start_with?('https') ? 'https' : 'http'
-          env['S3_HOSTNAME'] = env['S3_ENDPOINT'].gsub(/\Ahttps?:\/\//, '')
+          env['S3_HOSTNAME'] = env['S3_ENDPOINT'].gsub(%r{\Ahttps?://}, '')
 
           env['S3_BUCKET'] = prompt.ask('Minio bucket name:') do |q|
             q.required true
@@ -277,7 +277,7 @@ namespace :lolpix do
             q.modify :strip
           end
 
-          env['SMTP_OPENSSL_VERIFY_MODE'] = prompt.select('SMTP OpenSSL verify mode:', %w(none peer client_once fail_if_no_peer_cert))
+          env['SMTP_OPENSSL_VERIFY_MODE'] = prompt.select('SMTP OpenSSL verify mode:', %w[none peer client_once fail_if_no_peer_cert])
         end
 
         env['SMTP_FROM_ADDRESS'] = prompt.ask('E-mail address to send e-mails "from":') do |q|
@@ -292,18 +292,18 @@ namespace :lolpix do
 
         begin
           ActionMailer::Base.smtp_settings = {
-              port: env['SMTP_PORT'],
-              address: env['SMTP_SERVER'],
-              user_name: env['SMTP_LOGIN'].presence,
-              password: env['SMTP_PASSWORD'].presence,
-              domain: env['LOCAL_DOMAIN'],
-              authentication: env['SMTP_AUTH_METHOD'] == 'none' ? nil : env['SMTP_AUTH_METHOD'] || :plain,
-              openssl_verify_mode: env['SMTP_OPENSSL_VERIFY_MODE'],
-              enable_starttls_auto: true,
+            port: env['SMTP_PORT'],
+            address: env['SMTP_SERVER'],
+            user_name: env['SMTP_LOGIN'].presence,
+            password: env['SMTP_PASSWORD'].presence,
+            domain: env['LOCAL_DOMAIN'],
+            authentication: env['SMTP_AUTH_METHOD'] == 'none' ? nil : env['SMTP_AUTH_METHOD'] || :plain,
+            openssl_verify_mode: env['SMTP_OPENSSL_VERIFY_MODE'],
+            enable_starttls_auto: true
           }
 
           ActionMailer::Base.default_options = {
-              from: env['SMTP_FROM_ADDRESS'],
+            from: env['SMTP_FROM_ADDRESS']
           }
 
           mail = ActionMailer::Base.new.mail to: send_to, subject: 'lolPix test', body: 'lolPix mail config is working!'
@@ -322,8 +322,8 @@ namespace :lolpix do
       if prompt.yes?('Save configuration?')
         env_contents = env.each_pair.map do |key, value|
           if value.is_a?(String) && value =~ /[\s\#\\"]/
-            if value =~ /[']/
-              value = value.to_s.gsub(/[\\"\$]/) { |x| "\\#{x}" }
+            if value =~ /'/
+              value = value.to_s.gsub(/[\\"$]/) { |x| "\\#{x}" }
               "#{key}=\"#{value}\""
             else
               "#{key}='#{value}'"
@@ -343,7 +343,7 @@ namespace :lolpix do
           prompt.say 'Running `RAILS_ENV=production rails db:setup` ...'
           prompt.say "\n\n"
 
-          if !system(env.transform_values(&:to_s).merge({'RAILS_ENV' => 'production', 'SAFETY_ASSURED' => '1'}), 'rails db:setup')
+          if !system(env.transform_values(&:to_s).merge({ 'RAILS_ENV' => 'production', 'SAFETY_ASSURED' => '1' }), 'rails db:setup')
             prompt.error 'That failed! Perhaps your configuration is not right'
           else
             prompt.ok 'Done!'
@@ -358,7 +358,7 @@ namespace :lolpix do
           prompt.say 'Running `RAILS_ENV=production rails assets:precompile` ...'
           prompt.say "\n\n"
 
-          if !system(env.transform_values(&:to_s).merge({'RAILS_ENV' => 'production'}), 'rails assets:precompile')
+          if !system(env.transform_values(&:to_s).merge({ 'RAILS_ENV' => 'production' }), 'rails assets:precompile')
             prompt.error 'That failed! Maybe you need swap space?'
           else
             prompt.say 'Done!'

@@ -60,11 +60,11 @@ class Post < ApplicationRecord
     ActiveStorage::Current.set(host: LolPix::Application.get_host_value) do
       confidential_fields = %i[image updated_at user_id reaction_id comment_id]
       enriched_values = {
-          image: url_for(image),
-          user: User.find(user_id),
-          reactions: Reaction.find(reaction_ids)
+        image: url_for(image),
+        user: User.find(user_id),
+        reactions: Reaction.find(reaction_ids)
       }
-      super(options.merge({except: confidential_fields})).merge(enriched_values)
+      super(options.merge({ except: confidential_fields })).merge(enriched_values)
     end
   end
 

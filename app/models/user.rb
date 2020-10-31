@@ -22,9 +22,9 @@ class User < ApplicationRecord
     options = {} if options.nil?
     ActiveStorage::Current.set(host: LolPix::Application.get_host_value) do
       confidential_fields = %i[jwts email image password_digest created_at updated_at posts_id comments_id]
-      generated_stuff = super(options.merge({except: confidential_fields}))
+      generated_stuff = super(options.merge({ except: confidential_fields }))
       if image.attached?
-        generated_stuff.merge({image: url_for(image)})
+        generated_stuff.merge({ image: url_for(image) })
       else
         generated_stuff
       end

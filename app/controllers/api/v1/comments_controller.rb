@@ -9,7 +9,6 @@ module Api
       # GET /comments
       # GET /comments.json
       def index
-
         if params.key?(:username)
           user = User.find_by_username(params[:username])
           return render head :no_content && return unless user

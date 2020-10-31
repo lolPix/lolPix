@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   namespace :api do
     namespace :v1 do
       resources :posts
@@ -27,9 +26,9 @@ Rails.application.routes.draw do
   get '/fails', to: 'feed#fails'
   get '/gifs', to: 'feed#gifs'
 
-  #get '*all' => 'application#index', constraints: lambda { |req|
+  # get '*all' => 'application#index', constraints: lambda { |req|
   #  req.path.exclude? 'rails/active_storage'
-  #}
+  # }
 
   root to: 'application#index'
 
