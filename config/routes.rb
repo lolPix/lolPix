@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get '/api/v1/hi', to: 'auth#auto_login'
 
   get '/admin', to: 'admin#index'
+  get '/admin/reports', to: 'admin#reports'
 
   get '/post/:postId', to: 'application#post'
   get '/report/:postId', to: 'application#report'

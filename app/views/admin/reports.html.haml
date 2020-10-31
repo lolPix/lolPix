@@ -17,10 +17,10 @@
               = image_tag('logo.svg', {alt: I18n.t('nav.alt_logo')})
             %ul.nav-menu
               %li
-                %a.active{href: '/admin'}
+                %a{href: '/admin'}
                   = I18n.t('ui.nav.admin.home')
               %li
-                %a{href: '/admin/reports'}
+                %a.active{href: '/admin/reports'}
                   = I18n.t('ui.nav.admin.reports')
           .account-menu
             .top.admin
@@ -33,8 +33,20 @@
         .content
           %h1
             = I18n.t('admin.heading.main')
-          %p
-            = I18n.t('admin.todo')
+          %ul.report-list
+            - find_reports.each do |report|
+              %li
+                %strong
+                  = "#{I18n.t('ui.report.list.heading')} #{find_user_for_report(report).username}"
+                %p
+                  = "\"#{report.description}\""
+                %ul
+                  %li
+                    %a{href: "/admin/report/#{report.id}"}
+                      = I18n.t('ui.report.go-to-report')
+                  %li
+                    %a{href: "/post/#{find_post_for_report(report).id}"}
+                      = I18n.t('ui.report.go-to-post')
       #footer
         %p
           = "© 2020 lolPix"
