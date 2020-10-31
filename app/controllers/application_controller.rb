@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authorized, only: %i[authorized auth_header decoded_token logged_in_user logged_in?]
-  before_action :logged_in_user, only: %i[index post login profile logout]
+  before_action :logged_in_user, only: %i[index post report login profile logout]
   helper_method :get_post, :get_profile, :delete_session
 
   def encode_token
@@ -85,6 +85,8 @@ class ApplicationController < ActionController::Base
   def index; end
 
   def post; end
+
+  def report; end
 
   def profile; end
 

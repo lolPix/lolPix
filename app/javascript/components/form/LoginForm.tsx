@@ -2,6 +2,7 @@ import React, {FunctionComponent, useState} from 'react';
 import {Formik} from 'formik';
 import I18n from "i18n-js";
 import Api from "../../base/Api";
+import {Link} from "react-router-dom";
 
 function emailInvalid(email: string): boolean {
     return !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
@@ -113,6 +114,7 @@ const LoginForm: FunctionComponent = () => {
                     </form>
                 )}
             </Formik>
+            <Link className={'join-link'} to={'/join'}>{I18n.t('ui.login.no_account_link')}</Link>
         </div>
     );
 };

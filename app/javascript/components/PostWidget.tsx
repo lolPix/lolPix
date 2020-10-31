@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useState} from 'react';
-import Post from "../model/post";
+import Post, {getCategoryString} from "../model/post";
 import {formatDistanceToNow, formatRFC7231, parseISO} from 'date-fns'
 import I18n from "i18n-js";
 import {Link} from 'react-router-dom';
@@ -15,19 +15,6 @@ type Props = {
     account: User,
     showLinks?: boolean,
     showComments?: boolean
-}
-
-function getCategoryString(post: Post): string | undefined {
-    switch (post.category) {
-        case 0:
-            return I18n.t('ui.post.category.meme');
-        case 1:
-            return I18n.t('ui.post.category.fail');
-        case 2:
-            return I18n.t('ui.post.category.gif');
-        default:
-            return undefined;
-    }
 }
 
 const PostWidget: FunctionComponent<Props> = ({post, account, showLinks = false, showComments = true}: Props) => {
