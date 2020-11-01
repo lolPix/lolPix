@@ -2,8 +2,7 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title
-      = "#{get_profile.username} - lolPix"
+    %title New Post - lolPix
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all'
@@ -13,6 +12,6 @@
       = I18n.t('error.javascript_required')
     #overlay
     #modal-overlay
-    #app{{"data-ssruser": @user.as_json, "data-ssrprofile": get_profile.as_json}}
-      = react_component('ssr/ServerSideProfilePage', {account: @user, url: request.url, user: get_profile}, {prerender: true})
+    #app{{"data-ssruser": @user.as_json}}
+      = react_component('ssr/ServerSideNewPostPage', {account: @user, url: request.url}, {prerender: true})
   = yield

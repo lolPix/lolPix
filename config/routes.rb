@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/admin/report/:reportId', to: 'admin#report'
 
   get '/post/:postId', to: 'application#post'
+  get '/new', to: 'application#new_post'
   get '/report/:postId', to: 'application#report'
   get '/user/:username', to: 'application#profile'
   get '/login', to: 'application#login'

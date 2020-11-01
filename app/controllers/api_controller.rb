@@ -2,8 +2,6 @@ class ApiController < ActionController::API
   include ActionController::Cookies
 
   before_action :authorized, only: %i[authorized auth_header decoded_token logged_in_user logged_in?]
-  before_action :logged_in_user, only: %i[index post report login profile logout]
-  helper_method :get_post, :get_profile, :delete_session
 
   def encode_token
     if @user.jwts.nil?
@@ -82,54 +80,6 @@ class ApiController < ActionController::API
 
   def authorized
     render json: { message: I18n.t('error.unauthorized') }, status: :unauthorized unless logged_in?
-  end
-
-  def index; end
-
-  def post; end
-
-  def report; end
-
-  def profile; end
-
-  def login; end
-
-  def join; end
-
-  def logout; end
-
-  def get_post
-    Post.find(params[:postId])
-  end
-
-  def get_profile
-    User.find_by_username(params[:username])
-  end
-
-  def delete_session
-    if cookies.key?(:lolpix_jwt)
-      userid_from_jwt = get_userid_from_jwt(cookies[:lolpix_jwt])
-      user = nil
-      if User.exists?(id: userid_from_jwt)
-        user = User.find(userid_from_jwt)
-      elsif !@user.nil?
-        user = @user
-      end
-      unless user.nil?
-        user.jwts = nil
-        user.save
-      end
-    end
-    reset_session
-    cookies.delete :lolpix_jwt, domain: :all
-    nil
-  end
-
-  def request_path_unauthenticated
-    request.fullpath == '/login' ||
-        request.fullpath.start_with?('/api') ||
-        request.fullpath == '/logout' ||
-        request.fullpath == '/join'
   end
 
   def get_jwts_from_user(token)
