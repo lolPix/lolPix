@@ -1,5 +1,6 @@
 import User from "../model/User";
 import Post from "../model/Post";
+import LolPixComment from "../model/LolPixComment";
 
 export function extractSSRUser(): User | undefined {
     const appElem = document.getElementById('app');
@@ -16,6 +17,30 @@ export function extractSSRUser(): User | undefined {
     return undefined;
 }
 
+function getTopLevelCommentsFromPost(appElem: HTMLElement): LolPixComment[] {
+    if (appElem.dataset.ssrpostTopLevelCommentsId) {
+        return [
+            {
+                id: parseInt(appElem.dataset.ssrpostTopLevelCommentsId, 10),
+                post_id: parseInt(appElem.dataset.ssrpostTopLevelCommentsPostId, 10),
+                parent_id: parseInt(appElem.dataset.ssrpostTopLevelCommentsParentId, 10),
+                created_at: appElem.dataset.ssrpostTopLevelCommentsCreatedAt,
+                content: appElem.dataset.ssrpostTopLevelCommentsContent,
+                reactions: [], // FIXME: I am too tired right now for this...
+                replies: [], // FIXME: I am too tired right now for this...
+                user: {
+                    id: parseInt(appElem.dataset.ssrpostTopLevelCommentsUserId, 10),
+                    bio: appElem.dataset.ssrpostTopLevelCommentsUserBio,
+                    username: appElem.dataset.ssrpostTopLevelCommentsUserUsername,
+                    image: appElem.dataset.ssrpostTopLevelCommentsUserImage,
+                    admin: appElem.dataset.ssrpostTopLevelCommentsUserAdmin === 'true'
+                }
+            }
+        ];
+    }
+    else return []; // FIXME: I am too tired right now for this...
+}
+
 export function extractSSRPost(): Post | undefined {
     const appElem = document.getElementById('app');
     if (appElem.dataset.ssrpostId) {
@@ -28,6 +53,7 @@ export function extractSSRPost(): Post | undefined {
             alt_text: appElem.dataset.ssrpostAltText,
             category: parseInt(appElem.dataset.ssrpostCategory, 10),
             reactions: JSON.parse(appElem.dataset.ssrpostReactions.replace(/=>/g, ':')),
+            top_level_comments: getTopLevelCommentsFromPost(appElem),
             user: {
                 bio: appElem.dataset.ssrpostUserBio,
                 id: parseInt(appElem.dataset.ssrpostUserId, 10),

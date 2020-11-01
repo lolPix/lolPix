@@ -11,6 +11,7 @@ class Comment < ApplicationRecord
   scope :of_post, ->(post) { where('comments.post_id = ?', post.id) }
   scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :desc) }
+  scope :top_level_only, -> { where('comments.parent_id = -1') }
   scope :best_first, lambda {
     order('(CASE
               WHEN EXISTS(SELECT comment_reactions.id

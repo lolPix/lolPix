@@ -62,9 +62,18 @@ function getMoreComments(nextLink: string,
     );
 }
 
+function getInitialComments(onlyForPost: Post) {
+    if (onlyForPost !== undefined &&
+        onlyForPost.top_level_comments !== undefined) {
+        return onlyForPost.top_level_comments;
+    } else {
+        return [];
+    }
+}
+
 const CommentFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, showPostLinks = false, refreshPost, onlyForPost}: Props) => {
-    const [loading, setLoading] = useState(true);
-    const [comments, setComments] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [comments, setComments] = useState(getInitialComments(onlyForPost));
     const [nextLink, setNextLink] = useState(undefined);
 
     function refreshFeed() {
@@ -97,8 +106,10 @@ const CommentFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, show
     }
 
     useEffect(() => {
-        setLoading(true);
-        refreshFeed();
+        if(!comments.length) {
+            setLoading(true);
+            refreshFeed();
+        }
     }, [])
 
     return (

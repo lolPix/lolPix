@@ -63,8 +63,9 @@ class Post < ApplicationRecord
       enriched_values = {
         image: url_for(image),
         user: User.find(user_id),
-        reactions: Reaction.find(reaction_ids).map(&:as_json)
-      }
+        reactions: Reaction.find(reaction_ids).map(&:as_json),
+        top_level_comments: Comment.top_level_only.find_by(post_id: id)
+      } # TODO: add those values to SSR
       super(options.merge({ except: confidential_fields })).merge(enriched_values)
     end
   end
