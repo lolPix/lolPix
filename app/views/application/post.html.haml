@@ -14,5 +14,5 @@
     #overlay
     #modal-overlay
     #app{{"data-ssruser": @user.as_json, "data-ssrpost": get_post.as_json}}
-      = react_component('ssr/ServerSidePostPage', {account: @user, url: request.url, post: get_post}, {prerender: true})
+      = react_component('ssr/ServerSidePostPage', {account: @user, url: request.url, post: get_post.as_json}, {prerender: true})
   = yield
