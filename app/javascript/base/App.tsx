@@ -13,6 +13,8 @@ import Footer from "../components/Footer";
 import ProfilePage from "../pages/ProfilePage";
 import {FailsPage, GIFsPage, MemesPage, NewestPage, TopPage} from "../pages/TopLevelFeeds";
 import PostReportPage from "../pages/PostReportPage";
+import {ToastProvider} from 'react-toast-notifications'
+
 
 type Props = {
     account: User | undefined;
@@ -20,7 +22,7 @@ type Props = {
 
 const App: FunctionComponent<Props> = ({account}: Props) => {
     return (
-        <>
+        <ToastProvider>
             <div className="wrapper">
                 <Router>
                     <NavBar showLogo={true} account={account}/>
@@ -71,7 +73,7 @@ const App: FunctionComponent<Props> = ({account}: Props) => {
                     <Footer account={account}/>
                 </Router>
             </div>
-        </>
+        </ToastProvider>
     );
 };
 

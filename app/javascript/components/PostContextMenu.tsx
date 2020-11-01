@@ -3,6 +3,8 @@ import Post from "../model/Post";
 import User from "../model/User";
 import I18n from "i18n-js";
 import {useHistory} from "react-router-dom";
+import {useToasts} from 'react-toast-notifications'
+
 
 type Props = {
     post: Post,
@@ -13,8 +15,20 @@ function reportPost(history, post: Post) {
     return () => history.push('/report/' + post.id);
 }
 
-function deletePost(history, post: Post) {
-    return () => console.log('TODO: implement deletion');
+function deletePostCallback() {
+    //TODO
+}
+
+function deletePost(history, post: Post, addToast) {
+    return () => {
+        addToast(<>
+            <div className="toast-content">{I18n.t('ui.context-menu.post.deletion_are_you_sure')}
+                <button onClick={deletePostCallback} className={'toast-action'}>
+                    {I18n.t('ui.context-menu.post.delete')}
+                </button>
+            </div>
+        </>, {appearance: 'warning'});
+    };
 }
 
 function downloadPost(history, post: Post) {
@@ -27,6 +41,7 @@ function sharePost(history, post: Post) {
 
 const PostContextMenu: FunctionComponent<Props> = ({account, post}: Props) => {
     const history = useHistory();
+    const {addToast} = useToasts();
     const [showMenu, setShowMenu] = useState(false);
     const listener = () => {
         closeMenu();
@@ -63,7 +78,7 @@ const PostContextMenu: FunctionComponent<Props> = ({account, post}: Props) => {
                 {(post.user.id !== account.id) &&
                 <button onClick={reportPost(history, post)}>{I18n.t('ui.context-menu.post.report')}</button>}
                 {(post.user.id === account.id || account.admin) &&
-                <button onClick={deletePost(history, post)}>{I18n.t('ui.context-menu.post.delete')}</button>}
+                <button onClick={deletePost(history, post, addToast)}>{I18n.t('ui.context-menu.post.delete')}</button>}
             </div>}
         </div>
     );
