@@ -5,6 +5,11 @@ ul.comment-feed {
   padding: 24px;
 
   li {
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      padding-bottom: 8px;
+    }
+
     div.comment-widget {
       width: 100%;
     }
