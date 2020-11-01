@@ -76,7 +76,8 @@ const CommentForm: FunctionComponent<Props> = ({post_id, account, parent, refres
                   handleBlur,
                   handleSubmit,
                   isSubmitting,
-                  values
+                  values,
+                  isValid
               }) => (
 
                 <Form onSubmit={handleSubmit} id={'comment-form'}>
@@ -89,7 +90,7 @@ const CommentForm: FunctionComponent<Props> = ({post_id, account, parent, refres
                               onChange={handleChange}
                               placeholder={I18n.t('ui.form.comment')}
                     />
-                    <button type="submit" disabled={isSubmitting}>
+                    <button type="submit" disabled={isSubmitting || !isValid}>
                         {I18n.t('ui.form.submit.post')}
                     </button>
                 </Form>

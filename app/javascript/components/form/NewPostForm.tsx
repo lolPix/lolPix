@@ -100,7 +100,8 @@ const NewPostForm: FunctionComponent<Props> = ({account}: Props) => {
                       handleBlur,
                       handleSubmit,
                       isSubmitting,
-                      setFieldValue
+                      setFieldValue,
+                      isValid
                       /* and other goodies */
                   }) => (
 
@@ -147,7 +148,7 @@ const NewPostForm: FunctionComponent<Props> = ({account}: Props) => {
                             {errors.image && touched.image && <li>{errors.image}</li>}
                             {uploadError && <li>{uploadError}</li>}
                         </ul>
-                        <button type="submit" disabled={isSubmitting}>
+                        <button type="submit" disabled={isSubmitting || !isValid}>
                             {I18n.t('ui.form.submit.post')}
                         </button>
                     </Form>

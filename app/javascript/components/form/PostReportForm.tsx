@@ -78,7 +78,8 @@ const PostReportForm: FunctionComponent<Props> = ({post, account}: Props) => {
                       handleBlur,
                       handleSubmit,
                       isSubmitting,
-                      values
+                      values,
+                      isValid
                   }) => (
 
                     <Form onSubmit={handleSubmit} id={'post-report-form'}>
@@ -92,7 +93,7 @@ const PostReportForm: FunctionComponent<Props> = ({post, account}: Props) => {
                                   onChange={handleChange}
                                   placeholder={I18n.t('ui.form.comment')}
                         />
-                        <button type="submit" disabled={isSubmitting}>
+                        <button type="submit" disabled={isSubmitting || !isValid}>
                             {I18n.t('ui.form.submit.report')}
                         </button>
                     </Form>

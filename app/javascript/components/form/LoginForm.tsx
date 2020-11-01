@@ -77,6 +77,7 @@ const LoginForm: FunctionComponent = () => {
                       handleBlur,
                       handleSubmit,
                       isSubmitting,
+                      isValid
                       /* and other goodies */
                   }) => (
 
@@ -108,7 +109,7 @@ const LoginForm: FunctionComponent = () => {
                             {errors.password && touched.password && <li>{errors.password}</li>}
                             {loginError && <li>{loginError}</li>}
                         </ul>
-                        <button type="submit" disabled={isSubmitting}>
+                        <button type="submit" disabled={isSubmitting || !isValid}>
                             {I18n.t('ui.form.submit.login')}
                         </button>
                     </form>

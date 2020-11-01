@@ -21,5 +21,11 @@ form {
     list-style-position: inside;
     padding: 0;
   }
+
+  button[type="submit"] {
+    &[disabled] {
+      border-color: $secondary_text;
+    }
+  }
 }
 
