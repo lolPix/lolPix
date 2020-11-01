@@ -19,7 +19,7 @@ export function extractSSRUser(): User | undefined {
 export function extractSSRPost(): Post | undefined {
     const appElem = document.getElementById('app');
     if (appElem.dataset.ssrpostId) {
-        const ssrpost: Post = {
+        return {
             id: parseInt(appElem.dataset.ssrpostId, 10),
             title: appElem.dataset.ssrpostTitle,
             postId: appElem.dataset.ssrpostPostId,
@@ -27,7 +27,7 @@ export function extractSSRPost(): Post | undefined {
             image: appElem.dataset.ssrpostImage,
             alt_text: appElem.dataset.ssrpostAltText,
             category: parseInt(appElem.dataset.ssrpostCategory, 10),
-            reactions: JSON.parse(appElem.dataset.ssrpostReactions),
+            reactions: JSON.parse(appElem.dataset.ssrpostReactions.replace(/=>/g, ':')),
             user: {
                 bio: appElem.dataset.ssrpostUserBio,
                 id: parseInt(appElem.dataset.ssrpostUserId, 10),
@@ -36,7 +36,6 @@ export function extractSSRPost(): Post | undefined {
                 admin: appElem.dataset.ssrpostUserAdmin === 'true'
             }
         };
-        return ssrpost;
     }
     return undefined;
 }
