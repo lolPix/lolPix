@@ -3,7 +3,8 @@
 module Api
   module V1
     # Controller for Reports
-    class ReportsController < ActionController::API
+    class ReportsController < ApiController
+      before_action :logged_in_user
       before_action :set_report, only: %i[show update destroy]
 
       # GET /reports/<postId>

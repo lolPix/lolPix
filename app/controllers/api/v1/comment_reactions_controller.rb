@@ -1,6 +1,7 @@
 module Api
   module V1
-    class CommentReactionsController < ActionController::API
+    class CommentReactionsController < ApiController
+      before_action :logged_in_user
       before_action :set_reaction, only: %i[show update destroy]
 
       # GET /comment_reactions/<comment_id>

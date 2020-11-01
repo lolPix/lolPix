@@ -3,7 +3,8 @@
 module Api
   module V1
     # A controller for posts.
-    class PostsController < ActionController::API
+    class PostsController < ApiController
+      before_action :logged_in_user
       before_action :set_post, only: %i[show update destroy]
 
       # GET /posts

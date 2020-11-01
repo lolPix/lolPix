@@ -3,7 +3,8 @@
 module Api
   module V1
     # A controller for comments.
-    class CommentsController < ActionController::API
+    class CommentsController < ApiController
+      before_action :logged_in_user
       before_action :set_comment, only: %i[show update destroy]
 
       # GET /comments
