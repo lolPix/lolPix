@@ -28,8 +28,8 @@ export function extractSSRPost(): Post | undefined {
             image: appElem.dataset.ssrpostImage,
             alt_text: appElem.dataset.ssrpostAltText,
             category: parseInt(appElem.dataset.ssrpostCategory, 10),
-            reactions: JSON.parse(appElem.dataset.ssrpostReactions.replace(/=>/g, ':')),
-            top_level_comments: JSON.parse(appElem.dataset.ssrpostTopLevelComments.replace(/=>/g, ':')),
+            reactions: JSON.parse(appElem.dataset.ssrpostReactions.replace(/=>/g, ':').replace(/nil/g, 'null')),
+            top_level_comments: JSON.parse(appElem.dataset.ssrpostTopLevelComments.replace(/=>/g, ':').replace(/nil/g, 'null')),
             user: {
                 bio: appElem.dataset.ssrpostUserBio,
                 id: parseInt(appElem.dataset.ssrpostUserId, 10),
