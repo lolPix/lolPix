@@ -5,8 +5,8 @@ class CommentReaction < ApplicationRecord
   validates_presence_of :comment, :user
   validates_uniqueness_of :comment_id, scope: %i[user_id]
 
-  scope :of_comment, ->(comment) { where('comment_id == ?', comment.id) }
-  scope :of_user, ->(user) { where('user_id == ?', user.id) }
+  scope :of_comment, ->(comment) { where('comment_id = ?', comment.id) }
+  scope :of_user, ->(user) { where('user_id = ?', user.id) }
 
   def serializable_hash(options = nil)
     options = {} if options.nil?
