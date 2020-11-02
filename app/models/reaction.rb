@@ -5,8 +5,8 @@ class Reaction < ApplicationRecord
   validates_presence_of :post, :user
   validates_uniqueness_of :post_id, scope: %i[user_id]
 
-  scope :of_post, ->(post) { where('post_id == ?', post.id) }
-  scope :of_user, ->(user) { where('user_id == ?', user.id) }
+  scope :of_post, ->(post) { where('post_id = ?', post.id) }
+  scope :of_user, ->(user) { where('user_id = ?', user.id) }
 
   def serializable_hash(options = nil)
     options = {} if options.nil?
