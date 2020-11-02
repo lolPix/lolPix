@@ -9,6 +9,6 @@ class ReportComment < ApplicationRecord
   validates_presence_of :user
   validates_presence_of :report
 
-  scope :of_report, ->(report) { where('report_id == ?', report.id) }
-  scope :of_user, ->(user) { where('user_id == ?', user.id) }
+  scope :of_report, ->(report) { where('report_id = ?', report.id) }
+  scope :of_user, ->(user) { where('user_id = ?', user.id) }
 end
