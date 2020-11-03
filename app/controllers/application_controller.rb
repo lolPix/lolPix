@@ -84,19 +84,7 @@ class ApplicationController < ActionController::Base
 
   def index; end
 
-  def post; end
-
-  def report; end
-
-  def profile; end
-
-  def login; end
-
-  def join; end
-
   def logout; end
-
-  def new_post; end
 
   def get_post
     Post.find(params[:postId])
