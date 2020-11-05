@@ -86,6 +86,8 @@ class ApplicationController < ActionController::Base
 
   def logout; end
 
+  def login; end
+
   def get_post
     Post.find(params[:postId])
   end

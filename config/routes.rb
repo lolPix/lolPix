@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/admin/report/:reportId', to: 'admin#report'
 
   get '/logout', to: 'application#logout'
+  get '/login', to: 'application#login'
 
   get '*all' => 'application#index', constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'

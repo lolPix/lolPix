@@ -3,13 +3,13 @@ import {StaticRouter as Router,} from 'react-router-dom';
 import NavBar from "../nav/NavBar";
 import Footer from "../Footer";
 import {createMemoryHistory} from 'history';
-import I18n from "i18n-js";
+import LoginPage from "../../pages/LoginPage";
 
 type Props = {
     url: string,
 };
 
-const ServerSideLogoutPage: FunctionComponent<Props> = ({url}: Props) => {
+const ServerSideLoginPage: FunctionComponent<Props> = ({url}: Props) => {
     const pathname = new URL(url).pathname;
     const history = createMemoryHistory({initialEntries: [pathname]});
     return (
@@ -17,7 +17,7 @@ const ServerSideLogoutPage: FunctionComponent<Props> = ({url}: Props) => {
             <Router history={history} location={pathname}>
                 <NavBar showLogo={true} account={undefined}/>
                 <div className="content">
-                    <p>{I18n.t('ui.redirecting')}</p>
+                    <LoginPage account={undefined}/>
                 </div>
                 <Footer account={undefined}/>
             </Router>
@@ -25,4 +25,4 @@ const ServerSideLogoutPage: FunctionComponent<Props> = ({url}: Props) => {
     );
 };
 
-export default ServerSideLogoutPage;
+export default ServerSideLoginPage;

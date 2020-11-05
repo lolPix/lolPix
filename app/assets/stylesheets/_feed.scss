@@ -1,5 +1,12 @@
 @import "variables";
 
+.content {
+  h1.no-posts {
+    font-weight: 100;
+    color: $secondary-text;
+  }
+}
+
 li.load-more {
   button.load-more-button {
     margin-top: 8px;
