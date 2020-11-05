@@ -3,7 +3,7 @@ import 'isomorphic-fetch';
 
 type ApiProps = {
     path: string,
-    method?: "GET" | "POST",
+    method?: "GET" | "POST" | "DELETE",
     headers?: HeadersInit,
     body?: BodyInit
 }

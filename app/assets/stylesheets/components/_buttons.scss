@@ -13,3 +13,20 @@ form {
     cursor: pointer;
   }
 }
+
+.toast-content {
+  button.toast-action {
+    margin-left: 8px;
+    background-color: transparent;
+    border: 1px solid $primary_dark;
+    border-radius: 5px;
+    cursor: pointer;
+
+    outline: none !important;
+
+    &.warning {
+      border-color: #FF8B00;
+      color: #FF8B00;
+    }
+  }
+}
