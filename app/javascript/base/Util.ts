@@ -54,3 +54,43 @@ export function getCategoryString(post: Post): string | undefined {
             return undefined;
     }
 }
+
+/**
+ * Method that copies text to clipboard.
+ */
+export function copyToClipboard(text: string): unknown {
+    const textarea = document.createElement('textarea');
+    textarea.style.cssText = 'position: absolute; left: -99999em';
+    textarea.setAttribute('readonly', String(true));
+    document.body.appendChild(textarea);
+    textarea.value = text;
+    const selected = document.getSelection().rangeCount > 0 ?
+        document.getSelection().getRangeAt(0) : false;
+
+    if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+        // https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
+        const editable = textarea.contentEditable;
+        textarea.contentEditable = String(true);
+        const range = document.createRange();
+        range.selectNodeContents(textarea);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        textarea.setSelectionRange(0, 999999);
+        textarea.contentEditable = editable;
+    } else {
+        textarea.select();
+    }
+
+    try {
+        const result = document.execCommand('copy');
+        if (selected) {
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(selected);
+        }
+        return result;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+}

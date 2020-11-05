@@ -5,23 +5,11 @@ import I18n from "i18n-js";
 import {useHistory} from "react-router-dom";
 import {useToasts} from 'react-toast-notifications'
 import Api from "../base/Api";
-
+import {copyToClipboard, getCategoryString} from "../base/Util";
 
 type Props = {
     post: Post,
     account: User,
-}
-
-function reportPost(history, post: Post) {
-    return () => history.push('/report/' + post.id);
-}
-
-function downloadPost(history, post: Post) {
-    return () => console.log('TODO: implement downloads');
-}
-
-function sharePost(history, post: Post) {
-    return () => console.log('TODO: implement sharing');
 }
 
 const PostContextMenu: FunctionComponent<Props> = ({account, post}: Props) => {
@@ -83,14 +71,32 @@ const PostContextMenu: FunctionComponent<Props> = ({account, post}: Props) => {
         </div>, {appearance: 'warning'}, (id) => setDeletionToastId(id));
     }
 
+    function sharePost() {
+        copyToClipboard(window.location.origin + '/posts/' + post.id); //TODO: maybe not the best idea but enough for <v1...
+        addToast(I18n.t('ui.context-menu.post.url_copied_to_clipboard'), {appearance: 'success', autoDismiss: true});
+    }
+
+    function reportPost() {
+        history.push('/report/' + post.id);
+    }
+
+    function downloadPost() {
+        const a = document.createElement('a');
+        a.href = post.image;
+        a.download = "lolpix-" + getCategoryString(post).toLowerCase() + ".png";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
     return (
         <div className={'post-context-menu'}>
             <button className={'toggle'} onClick={toggleMenu}>{I18n.t('ui.context-menu.trigger')}</button>
             {showMenu && <div className="menu">
-                <button onClick={sharePost(history, post)}>{I18n.t('ui.context-menu.post.share')}</button>
-                <button onClick={downloadPost(history, post)}>{I18n.t('ui.context-menu.post.save')}</button>
+                <button onClick={sharePost}>{I18n.t('ui.context-menu.post.share')}</button>
+                <button onClick={downloadPost}>{I18n.t('ui.context-menu.post.save')}</button>
                 {(post.user.id !== account.id) &&
-                <button onClick={reportPost(history, post)}>{I18n.t('ui.context-menu.post.report')}</button>}
+                <button onClick={reportPost}>{I18n.t('ui.context-menu.post.report')}</button>}
                 {(post.user.id === account.id || account.admin) &&
                 <button onClick={deletePost}>{I18n.t('ui.context-menu.post.delete')}</button>}
             </div>}
