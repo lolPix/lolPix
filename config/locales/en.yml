@@ -66,10 +66,10 @@ en:
       post:
         delete: Delete
         deletion_are_you_sure: Are you sure that you want to delete this post?
-        url_copied_to_clipboard: URL copied to clipboard!
         report: Report
         save: Save
         share: Share
+        url_copied_to_clipboard: URL copied to clipboard!
       trigger: "⋮"
     feed:
       load-more: Load more...
