@@ -28,6 +28,7 @@
       width: $profile-pic-size;
       margin-right: 8px;
     }
+
     &:not(.admin) span::after {
       margin-left: 8px;
       font-family: monospace;

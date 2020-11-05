@@ -21,13 +21,27 @@
     animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
 
     @keyframes fetching {
-      0%   { transform: scale(1,1)      translateY(0); }
-      10%  { transform: scale(1.14,.87)   translateY(0); }
-      30%  { transform: scale(.92,1.12)   translateY(-64px); }
-      40%  { transform: scale(1.09,.908) translateY(2px); }
-      48%  { transform: scale(1,1)      translateY(-6px); }
-      58%  { transform: scale(1,1)      translateY(0); }
-      100% { transform: scale(1,1)      translateY(0); }
+      0% {
+        transform: scale(1, 1) translateY(0);
+      }
+      10% {
+        transform: scale(1.14, .87) translateY(0);
+      }
+      30% {
+        transform: scale(.92, 1.12) translateY(-64px);
+      }
+      40% {
+        transform: scale(1.09, .908) translateY(2px);
+      }
+      48% {
+        transform: scale(1, 1) translateY(-6px);
+      }
+      58% {
+        transform: scale(1, 1) translateY(0);
+      }
+      100% {
+        transform: scale(1, 1) translateY(0);
+      }
     }
   }
 }

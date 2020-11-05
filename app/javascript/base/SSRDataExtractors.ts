@@ -1,6 +1,5 @@
 import User from "../model/User";
 import Post from "../model/Post";
-import LolPixComment from "../model/LolPixComment";
 
 export function extractSSRUser(): User | undefined {
     const appElem = document.getElementById('app');

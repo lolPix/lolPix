@@ -106,7 +106,7 @@ const CommentFeed: FunctionComponent<Props> = ({account, onlyForUser, sort, show
     }
 
     useEffect(() => {
-        if(!comments.length) {
+        if (!comments.length) {
             setLoading(true);
             refreshFeed();
         }
