@@ -127,7 +127,6 @@ const RegistrationForm: FunctionComponent = () => {
                                 res.json().then(
                                     json => {
                                         if (!json.error && json.token && json.user) {
-                                            console.log(I18n.t('console.registered') + JSON.stringify(json.user));
                                             window.location.href = '/login';
                                         } else {
                                             console.error('Error: ' + json.error);
