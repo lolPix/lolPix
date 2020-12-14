@@ -24,7 +24,7 @@
     "@babel/preset-typescript": "^7.12.7",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
-    "@rails/ujs": "^6.0.0",
+    "@rails/ujs": "^6.1.0",
     "@rails/webpacker": "5.2.1",
     "@types/i18n-js": "^3.0.3",
     "@types/isomorphic-fetch": "^0.0.35",
