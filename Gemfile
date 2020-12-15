@@ -85,6 +85,6 @@ gem 'sidekiq', '~> 6.1'
 
 gem 'pg', '~> 1.2'
 
-gem 'tty-prompt', '~> 0.22.0'
+gem 'tty-prompt', '~> 0.23.0'
 
 gem 'rbnacl', '~> 7.1'
