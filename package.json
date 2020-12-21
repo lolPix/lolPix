@@ -34,7 +34,7 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "date-fns": "^2.16.1",
-    "formik": "^2.2.5",
+    "formik": "^2.2.6",
     "history": "^5.0.0",
     "i18n-js": "^3.8.0",
     "isomorphic-fetch": "^3.0.0",
