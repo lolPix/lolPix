@@ -77,7 +77,7 @@ gem 'dotenv', '~> 2.7'
 
 gem 'dotenv-rails', '~> 2.7'
 
-gem 'i18n-tasks', '~> 0.9.31'
+gem 'i18n-tasks', '~> 0.9.32'
 
 gem 'rubocop', '~> 1.6'
 
