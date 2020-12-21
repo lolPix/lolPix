@@ -30,7 +30,7 @@
     "@types/isomorphic-fetch": "^0.0.35",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "date-fns": "^2.16.1",
