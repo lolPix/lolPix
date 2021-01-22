@@ -206,7 +206,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
-    redis (4.2.2)
+    redis (4.2.5)
     regexp_parser (1.8.2)
     rexml (3.2.4)
     rubocop (1.6.1)
@@ -241,7 +241,7 @@ GEM
       rubyzip (>= 1.2.2)
     semantic_range (2.3.0)
     sexp_processor (4.15.1)
-    sidekiq (6.1.2)
+    sidekiq (6.1.3)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
