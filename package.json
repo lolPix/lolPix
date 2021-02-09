@@ -57,7 +57,7 @@
     "@testing-library/react": "^11.2.2",
     "@types/jest": "^26.0.19",
     "@types/webpack-env": "^1.16.0",
-    "@typescript-eslint/eslint-plugin": "^4.11.0",
+    "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.11.0",
     "eslint": "^7.16.0",
     "eslint-config-preact": "^1.1.3",
