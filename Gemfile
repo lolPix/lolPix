@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 6.1.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # fucking shit is needed for prod as well
-gem 'listen', '~> 3.3'
+gem 'listen', '~> 3.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -69,7 +69,7 @@ gem 'rack-cors', '~> 1.1'
 
 gem 'jwt', '~> 2.2'
 
-gem 'pagy', '~> 3.10'
+gem 'pagy', '~> 3.11'
 
 gem 'pager_api', '~> 0.3.2'
 
@@ -79,7 +79,7 @@ gem 'dotenv-rails', '~> 2.7'
 
 gem 'i18n-tasks', '~> 0.9.33'
 
-gem 'rubocop', '~> 1.6'
+gem 'rubocop', '~> 1.9'
 
 gem 'sidekiq', '~> 6.1'
 
