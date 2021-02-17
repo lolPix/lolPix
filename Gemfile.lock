@@ -236,7 +236,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    schema2type (0.3.0)
+    schema2type (0.3.1)
       activesupport
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
@@ -328,7 +328,7 @@ DEPENDENCIES
   react-rails (~> 2.6)
   rubocop (~> 1.10)
   sass-rails (>= 6)
-  schema2type (~> 0.3.0)
+  schema2type (~> 0.3.1)
   selenium-webdriver
   sidekiq (~> 6.1)
   spring

@@ -57,7 +57,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'haml-rails', '~> 2.0'
 
-gem 'schema2type', '~> 0.3.0'
+gem 'schema2type', '~> 0.3.1'
 
 gem 'i18n-js', '~> 3.8'
 
