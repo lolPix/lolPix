@@ -79,7 +79,7 @@ gem 'dotenv-rails', '~> 2.7'
 
 gem 'i18n-tasks', '~> 0.9.33'
 
-gem 'rubocop', '~> 1.10'
+gem 'rubocop', '~> 1.12'
 
 gem 'sidekiq', '~> 6.1'
 
