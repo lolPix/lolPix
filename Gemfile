@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.11'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # fucking shit is needed for prod as well
-gem 'listen', '~> 3.4'
+gem 'listen', '~> 3.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
