@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.11'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # fucking shit is needed for prod as well
-gem 'listen', '~> 3.4'
+gem 'listen', '~> 3.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -57,7 +57,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'haml-rails', '~> 2.0'
 
-gem 'schema2type', '~> 0.3.0'
+gem 'schema2type', '~> 0.4.0'
 
 gem 'i18n-js', '~> 3.8'
 
@@ -69,7 +69,7 @@ gem 'rack-cors', '~> 1.1'
 
 gem 'jwt', '~> 2.2'
 
-gem 'pagy', '~> 3.11'
+gem 'pagy', '~> 3.12'
 
 gem 'pager_api', '~> 0.3.2'
 
@@ -81,7 +81,7 @@ gem 'i18n-tasks', '~> 0.9.33'
 
 gem 'rubocop', '~> 1.12'
 
-gem 'sidekiq', '~> 6.1'
+gem 'sidekiq', '~> 6.2'
 
 gem 'pg', '~> 1.2'
 
