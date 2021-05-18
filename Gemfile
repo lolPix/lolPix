@@ -69,7 +69,7 @@ gem 'rack-cors', '~> 1.1'
 
 gem 'jwt', '~> 2.2'
 
-gem 'pagy', '~> 3.12'
+gem 'pagy', '~> 3.13'
 
 gem 'pager_api', '~> 0.3.2'
 
