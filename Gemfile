@@ -81,7 +81,7 @@ gem 'i18n-tasks', '~> 0.9.34'
 
 gem 'rubocop', '~> 1.15'
 
-gem 'sidekiq', '~> 6.2'
+gem 'sidekiq', '~> 6.5'
 
 gem 'pg', '~> 1.2'
 
