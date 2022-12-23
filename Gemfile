@@ -67,7 +67,7 @@ gem 'bcrypt', '~> 3.1'
 
 gem 'rack-cors', '~> 1.1'
 
-gem 'jwt', '~> 2.2'
+gem 'jwt', '~> 2.6'
 
 gem 'pagy', '~> 3.13'
 
